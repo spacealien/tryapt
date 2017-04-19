@@ -1,0 +1,431 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27.feb.2017, 12:48:45
+    Author     : Marthejansonskogen
+*/
+body {
+    font-family: "Asap", sans-serif;
+    font-size: 40px;
+    padding-bottom: 140px;
+    padding-top: 105px;
+}
+
+.container-fluid {
+    width: 95%;
+}
+
+.top-menu {
+    position: fixed;
+    width: 100%;
+}
+
+.navbar-fixed-top {
+    background: #E6E6E6;
+    vertical-align: middle;
+    height: 128px;
+    border-bottom: 1px solid #777777;
+    z-index: 100;
+}
+
+
+.navbar-fixed-bottom {
+    border-top: 1px solid #777777;
+}
+
+.navbar-header {
+    float: none;
+    background: #E6E6E6;
+}
+.rotate-line {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);)
+    transform: rotate(90deg);
+}
+
+.viewTab {
+    position: fixed;
+    width: 260px;
+    //height: 128px;
+    margin-left: -130px;
+    left: 50%;
+    background: #E6E6E6;
+    vertical-align: middle;
+    height: 106px;
+    border: 1px solid #777777;
+    //border-top: 0px;
+    border-radius: 0 0 25px 25px;
+    z-index: 99;
+    padding: 5px 0 0 5px;
+}
+
+.viewTab img {
+    width: 80px;
+}
+
+.minimize-space {
+    margin-left: -28px;
+    margin-right: -20px;
+}
+.glyphicon{
+    /*position: relative;
+    top: 7px;
+    //bottom: 6px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    float: right;
+    margin-right: 28px;
+    font-size: 80px;*/
+}
+
+.glyph-menu {
+    position: relative;
+    top: 7px;
+    //bottom: 6px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    float: right;
+    margin-right: 28px;
+    font-size: 80px;
+}
+
+li  {
+    margin-top: 10px;
+    list-style: none;
+
+}
+
+.menu-mark-cl {
+    line-height: 3em;
+    text-align: center;
+}
+
+.cl-sm-4 {
+    text-align: center;
+}
+
+.menu-bottom-cl {
+    width: 100%;
+    text-align: center;
+    height: 100%;
+}
+
+.infotab {
+    width: 33%;
+    padding-top: 10px;
+}
+
+.image-container {
+    float: left;
+}
+
+.info-box-container {
+    float:left;
+    width: 100%;
+    min-height: 190px;
+    position: relative;
+    display: table;
+
+}
+.info-box-container .names {
+    display: table-row;
+}
+.info-box-container .positions {
+    display: table-cell;
+    vertical-align: bottom;
+}
+.info-box-container p {
+    margin-right: 10px;
+    text-transform: capitalize;
+    /*position:absolute;
+    bottom:0;*/
+    float: right;
+    font-size: 35px;
+}
+.list-group {
+    margin-bottom: 21px;
+}
+
+.list-group-item {
+    margin-top: 20px;
+    float: left;
+    width: 100%;
+    font-size: 30px;
+
+    -webkit-box-shadow: 1px 5px 9px #e3e3e3;
+    -moz-box-shadow: 1px 5px 9px #e3e3e3;
+    box-shadow: 5px 5px 9px #e3e3e3;
+}
+
+.list-group-item h4 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+a {
+    font-size: 50px;
+}
+
+.center-block {
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: -121px;
+}
+
+
+.grid-view {
+    padding-top: 40px;
+    margin-top: 21px;
+}
+.nav-brand {
+    line-height: 2.4em;
+}
+
+.media-body {
+
+    width: auto;
+    font-size: 23px;
+}
+
+.media {
+
+    zoom: 2;
+    margin-bottom: 15px;
+}
+
+.mark {
+    width: 100%;
+    background-color: white;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.login {
+    padding-top: 80%;
+}
+
+.form-control {
+    height: 100px;
+    font-size: 50px;        
+}
+
+::-webkit-input-placeholder {
+    //font-size: 25px;
+
+}
+
+
+
+input {
+    outline: none;
+
+}
+input[type=search] {
+    -webkit-appearance: textfield;
+    text-indent: 15%;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    //display: none; 
+    position: relative;
+    margin-right: 20px;
+
+    /*-webkit-appearance: none;
+height: 40px;
+width: 40px;
+border-radius:10px;
+background: red;*/
+}
+
+input[type=search] {
+    float: right;
+    background: #E6E6E6 url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-128.png) no-repeat -12px center;
+    border: solid 1px #E6E6E6;
+    padding: 25px 25px 25px 25px;
+    width: 45px;
+
+    /*-webkit-border-radius: 10em;
+    -moz-border-radius: 10em;
+    border-radius: 10em;*/
+
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+
+input[type=search]:focus {
+    width: 80%;
+    background-color: #fff;
+    border-color: #66CC75;
+
+    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    box-shadow: 0 0 5px rgba(109,207,246,.5);
+    z-index: 200;
+    position: relative;
+    -webkit-border-radius: 10em;
+    -moz-border-radius: 10em;
+    border-radius: 10em;
+}
+
+input:-moz-placeholder {
+    color: #999;
+}
+input::-webkit-input-placeholder {
+    color: #999;
+}
+
+/* Demo 2 */
+#demo-2 input[type=search] {
+    color: transparent;
+    cursor: pointer;
+}
+#demo-2 input[type=search]:hover {
+    background-color: #fff;
+}
+#demo-2 input[type=search]:focus {
+
+    padding-left: 32px;
+    color: #000;
+    background-color: #fff;
+    cursor: auto;
+}
+#demo-2 input:-moz-placeholder {
+    color: transparent;
+}
+#demo-2 input::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.filter {
+    position: relative;
+    top: 7px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    float: right;
+    margin-right: 28px;
+    font-size: 80px;
+}
+
+.filter-menu img {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+    //float: right;
+}
+
+.search-icon img {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+}
+.profile-box {
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 55px;
+}
+.profile-box p{
+    text-transform: capitalize;
+}
+.profile-box .col-sm-8 {
+    vertical-align: middle;
+    display: inline-block;
+    /* height: 100px; */
+    line-height: 3.2em;
+}
+.profile-info {
+    padding-bottom: 20px;
+}
+.profile-name {
+    font-size: 50px;
+    font-weight: 600;
+}
+.profile-position {
+    font-size: 43px;
+}
+.profile-company {
+    font-size: 43px;
+}
+.profile-textarea-header {
+    margin-left: 20px;
+    margin-top: 25px;
+    font-weight: 600;
+}
+.textarea-readonly {
+    margin: 10px;
+    padding: 10px;
+    overflow: scroll;
+    max-height: 300px;
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+}
+.profile-contact-info {
+    padding-top: 50px;
+}
+
+.icons-menu-bottom {
+    font-size: 113px !important;
+}
+
+.login-icons {
+    line-height: 2.5em;
+}
+.login-btn {
+    width: 300px;
+    height: 80px;
+    font-size: 40px;
+}
+
+.login-row {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.mark-dropimg{
+    width: 50%;
+}
+
+.mark-dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+.mark-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.mark-dropdown-content {
+    display: none;
+    margin-left: -173px;
+    margin-top: 8px;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 403px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 300;
+}
+
+.mark-dropdown-element {
+    color: black;
+    padding: 12px 16px;
+    text-align: left;
+    z-index: 300;
+}
