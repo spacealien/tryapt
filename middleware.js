@@ -1,14 +1,22 @@
+module.exports = function(db) {
+    return {
+        requireAuthentication: function (req, res, next) {
+            var token = req.get('AUTH');
 
+            db.user.findByToken(token).then(function(user) {
 
-var middleware = {
-    requireAuthentication: function(req, res, next) {
-        console.log('private route');
-        next();
-    },
-    logger: function( req, res, next) {
-        console.log('Request: ' + new Date().toString() + ' ' + req.method + ' ' + req.originalUrl);
-        next();
-    }
-};
+            }, function() {
+                res.status(401).send();
+                next();
+            });
 
-module.exports = middleware;
+            next();
+        },
+        logger: function (req, res, next) {
+            console.log('Request: ' + new Date().toString() + ' ' + req.method + ' ' + req.originalUrl);
+            next();
+        }
+    };
+
+}
+

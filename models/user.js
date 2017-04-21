@@ -1,5 +1,10 @@
-module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('user', {
+var bcrypt = require('bcrypt');
+var _ = require('underscore');
+var crypto = require('crypto-js');
+var jwt = require('jsonwebtoken');
+
+module.exports = function (sequelize, DataTypes) {
+    var user = sequelize.define('user', {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -8,13 +13,103 @@ module.exports = function(sequelize, DataTypes) {
                 isEmail: true
             }
         },
+        salt: {
+            type: DataTypes.STRING
+        },
+        password_hash: {
+            type: DataTypes.STRING
+        },
         password: {
-            type: DataTypes.STRING,
+            type: DataTypes.VIRTUAL,
             allowNull: false,
             validate: {
-                len: [7,40]
+                len: [7, 40]
+            },
+            set: function (value) {
+                var salt = bcrypt.genSaltSync(10);
+                var hashedPassword = bcrypt.hashSync(value, salt);
+
+                this.setDataValue('password', value);
+                this.setDataValue('salt', salt);
+                this.setDataValue('password_hash', hashedPassword);
             }
         }
+    }, {
+            hooks: {
+                beforeValidate: function (user, options) {
+                    if (typeof user.email === 'string') {
+                        user.email = user.email.toLowerCase();
+                    }
+                }
+            },
+            classMethods: {
+                authenticate: function (body) {
+                    return new Promise(function (resolve, reject) {
+                        if (typeof body.email !== 'string' || typeof body.password !== 'string') {
+                            return reject();
+                        }
 
-    })
-}
+                        user.findOne({
+                            where: {
+                                email: body.email
+                            }
+                        }).then(function (user) {
+                            if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
+                                return reject();
+                            }
+
+                            resolve(user);
+                        }, function (e) {
+                            reject();
+                        });
+                    });
+                },
+                findByToken: function (token) {
+                    return new Promise(function (resolve, reject) {
+                        try {
+                            var decodedJWT = jwt.verify(token, '');
+                            var bytes = crypto.AES.decrypt(decodedJWT.token, 'abc123!@#!');
+                            var tokenData = JSON.parse(bytes.toString(crypto.enc.Utf8));
+
+                            user.findById(tokenData.id).then(function (user) {
+                                resolve(user);
+                            }, function (e) {
+                                reject();
+                            });
+                        } catch (e) {
+                            console.log(e);
+                            reject();
+                        }
+                    });
+                }
+            },
+            instanceMethods: {
+                toPublicJSON: function () {
+                    var json = this.toJSON();
+                    return _.pick(json, 'id', 'email', 'createdAt', 'updatedAt');
+                },
+                generateToken: function (type) {
+                    if (!_.isString(type)) {
+                        return undefined;
+                    }
+                    try {
+                        var stringData = JSON.stringify({});
+                        var encryptedData = crypto.AES.encrypt(stringData, '').toString();
+                        var token = jwt.sign({
+                            token: encryptedData
+                        }, 'qwert098');
+                        
+                        return token;
+
+                    } catch (e) {
+                        console.log(e);
+                        return undefined;
+                    }
+                }
+            }
+        });
+    return user;
+};
+
+
+
