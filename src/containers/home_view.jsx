@@ -21,7 +21,7 @@ class HomeView extends React.Component {
                     menu="default"
                     headline={"Home"} />
 
-                <p> VVVV </p>
+                <p> TEST </p>
             </div>
         );
     }

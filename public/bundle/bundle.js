@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6048312cbb02abdd2509"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d71dd2cfee8cf450f890"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -4055,33 +4055,33 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(FETCH_EMPLOYEES, 'FETCH_EMPLOYEES', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(FETCH_EMPLOYEES, 'FETCH_EMPLOYEES', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(SELECT_EMPLOYEE, 'SELECT_EMPLOYEE', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(SELECT_EMPLOYEE, 'SELECT_EMPLOYEE', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(SEARCH_EMPLOYEE, 'SEARCH_EMPLOYEE', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(SEARCH_EMPLOYEE, 'SEARCH_EMPLOYEE', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(FILTER_EMPLOYEE, 'FILTER_EMPLOYEE', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(FILTER_EMPLOYEE, 'FILTER_EMPLOYEE', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(MARK_EMPLOYEE, 'MARK_EMPLOYEE', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(MARK_EMPLOYEE, 'MARK_EMPLOYEE', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(MARK_ALL_EMPLOYEES, 'MARK_ALL_EMPLOYEES', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(MARK_ALL_EMPLOYEES, 'MARK_ALL_EMPLOYEES', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(UNMARK_ALL_EMPLOYEES, 'UNMARK_ALL_EMPLOYEES', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(UNMARK_ALL_EMPLOYEES, 'UNMARK_ALL_EMPLOYEES', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(fetchEmployees, 'fetchEmployees', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(fetchEmployees, 'fetchEmployees', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(selectEmployee, 'selectEmployee', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(selectEmployee, 'selectEmployee', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(searchEmployees, 'searchEmployees', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(searchEmployees, 'searchEmployees', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(filterEmployees, 'filterEmployees', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(filterEmployees, 'filterEmployees', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(markEmployee, 'markEmployee', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(markEmployee, 'markEmployee', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(markAllEmployees, 'markAllEmployees', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(markAllEmployees, 'markAllEmployees', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 
-    __REACT_HOT_LOADER__.register(unmarkAllEmployees, 'unmarkAllEmployees', 'C:/xampp/htdocs/apt_node/src/actions/employee_action.js');
+    __REACT_HOT_LOADER__.register(unmarkAllEmployees, 'unmarkAllEmployees', 'C:/xampp/htdocs/tryapt/src/actions/employee_action.js');
 }();
 
 ;
@@ -5170,11 +5170,11 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(MenuTop, 'MenuTop', 'C:/xampp/htdocs/apt_node/src/components/menu_top.jsx');
+    __REACT_HOT_LOADER__.register(MenuTop, 'MenuTop', 'C:/xampp/htdocs/tryapt/src/components/menu_top.jsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/xampp/htdocs/apt_node/src/components/menu_top.jsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/xampp/htdocs/tryapt/src/components/menu_top.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/components/menu_top.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/components/menu_top.jsx');
 }();
 
 ;
@@ -7655,9 +7655,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(App, 'App', 'C:/xampp/htdocs/apt_node/src/app.jsx');
+    __REACT_HOT_LOADER__.register(App, 'App', 'C:/xampp/htdocs/tryapt/src/app.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/app.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/app.jsx');
 }();
 
 ;
@@ -7757,9 +7757,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(SearchBar, 'SearchBar', 'C:/xampp/htdocs/apt_node/src/components/search_bar.jsx');
+    __REACT_HOT_LOADER__.register(SearchBar, 'SearchBar', 'C:/xampp/htdocs/tryapt/src/components/search_bar.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/components/search_bar.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/components/search_bar.jsx');
 }();
 
 ;
@@ -11401,11 +11401,11 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(EmployeeDetails, 'EmployeeDetails', 'C:/xampp/htdocs/apt_node/src/components/employee_details.jsx');
+    __REACT_HOT_LOADER__.register(EmployeeDetails, 'EmployeeDetails', 'C:/xampp/htdocs/tryapt/src/components/employee_details.jsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/xampp/htdocs/apt_node/src/components/employee_details.jsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/xampp/htdocs/tryapt/src/components/employee_details.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/components/employee_details.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/components/employee_details.jsx');
 }();
 
 ;
@@ -11569,11 +11569,11 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(List, 'List', 'C:/xampp/htdocs/apt_node/src/components/list.jsx');
+    __REACT_HOT_LOADER__.register(List, 'List', 'C:/xampp/htdocs/tryapt/src/components/list.jsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/xampp/htdocs/apt_node/src/components/list.jsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/xampp/htdocs/tryapt/src/components/list.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/components/list.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/components/list.jsx');
 }();
 
 ;
@@ -11676,9 +11676,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(ListElement, "ListElement", "C:/xampp/htdocs/apt_node/src/components/list_element.jsx");
+    __REACT_HOT_LOADER__.register(ListElement, "ListElement", "C:/xampp/htdocs/tryapt/src/components/list_element.jsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "C:/xampp/htdocs/apt_node/src/components/list_element.jsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "C:/xampp/htdocs/tryapt/src/components/list_element.jsx");
 }();
 
 ;
@@ -11787,9 +11787,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(LoginForm, 'LoginForm', 'C:/xampp/htdocs/apt_node/src/components/login_form.jsx');
+    __REACT_HOT_LOADER__.register(LoginForm, 'LoginForm', 'C:/xampp/htdocs/tryapt/src/components/login_form.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/components/login_form.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/components/login_form.jsx');
 }();
 
 ;
@@ -11941,9 +11941,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Menu, 'Menu', 'C:/xampp/htdocs/apt_node/src/components/menu_bottom.jsx');
+    __REACT_HOT_LOADER__.register(Menu, 'Menu', 'C:/xampp/htdocs/tryapt/src/components/menu_bottom.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/components/menu_bottom.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/components/menu_bottom.jsx');
 }();
 
 ;
@@ -11971,9 +11971,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(rootReducer, 'rootReducer', 'C:/xampp/htdocs/apt_node/src/reducers/index.js');
+    __REACT_HOT_LOADER__.register(rootReducer, 'rootReducer', 'C:/xampp/htdocs/tryapt/src/reducers/index.js');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/reducers/index.js');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/reducers/index.js');
 }();
 
 ;
@@ -12037,7 +12037,7 @@ var _temp = function () {
                 return;
         }
 
-        __REACT_HOT_LOADER__.register(routes, 'routes', 'C:/xampp/htdocs/apt_node/src/routes/routes.jsx');
+        __REACT_HOT_LOADER__.register(routes, 'routes', 'C:/xampp/htdocs/tryapt/src/routes/routes.jsx');
 }();
 
 ;
@@ -18232,7 +18232,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(createStoreWithMiddleWare, 'createStoreWithMiddleWare', 'C:/xampp/htdocs/apt_node/src/index.jsx');
+  __REACT_HOT_LOADER__.register(createStoreWithMiddleWare, 'createStoreWithMiddleWare', 'C:/xampp/htdocs/tryapt/src/index.jsx');
 }();
 
 ;
@@ -19096,7 +19096,6 @@ function attemptLogin() {
     var request = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("/test", {
         email: 'test@apt.no',
         password: 'password'
-
     }).then(function (res) {
         console.log(res);
     });
@@ -19113,13 +19112,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(LOGIN_REQUEST, 'LOGIN_REQUEST', 'C:/xampp/htdocs/apt_node/src/actions/login_action.js');
+    __REACT_HOT_LOADER__.register(LOGIN_REQUEST, 'LOGIN_REQUEST', 'C:/xampp/htdocs/tryapt/src/actions/login_action.js');
 
-    __REACT_HOT_LOADER__.register(LOGIN_SUCCESS, 'LOGIN_SUCCESS', 'C:/xampp/htdocs/apt_node/src/actions/login_action.js');
+    __REACT_HOT_LOADER__.register(LOGIN_SUCCESS, 'LOGIN_SUCCESS', 'C:/xampp/htdocs/tryapt/src/actions/login_action.js');
 
-    __REACT_HOT_LOADER__.register(LOGIN_FAILURE, 'LOGIN_FAILURE', 'C:/xampp/htdocs/apt_node/src/actions/login_action.js');
+    __REACT_HOT_LOADER__.register(LOGIN_FAILURE, 'LOGIN_FAILURE', 'C:/xampp/htdocs/tryapt/src/actions/login_action.js');
 
-    __REACT_HOT_LOADER__.register(attemptLogin, 'attemptLogin', 'C:/xampp/htdocs/apt_node/src/actions/login_action.js');
+    __REACT_HOT_LOADER__.register(attemptLogin, 'attemptLogin', 'C:/xampp/htdocs/tryapt/src/actions/login_action.js');
 }();
 
 ;
@@ -19163,9 +19162,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(GridElement, "GridElement", "C:/xampp/htdocs/apt_node/src/components/grid_element.jsx");
+    __REACT_HOT_LOADER__.register(GridElement, "GridElement", "C:/xampp/htdocs/tryapt/src/components/grid_element.jsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "C:/xampp/htdocs/apt_node/src/components/grid_element.jsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "C:/xampp/htdocs/tryapt/src/components/grid_element.jsx");
 }();
 
 ;
@@ -19271,9 +19270,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(GridListTab, 'GridListTab', 'C:/xampp/htdocs/apt_node/src/components/grid_list_tab.jsx');
+    __REACT_HOT_LOADER__.register(GridListTab, 'GridListTab', 'C:/xampp/htdocs/tryapt/src/components/grid_list_tab.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/components/grid_list_tab.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/components/grid_list_tab.jsx');
 }();
 
 ;
@@ -19371,9 +19370,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(MarkDropdown, 'MarkDropdown', 'C:/xampp/htdocs/apt_node/src/components/mark_dropdown.jsx');
+    __REACT_HOT_LOADER__.register(MarkDropdown, 'MarkDropdown', 'C:/xampp/htdocs/tryapt/src/components/mark_dropdown.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/components/mark_dropdown.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/components/mark_dropdown.jsx');
 }();
 
 ;
@@ -19485,9 +19484,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(EmployeeView, 'EmployeeView', 'C:/xampp/htdocs/apt_node/src/containers/employee_view.jsx');
+    __REACT_HOT_LOADER__.register(EmployeeView, 'EmployeeView', 'C:/xampp/htdocs/tryapt/src/containers/employee_view.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/containers/employee_view.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/containers/employee_view.jsx');
 }();
 
 ;
@@ -19562,9 +19561,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(HomeView, 'HomeView', 'C:/xampp/htdocs/apt_node/src/containers/home_view.jsx');
+    __REACT_HOT_LOADER__.register(HomeView, 'HomeView', 'C:/xampp/htdocs/tryapt/src/containers/home_view.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/containers/home_view.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/containers/home_view.jsx');
 }();
 
 ;
@@ -19639,9 +19638,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(InfoView, 'InfoView', 'C:/xampp/htdocs/apt_node/src/containers/info_view.jsx');
+    __REACT_HOT_LOADER__.register(InfoView, 'InfoView', 'C:/xampp/htdocs/tryapt/src/containers/info_view.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/containers/info_view.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/containers/info_view.jsx');
 }();
 
 ;
@@ -19715,9 +19714,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(LoginView, 'LoginView', 'C:/xampp/htdocs/apt_node/src/containers/login_view.jsx');
+    __REACT_HOT_LOADER__.register(LoginView, 'LoginView', 'C:/xampp/htdocs/tryapt/src/containers/login_view.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/containers/login_view.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/containers/login_view.jsx');
 }();
 
 ;
@@ -19807,9 +19806,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(INITIAL_STATE, 'INITIAL_STATE', 'C:/xampp/htdocs/apt_node/src/reducers/reducer_employee.jsx');
+    __REACT_HOT_LOADER__.register(INITIAL_STATE, 'INITIAL_STATE', 'C:/xampp/htdocs/tryapt/src/reducers/reducer_employee.jsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/apt_node/src/reducers/reducer_employee.jsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/xampp/htdocs/tryapt/src/reducers/reducer_employee.jsx');
 }();
 
 ;
