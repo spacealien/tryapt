@@ -5,11 +5,11 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
-export function attemptLogin() {
-    console.log("attemptLogin()");
+export function attemptLogin(userInput) {
+
     const request = axios.post("/test", {
-        email: 'test@apt.no',
-        password: 'password'
+        email: userInput.email,
+        password: userInput.password
     }).then(function (res) {
         console.log(res);
     })

@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d71dd2cfee8cf450f890"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d29bc7632b14b69aa1e3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -11710,16 +11710,24 @@ var LoginForm = function (_React$Component) {
     function LoginForm(props) {
         _classCallCheck(this, LoginForm);
 
-        return _possibleConstructorReturn(this, (LoginForm.__proto__ || Object.getPrototypeOf(LoginForm)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (LoginForm.__proto__ || Object.getPrototypeOf(LoginForm)).call(this, props));
+
+        _this.state = {
+            email: null,
+            password: null
+        };
+        return _this;
     }
 
     _createClass(LoginForm, [{
         key: 'handleClick',
         value: function handleClick(e) {
-            console.log("click");
             e.preventDefault();
 
-            this.props.attemptLogin();
+            this.props.attemptLogin({
+                email: this.state.email,
+                password: this.state.password
+            });
 
             return false;
         }
@@ -11741,7 +11749,9 @@ var LoginForm = function (_React$Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col-sm-10' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'email', className: 'form-control', id: 'inputEmail', placeholder: 'Email' })
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onInput: function onInput(e) {
+                                    return _this2.setState({ email: e.target.value });
+                                }, type: 'email', className: 'form-control', id: 'inputEmail', placeholder: 'Email' })
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -11751,7 +11761,9 @@ var LoginForm = function (_React$Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'col-sm-10' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'password', className: 'form-control', id: 'inputPassword', placeholder: 'Password' })
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onInput: function onInput(e) {
+                                    return _this2.setState({ password: e.target.value });
+                                }, type: 'password', className: 'form-control', id: 'inputPassword', placeholder: 'Password' })
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -19091,11 +19103,11 @@ var LOGIN_REQUEST = 'LOGIN_REQUEST';
 var LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 var LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-function attemptLogin() {
-    console.log("attemptLogin()");
+function attemptLogin(userInput) {
+
     var request = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("/test", {
-        email: 'test@apt.no',
-        password: 'password'
+        email: userInput.email,
+        password: userInput.password
     }).then(function (res) {
         console.log(res);
     });
@@ -19542,7 +19554,7 @@ var HomeView = function (_React$Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'p',
                     null,
-                    ' VVVV '
+                    ' TEST '
                 )
             );
         }
