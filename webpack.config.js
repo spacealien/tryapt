@@ -5,7 +5,7 @@ var node_modules_dir = path.join(__dirname, 'node_modules');
 var config = {
     entry: [
         'react-hot-loader/patch',
-        './src/index.jsx'
+        './client/index.jsx'
     ],
     output: {
         path: path.join(__dirname, '/public/bundle'),
@@ -29,6 +29,11 @@ var config = {
 
             }
         ]
+    },
+    node: {
+        net: 'empty',
+        tls: 'empty',
+        dns: 'empty'
     }
 };
 module.exports = config;

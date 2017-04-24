@@ -9,14 +9,16 @@ export const MARK_ALL_EMPLOYEES = 'MARK_ALL_EMPLOYEES';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 
 export function fetchEmployees() {
-    const request = axios.all([
-        axios.get('../apt_persons.json'),
-        axios.get('../try_persons.json')
-    ]);
-
-    return {
-        type: FETCH_EMPLOYEES,
-        payload: request
+    return dispatch => {
+        return axios.all([
+            axios.get('../../apt_persons.json'),
+            axios.get('../../try_persons.json')
+        ]).then((request) => {
+            dispatch({
+                type: FETCH_EMPLOYEES,
+                payload: request
+            })
+        });
     }
 }
 

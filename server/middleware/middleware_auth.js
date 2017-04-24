@@ -1,9 +1,8 @@
 var cryptojs = require('crypto-js');
-var db = require('./db_context.js');
+var db = require('../db_context.js');
 
 var middleware = {
     requireAuthentication: function (req, res, next) {
-        console.log(req.get('AUTH'));
         var token = req.get('AUTH') || '';
 
         db.token.findOne({

@@ -2,6 +2,8 @@ var bcrypt = require('bcrypt');
 var _ = require('underscore');
 var crypto = require('crypto-js');
 var jwt = require('jsonwebtoken');
+import config from '../config.js';
+
 
 module.exports = function (sequelize, DataTypes) {
     var user = sequelize.define('user', {
@@ -53,13 +55,12 @@ module.exports = function (sequelize, DataTypes) {
                             where: {
                                 email: body.email
                             }
-                        }).then(function (user) {
+                        }).then(function (user) { // resolve 
                             if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
                                 return reject();
                             }
-
                             resolve(user);
-                        }, function (e) {
+                        }, function (e) { // reject
                             reject();
                         });
                     });
@@ -67,8 +68,8 @@ module.exports = function (sequelize, DataTypes) {
                 findByToken: function (token) {
                     return new Promise(function (resolve, reject) {
                         try {
-                            var decodedJWT = jwt.verify(token, 'qwert098');
-                            var bytes = crypto.AES.decrypt(decodedJWT.token, 'abc123!@#!');
+                            var decodedJWT = jwt.verify(token, config.jwtSecret);
+                            var bytes = crypto.AES.decrypt(decodedJWT.token, config.cryptoKey);
                             var tokenData = JSON.parse(bytes.toString(crypto.enc.Utf8));
 
                             user.findById(tokenData.id).then(function (user) {
@@ -96,12 +97,17 @@ module.exports = function (sequelize, DataTypes) {
                     if (!_.isString(type)) {
                         return undefined;
                     }
+
                     try {
+
                         var stringData = JSON.stringify({});
-                        var encryptedData = crypto.AES.encrypt(stringData, 'abc123!@#!').toString();                                                 
+                        var encryptedData = crypto.AES.encrypt(stringData, config.cryptoKey).toString();
                         var token = jwt.sign({
+                            user: _.pick(user, 'id'),
+                            email: _.pick(user, 'email'),
                             token: encryptedData
-                        }, 'qwert098');
+
+                        }, config.jwtSecret);
 
                         return token;
 

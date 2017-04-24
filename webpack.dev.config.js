@@ -3,20 +3,21 @@ var webpack = require('webpack');
 var node_modules_dir = path.join(__dirname, 'node_modules');
 
 var config = {
+    devtool: 'eval source-map',
     entry: [
         'webpack-hot-middleware/client',
-        './src/index.jsx'
+        './client/index.jsx'
     ],
     output: {
-        path: path.join(__dirname, 'public/bundle'),
+        path: path.join(__dirname, '/public/bundle'),
         filename: 'bundle.js',
-        publicPath: '/',
+        publicPath: '/bundle',
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
-    devtool: 'source-map',
     devServer: {
         contentBase: 'public'
     },
@@ -24,11 +25,16 @@ var config = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loader: ['react-hot-loader', 'babel-loader'],
+                loader: ['babel-loader'],
                 exclude: /node_modules/,
 
             }
         ]
+    },
+    node: {
+        net: 'empty',
+        tls: 'empty',
+        dns: 'empty'
     }
 };
 module.exports = config;

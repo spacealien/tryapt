@@ -9,26 +9,24 @@ import { routes } from './routes/routes.jsx';
 import reducers from './reducers';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import ReduxPromise from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
 
-import { AppContainer } from 'react-hot-loader';
-// AppContainer is a necessary wrapper component for HMR
+import setAuthorizationToken from './utils/setAuthorizationToken.js';
 
 import App from './app.jsx';
 
-const createStoreWithMiddleWare = applyMiddleware(ReduxPromise)(createStore);
+const createStoreWithMiddleWare = applyMiddleware(ReduxThunk)(createStore);
+var store = createStoreWithMiddleWare(reducers);
 
 ReactDOM.render(
-  <AppContainer>
-    <Provider store={createStoreWithMiddleWare(reducers)} >
-      <App />
-    </Provider>
-  </AppContainer>
+
+  <Provider store={store} >
+    <App />
+  </Provider>
+
   , document.getElementById('app')
 );
 
 if (module.hot) {
-  module.hot.accept('./app.jsx', () => {
-    render('./app.jsx')
-  });
+  module.hot.accept();
 }

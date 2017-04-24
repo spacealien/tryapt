@@ -6,19 +6,16 @@ var sequelize = new Sequelize('test', 'root', null, {
     logging: false,
 });
 
-sequelize
-    .authenticate()
+sequelize.authenticate()
     .then(function (err) {
-        console.log('Connection has been established successfully.');
+        console.log('Database connection has been established successfully.');
     }, function (err) {
-        console.log('Unable to connect to the database:', err);
+        console.log('Unable to connect to database:', err);
     });
 
-
-
 var db = {};
-db.user = sequelize.import(__dirname + '/models/user.js');
-db.token = sequelize.import(__dirname + '/models/token.js');
+db.user = sequelize.import(__dirname + '/../models/user.js');
+db.token = sequelize.import(__dirname + '/../models/token.js');
 
 
 db.sequelize = sequelize;

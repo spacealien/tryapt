@@ -144,6 +144,7 @@ function mapStateToProps(state) {
         selectedEmployee: state.employees.selectedEmployee
     };
 }
+
 export default connect(mapStateToProps)(EmployeeDetails);
 
 

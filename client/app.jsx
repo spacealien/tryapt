@@ -6,7 +6,7 @@ import MenuBottom from './components/menu_bottom.jsx';
 import { routes } from './routes/routes.jsx';
 
 import reducers  from './reducers';
-import promise from 'redux-promise';
+
 
 class App extends React.Component {
 
