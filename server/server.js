@@ -51,11 +51,8 @@ app.post('/test', function (req, res) {
         return db_context.token.create({ token: token });
 
     }).then(function (tokenInstance) {
-        console.log(userInstance.toPublicJSON());
-        console.log(tokenInstance);
         res.header('AUTH', tokenInstance.get('token')).json(userInstance.toPublicJSON());
     }).catch(function (e) {
-        console.log(e);
         res.status(401).send();
     });
 });
