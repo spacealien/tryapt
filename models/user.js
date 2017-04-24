@@ -72,15 +72,19 @@ module.exports = function (sequelize, DataTypes) {
                             var bytes = crypto.AES.decrypt(decodedJWT.token, config.cryptoKey);
                             var tokenData = JSON.parse(bytes.toString(crypto.enc.Utf8));
 
-                            user.findById(tokenData.id).then(function (user) {
-                                if (user) {
-                                    resolve(user);
-                                } else {
+                            User.query({
+                                where: { id: decoded.id },
+                                select: ['email', 'id']
+                            })
+                                .fetch().then(function (user) {
+                                    if (user) {
+                                        resolve(user);
+                                    } else {
+                                        reject();
+                                    }
+                                }, function (e) {
                                     reject();
-                                }
-                            }, function (e) {
-                                reject();
-                            });
+                                });
                         } catch (e) {
                             console.log(e);
                             reject();
@@ -97,9 +101,7 @@ module.exports = function (sequelize, DataTypes) {
                     if (!_.isString(type)) {
                         return undefined;
                     }
-
                     try {
-
                         var stringData = JSON.stringify({});
                         var encryptedData = crypto.AES.encrypt(stringData, config.cryptoKey).toString();
                         var token = jwt.sign({

@@ -49,10 +49,10 @@ app.post('/test', function (req, res) {
         var token = user.generateToken('authentication');
         userInstance = user;
         return db_context.token.create({ token: token });
-
     }).then(function (tokenInstance) {
-        res.header('AUTH', tokenInstance.get('token')).json(userInstance.toPublicJSON());
+        res.header('auth', tokenInstance.get('token')).json(userInstance.toPublicJSON());
     }).catch(function (e) {
+        console.log(e);
         res.status(401).send();
     });
 });

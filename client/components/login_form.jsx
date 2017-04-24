@@ -2,6 +2,7 @@ import React from 'react';
 import { attemptLogin } from '../actions/auth_action';
 import { connect } from 'react-redux';
 import validateInput from '../../server/shared/loginValidator';
+import { browserHistory } from 'react-router';
 
 class LoginForm extends React.Component {
 
@@ -37,8 +38,8 @@ class LoginForm extends React.Component {
                 email: this.state.email,
                 password: this.state.password
             }).then(
-                (res) => { console.log(res) },
-                (err) => console.log(err));
+                (res) => { browserHistory.push("/hemmelig") },
+                (err) => this.setState({ errors: err.response.data.errors, isLoading: false }) )
         } else {
 
         }

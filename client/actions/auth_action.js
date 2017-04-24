@@ -1,34 +1,37 @@
 import axios from 'axios';
-import setAuthorizationToken from '../utils/setAuthorizationToken.js';
+import setAuthorizationToken from '../utils/setAuthorizationToken';
 import jwt from 'jsonwebtoken';
 
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 
+export function setCurrentUser(user) {
+    return {
+        type: SET_CURRENT_USER,
+        user: user
+    }
+}
 
 export function attemptLogin(userInput) {
-    console.log("attemptLogin");
     return dispatch => {
         return axios.post("/test", {
             email: userInput.email,
             password: userInput.password
         }).then(function (res) {
             console.log(res);
-
-
-            dispatch({
-                type: SET_CURRENT_USER,
-                payload: res
-            })
+            const token = res.headers.auth;
+            localStorage.setItem('jwtToken', token);
+            setAuthorizationToken(token);
+            dispatch(setCurrentUser(jwt.decode(token)));
         })
     }
 };
 
-export function logutUser() {
-
-    const payload = {
-
-    }
-
+export function logut(data) {
+    return dispatch => {
+        localStorage.removeItem('jwtToken');
+        setAuthorizationToken(false);
+        dispatch(setCurrentUser({}));
+  }
 }
