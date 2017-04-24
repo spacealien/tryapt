@@ -36,7 +36,7 @@ app.all('/', function (req, res) {
 });
 
 // LOGIN TEST URL
-app.post('/test', function (req, res) {
+app.post('/my_page/login', function (req, res) {
     var body = _.pick(req.body, 'email', 'password');
     const { errors, isValid } = validateLogin(body);
 
@@ -50,15 +50,20 @@ app.post('/test', function (req, res) {
         userInstance = user;
         return db_context.token.create({ token: token });
     }).then(function (tokenInstance) {
-        res.header('auth', tokenInstance.get('token')).json(userInstance.toPublicJSON());
+
+        res.header('auth', tokenInstance.get('token'))
+            .json(userInstance.toPublicJSON());
+
     }).catch(function (e) {
         console.log(e);
         res.status(401).send();
     });
 });
 
+app.get('/my_page/user', middleware_auth, function (req, res) {
+    console.log(req);
 
-app.get('/hemmelig', middleware_auth.requireAuthentication, function (req, res) {
+
     res.json({
         satan: 'satan'
     });

@@ -15,7 +15,7 @@ class Menu extends React.Component {
                 this.props.browserHistory.push('/');
                 break;
             case "login":
-                this.props.browserHistory.push('/login');
+                this.props.browserHistory.push('/my_page');
                 break;
             case "people":
                 this.props.browserHistory.push('/people');

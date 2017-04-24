@@ -19,7 +19,7 @@ var store = createStoreWithMiddleWare(reducers);
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
-  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken))):
+  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 }
 
 ReactDOM.render(

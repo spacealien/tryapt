@@ -33,12 +33,13 @@ class LoginForm extends React.Component {
 
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
-
             this.props.attemptLogin({
                 email: this.state.email,
                 password: this.state.password
             }).then(
-                (res) => { browserHistory.push("/hemmelig") },
+                (res) => { 
+                    console.log(res);
+                    browserHistory.push("/my_page/user") },
                 (err) => this.setState({ errors: err.response.data.errors, isLoading: false }) )
         } else {
 

@@ -102,14 +102,28 @@ module.exports = function (sequelize, DataTypes) {
                         return undefined;
                     }
                     try {
-                        var stringData = JSON.stringify({});
-                        var encryptedData = crypto.AES.encrypt(stringData, config.cryptoKey).toString();
-                        var token = jwt.sign({
-                            user: _.pick(user, 'id'),
-                            email: _.pick(user, 'email'),
-                            token: encryptedData
+                        var stringData = JSON.stringify({
+                            id: this.get('id'),
+                            email: this.get('email'),
+                            type: type
+                        });
 
+                        console.log(stringData);
+
+
+                        var encryptedData = crypto.AES
+                            .encrypt(stringData, config.cryptoKey)
+                            .toString();
+
+                            
+                        console.log(encryptedData);
+                        var token = jwt.sign({
+                            token: encryptedData
                         }, config.jwtSecret);
+
+
+                        console.log(token);
+
 
                         return token;
 

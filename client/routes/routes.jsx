@@ -9,6 +9,7 @@ import EmployeeDetails from '../components/employee_details.jsx';
 import List from '../components/list.jsx';
 import HomeView from '../containers/home_view.jsx';
 import InfoView from '../containers/info_view.jsx';
+import MyPage from '../components/my_page.jsx';
 
 
 /*
@@ -33,7 +34,8 @@ export const routes = (
                 <IndexRoute component={HomeView} />
                 <Route path="/people" component={EmployeeView} />
                 <Route path="/people/details" component={EmployeeDetails} />
-                <Route path="/login" component={LoginForm} />
+                <Route path="/my_page" component={LoginForm} />
+                <Route path="/my_page/user" component={MyPage} />
                 <Route path="/info" component={InfoView} />
         </Route>
 );

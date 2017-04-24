@@ -17,6 +17,5 @@ export default function loginValidator(data) {
     if (data.password !== null && Validator.isEmpty(data.password)) {
         errors.password = 'Dette feltet er påkrevd';
     }
-
     return { errors, isValid: _.isEmpty(errors) };
 }
