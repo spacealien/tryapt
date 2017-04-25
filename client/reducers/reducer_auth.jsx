@@ -12,11 +12,10 @@ export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case SET_CURRENT_USER:
 
-            return Object.assign({}, state, {
-                isAuthenticated: _.isEmpty(action.user),
+            return Object.assign({}, state, {   
+                isAuthenticated: !_.isEmpty(action.user),
                 user: action.user
             });
-
         default :
             return state;
     }

@@ -1,17 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-
-
-
-
+import { browserHistory } from 'react-router';
 
 export default function (ComposedComponent) {
     class Authenticate extends React.Component {
         
         componentWillMount() {
-            if(!this.props.isAuthenticated) {
-                this.context.router.push('/my_page/login');
+            this.checkAuthentication(this.props.isAuthenticated);
+        }
+
+        componentWillUpdate(nextProps) {
+            this.checkAuthentication(nextProps.isAuthenticated);
+        }
+
+        checkAuthentication(isAuthenticated) {
+            if(!isAuthenticated) {
+                browserHistory.push('/my_page/login');
             }
         }
         

@@ -18,10 +18,6 @@ class UserView extends React.Component {
     render() {
         return (
             <div>
-                <MenuTop
-                    menu="default"
-                    headline="Min Side" />
-
                 {this.props.children}
             </div>
         );

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import jwt from 'jsonwebtoken';
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
@@ -18,15 +17,17 @@ export function attemptLogin(userInput) {
             email: userInput.email,
             password: userInput.password
         }).then(function (res) {
+
             const token = res.headers.auth;
             localStorage.setItem('jwtToken', token);
             setAuthorizationToken(token);
-            dispatch(setCurrentUser(jwt.decode(token)));
+            dispatch(setCurrentUser(res.data));
         })
     }
 };
 
-export function logut(data) {
+export function logout(data) {
+    console.log("logging out");
     return dispatch => {
         localStorage.removeItem('jwtToken');
         setAuthorizationToken(false);

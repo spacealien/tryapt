@@ -9,7 +9,7 @@ export function setCurrentUser(user) {
 
 export function fetchUserData() {
 
-    console.log("fetchUserData");
+    console.log("action fetchUserData");
     return dispatch => {
         return axios.get("/my_page/user").then(function (res) {
             console.log(res);

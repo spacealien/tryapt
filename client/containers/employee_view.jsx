@@ -28,10 +28,6 @@ class EmployeeView extends React.Component {
         this.setState({ markedEmployeeList: [] });
     }
 
-    /**
-     * 
-     * 
-     */
 
     render() {
         return (

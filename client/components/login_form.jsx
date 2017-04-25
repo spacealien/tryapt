@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import validateInput from '../../server/shared/loginValidator';
 import { browserHistory } from 'react-router';
 
+
+import MenuTop from '../components/menu_top.jsx';
+
 class LoginForm extends React.Component {
 
     constructor(props) {
@@ -38,7 +41,7 @@ class LoginForm extends React.Component {
                 email: this.state.email,
                 password: this.state.password
             }).then(
-                (res) => { browserHistory.push("/my_page/user") },
+                (res) => { browserHistory.push("/my_page") },
                 (err) => this.setState({ errors: err.response.data.errors, isLoading: false }))
         } else {
 
@@ -49,7 +52,14 @@ class LoginForm extends React.Component {
         const { errors, email, password, isLoading } = this.state;
 
         return (
+
             <div className="container">
+
+                <MenuTop
+                    menu="default"
+                    headline="Login" />
+
+
                 <form className="login">
                     <div className="form-group row">
                         <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>

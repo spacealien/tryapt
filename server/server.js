@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import _ from 'underscore';
 import db_context from './db_context.js';
 import bcrypt from 'bcrypt';
+import helmet  from 'helmet';
 import middleware from './middleware/middleware.js';
 import authentication from './middleware/middleware_auth.js';
 import validateLogin from './shared/loginValidator';
@@ -25,9 +26,9 @@ app.use(webpackMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler));
 
-
 app.use(bodyParser.json());
 app.use(middleware.logger);
+app.use(helmet());
 app.use(express.static(__dirname + '/../public'));
 
 
@@ -48,11 +49,12 @@ app.post('/my_page/login', function (req, res) {
     db_context.user.authenticate(body).then(function (user) {
         var token = user.generateToken('authentication');
         userInstance = user;
-        return db_context.token.create({ token: token });
-    }).then(function (tokenInstance) {
+        return token;
 
-        console.log(tokenInstance.get('token'));
-        res.header('auth', tokenInstance.get('token'))
+    }).then(function (tokenInstance) {
+        console.log(tokenInstance);
+
+        res.header('auth', tokenInstance )
             .json(userInstance.toPublicJSON());
 
     }).catch(function (e) {
@@ -70,9 +72,6 @@ app.get('/my_page/user', authentication, function (req, res) {
 app.get('*', function(req, res) {
     res.redirect('/');
 })
-
-
-
 
 
 db_context.sequelize.sync({

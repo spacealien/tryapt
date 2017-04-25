@@ -1,7 +1,6 @@
 import React from 'react';
 import ListElement from './list_element.jsx';
 
-
 class Menu extends React.Component {
     constructor(props) {
         super(props);
