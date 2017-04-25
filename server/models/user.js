@@ -2,7 +2,7 @@ var bcrypt = require('bcrypt');
 var _ = require('underscore');
 var crypto = require('crypto-js');
 var jwt = require('jsonwebtoken');
-import config from '../config.js';
+import config from '../../config.js';
 
 
 module.exports = function (sequelize, DataTypes) {
@@ -108,24 +108,20 @@ module.exports = function (sequelize, DataTypes) {
                             type: type
                         });
 
-                        console.log(stringData);
-
-
-                        var encryptedData = crypto.AES
-                            .encrypt(stringData, config.cryptoKey)
-                            .toString();
-
-                            
-                        console.log(encryptedData);
+                        console.log("signing jwt")
                         var token = jwt.sign({
-                            token: encryptedData
+                            token: stringData
                         }, config.jwtSecret);
-
-
                         console.log(token);
 
 
-                        return token;
+                        var encryptedData = crypto.AES
+                            .encrypt(token, config.cryptoKey)
+                            .toString();
+
+
+                        console.log(encryptedData);
+                        return encryptedData;
 
                     } catch (e) {
                         console.log(e);

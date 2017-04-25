@@ -9,7 +9,7 @@ import MenuTop from '../components/menu_top.jsx';
 
 
 // TODO
-class LoginView extends React.Component {
+class UserView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -18,9 +18,13 @@ class LoginView extends React.Component {
     render() {
         return (
             <div>
-                <p> TODO </p>
+                <MenuTop
+                    menu="default"
+                    headline="Min Side" />
+
+                {this.props.children}
             </div>
         );
     }
 }
-export default LoginView;
+export default UserView;

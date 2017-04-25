@@ -1,26 +1,39 @@
 import db from '../db_context.js';
 import jwt from 'jsonwebtoken';
-import User from '../../models/user'
+import User from './../models/user'
 import config from '../../config'
 import crypto from 'crypto-js';
 
 
 
 export default (req, res, next) => {
-    var token = req.get('Authorization') || '';
-    if (token) {
-        jwt.verify(token, config.jwtSecret, (err, decoded) => {
+    console.log("authenticating")
+    var encryptedData = req.get('Authorization') || '';
+    console.log(encryptedData);
+
+
+    if (encryptedData) {
+
+        console.log("decrypt")
+        var decrypted = crypto.AES
+            .decrypt(encryptedData, config.cryptoKey)
+            .toString(crypto.enc.Utf8);
+
+        console.log(decrypted);
+        jwt.verify(decrypted, config.jwtSecret, (err, decoded) => {
             if (err) {
+                console.log(err);
                 res.status(401).json({ error: 'Failed to authenticate ' });
             } else {
-                var decrypted = crypto.AES
-                    .decrypt(decoded.token, config.cryptoKey)
-                    .toString(crypto.enc.Utf8);
 
-                var stringData = JSON.parse(decrypted);
+                console.log(decoded.token);
+                var stringData = JSON.parse(decoded.token);
 
                 db.user.findOne({
-                    where: { id: stringData.id },
+                    where: {
+                        id: stringData.id,
+                        email: stringData.email
+                    },
                     select: ['email', 'id']
                 }).then(user => {
                     console.log("prøver å finne bruker");

@@ -2,14 +2,17 @@ import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
 
-import LoginForm from '../components/login_form.jsx';
 import EmployeeView from '../containers/employee_view.jsx';
-import LoginView from '../containers/login_view.jsx';
-import EmployeeDetails from '../components/employee_details.jsx';
-import List from '../components/list.jsx';
+import MyPage from '../containers/my_page_view.jsx';
 import HomeView from '../containers/home_view.jsx';
 import InfoView from '../containers/info_view.jsx';
-import MyPage from '../components/my_page.jsx';
+
+import EmployeeDetails from '../components/employee_details.jsx';
+import List from '../components/list.jsx';
+import LoginForm from '../components/login_form.jsx';
+import UserPage from '../components/user_page.jsx';
+
+import requireAuth from '../utils/requireAuth.js';
 
 
 /*
@@ -25,7 +28,6 @@ import MyPage from '../components/my_page.jsx';
                 <Route path="/info" component={InfoView} />
         </Route>
 );
-
 */
 
 
@@ -34,8 +36,10 @@ export const routes = (
                 <IndexRoute component={HomeView} />
                 <Route path="/people" component={EmployeeView} />
                 <Route path="/people/details" component={EmployeeDetails} />
-                <Route path="/my_page" component={LoginForm} />
-                <Route path="/my_page/user" component={MyPage} />
+                <Route path="/my_page" component={MyPage} >
+                        <IndexRoute component={ requireAuth(UserPage)} />
+                        <Route path="login" component={LoginForm} />
+                </Route>
                 <Route path="/info" component={InfoView} />
         </Route>
 );

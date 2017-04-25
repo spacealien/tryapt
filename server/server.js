@@ -4,7 +4,7 @@ import _ from 'underscore';
 import db_context from './db_context.js';
 import bcrypt from 'bcrypt';
 import middleware from './middleware/middleware.js';
-import middleware_auth from './middleware/middleware_auth.js';
+import authentication from './middleware/middleware_auth.js';
 import validateLogin from './shared/loginValidator';
 
 import webpack from 'webpack';
@@ -31,8 +31,8 @@ app.use(middleware.logger);
 app.use(express.static(__dirname + '/../public'));
 
 
-app.all('/', function (req, res) {
-    res.sendFile('/index.html');
+app.get('/', function(req, res) {
+   res.sendFile('index.html');
 });
 
 // LOGIN TEST URL
@@ -51,6 +51,7 @@ app.post('/my_page/login', function (req, res) {
         return db_context.token.create({ token: token });
     }).then(function (tokenInstance) {
 
+        console.log(tokenInstance.get('token'));
         res.header('auth', tokenInstance.get('token'))
             .json(userInstance.toPublicJSON());
 
@@ -60,19 +61,19 @@ app.post('/my_page/login', function (req, res) {
     });
 });
 
-app.get('/my_page/user', middleware_auth, function (req, res) {
-    console.log(req);
-
-
+app.get('/my_page/user', authentication, function (req, res) {
     res.json({
         satan: 'satan'
     });
 });
 
-// serves the index file for all urls
-app.all('*', function (req, res) {
+app.get('*', function(req, res) {
     res.redirect('/');
-});
+})
+
+
+
+
 
 db_context.sequelize.sync({
     force: true

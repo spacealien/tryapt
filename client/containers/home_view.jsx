@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import { connect } from 'react-redux';
-import { fetchEmployees, selectEmployee } from '../actions/employee_action';
-import { bindActionCreators } from 'redux';
 
-import MenuTop  from '../components/menu_top.jsx';
+
+
+import MenuTop from '../components/menu_top.jsx';
 
 
 class HomeView extends React.Component {
@@ -19,9 +18,7 @@ class HomeView extends React.Component {
             <div>
                 <MenuTop
                     menu="default"
-                    headline={"Home"} />
-
-                <p> DRITT </p>
+                    headline="Home" />
             </div>
         );
     }

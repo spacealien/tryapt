@@ -33,14 +33,13 @@ class LoginForm extends React.Component {
 
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
+
             this.props.attemptLogin({
                 email: this.state.email,
                 password: this.state.password
             }).then(
-                (res) => { 
-                    console.log(res);
-                    browserHistory.push("/my_page/user") },
-                (err) => this.setState({ errors: err.response.data.errors, isLoading: false }) )
+                (res) => { browserHistory.push("/my_page/user") },
+                (err) => this.setState({ errors: err.response.data.errors, isLoading: false }))
         } else {
 
         }
@@ -76,7 +75,7 @@ class LoginForm extends React.Component {
                             {errors.password && <span className="help-block">{errors.password}</span>}
                         </div>
                     </div>
-                    
+
                     <div className="form-group row login-row">
                         <div className="col-sm-12">
                             <button className="btn btn-primary login-btn" type="button" onClick={(e) => this.onSubmit(e)} >Logg inn</button>

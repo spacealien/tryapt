@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchUserData } from '../actions/api_action';
 
-class MyPage extends React.Component {
+class UserPage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -16,8 +16,8 @@ class MyPage extends React.Component {
     render() {
         this.fetchUserData();
         return (
-            <p>TEST</p>
+            <p>SS</p>
         );
     }
 }
-export default connect(null, { fetchUserData })(MyPage);
+export default connect(null, { fetchUserData })(UserPage);
