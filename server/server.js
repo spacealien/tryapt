@@ -18,8 +18,6 @@ import path from 'path';
 import TryJSON from '../try_persons';
 import AptJSON from '../apt_persons';
 
-
-
 // import for hot-reloading
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -73,6 +71,7 @@ app.post('/my_page/login', function (req, res) {
 });
 
 app.get('/my_page/user', authentication, function (req, res) {
+    console.log(req.currentUser);
     // HENTE BRUKER DATA HER
     res.json({
         satan: 'satan'
@@ -80,16 +79,34 @@ app.get('/my_page/user', authentication, function (req, res) {
 });
 
 
+// må lage funksjon/middleware for å skjekke pw reset token
+app.post("/reset", authentication, function (req, res) {
+    console.log("/reset post")
+    var body = _.pick(req.body, 'password');
+    console.log(body);
 
-app.post("/reset", function () {
-
+    db_context.user.update({
+        password: body.password
+    }, {
+            where: {
+                id: req.currentUser.id,
+                email: req.currentUser.email
+            },
+        }
+    ).then(function (result) {
+        console.log(result)
+        console.log("user password updated");
+    });
 });
 
 
 /**
- * lage en auth funksjon for å se om reset link er gyldig
+ * lage en auth funksjon for å se om reset link er gyldig, sette utløpsdato på token
  */
-app.get('/reset/*', function (req, res) {
+app.get('/reset*', function (req, res) {
+    console.log("/reset* route hit");
+
+
     res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
 
@@ -172,20 +189,21 @@ db_context.sequelize.sync({
 
 }).then(function (res) {
     console.log('syncing finished');
-    /**
-        app.listen(PORT, function () {
-            console.log('Express server started!' + '\nPORT:' + PORT);
-        });
-     */
 
+    app.listen(PORT, function () {
+        console.log('Express server started!' + '\nPORT:' + PORT);
+    });
+
+    /**
     https.createServer({
         key: fs.readFileSync('key.pem'),
-        cert: fs.readFileSync('cert.pem')
+        cert: fs.readFileSync('cert.pem'),
+        passphrase: 'hemmelig'
     }, app).listen(PORT, function() {
         console.log('Express server started!' + '\nPORT:' + PORT);
     });
 
-
+         */
 
 }).catch(function (error) {
     console.log(error);

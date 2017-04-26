@@ -42,7 +42,7 @@ export const routes = (
                         <Route path="login" component={LoginForm} />
                 </Route>
                 <Route path="/forgot" component={ForgotForm}/>
-                <Route path="/reset/*" component={ForgotResetForm} />
+                <Route path="/reset*" component={ForgotResetForm} />
                 <Route path="/info" component={InfoView} />
         </Route>
 );

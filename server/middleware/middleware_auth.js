@@ -4,13 +4,10 @@ import User from './../models/user'
 import config from '../../config'
 import crypto from 'crypto-js';
 
-
-
 export default (req, res, next) => {
     console.log("authenticating")
     var encryptedData = req.get('Authorization') || '';
     console.log(encryptedData);
-
 
     if (encryptedData) {
 

@@ -138,31 +138,6 @@ module.exports = function (sequelize, DataTypes) {
                         console.log(e);
                         return undefined;
                     }
-                },
-                generateEmailToken: function () {
-                    if (!_.isString(type)) {
-                        return undefined;
-                    }
-                    try {
-                        var stringData = JSON.stringify({
-                            id: this.get('id'),
-                            email: this.get('email'),
-                            type: type
-                        });
-
-                        var token = jwt.sign({
-                            token: stringData
-                        }, config.jwtSecret);
-
-                        var encryptedData = crypto.AES
-                            .encrypt(token, config.cryptoKey)
-                            .toString();
-
-                        return encryptedData;
-                    } catch (e) {
-                        console.log(e);
-                        return undefined;
-                    }
                 }
             }
         });

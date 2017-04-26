@@ -21,10 +21,32 @@ export function forgotPassword(userInput) {
 }
 
 export function changePassword(userInput) {
+
+    var urlParams;
+    (window.onpopstate = function () {
+        var match,
+            pl = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, "+")); },
+            query = window.location.search.substring(1);
+
+        urlParams = {};
+        while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+    })();
+    console.log(urlParams.token);
+
+    var config = {
+        headers: {
+            Authorization: urlParams.token
+        }
+    }
+
     return dispatch => {
-        return axios.post("/reset", {   
-            password: userInput.password
-        }).then(function (res) {
+        return axios.post("/reset", {
+            password: userInput.password,
+            Authorization: urlParams.token
+        }, config).then(function (res) {
             console.log(res);
         })
     }
