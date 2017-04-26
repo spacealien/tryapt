@@ -11,9 +11,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
-            validate: {
-                isEmail: true
-            }
+
         },
         salt: {
             type: DataTypes.STRING
@@ -90,6 +88,24 @@ module.exports = function (sequelize, DataTypes) {
                             reject();
                         }
                     });
+                },
+                findByEmail: function (body) {
+                    return new Promise(function (resolve, reject) {
+                         if (typeof body.email !== 'string') {
+                            return reject();
+                        }
+
+                        user.findOne({
+                            where: { email: body.email }
+                        }).then(function (user) { // resolve 
+                            if (!user) {
+                                return reject();
+                            }
+                            resolve(user);
+                        }, function (e) { // reject
+                            reject();
+                        });
+                    });
                 }
             },
             instanceMethods: {
@@ -108,21 +124,41 @@ module.exports = function (sequelize, DataTypes) {
                             type: type
                         });
 
-                        console.log("signing jwt")
                         var token = jwt.sign({
                             token: stringData
                         }, config.jwtSecret);
-                        console.log(token);
-
 
                         var encryptedData = crypto.AES
                             .encrypt(token, config.cryptoKey)
                             .toString();
 
-
-                        console.log(encryptedData);
                         return encryptedData;
 
+                    } catch (e) {
+                        console.log(e);
+                        return undefined;
+                    }
+                },
+                generateEmailToken: function () {
+                    if (!_.isString(type)) {
+                        return undefined;
+                    }
+                    try {
+                        var stringData = JSON.stringify({
+                            id: this.get('id'),
+                            email: this.get('email'),
+                            type: type
+                        });
+
+                        var token = jwt.sign({
+                            token: stringData
+                        }, config.jwtSecret);
+
+                        var encryptedData = crypto.AES
+                            .encrypt(token, config.cryptoKey)
+                            .toString();
+
+                        return encryptedData;
                     } catch (e) {
                         console.log(e);
                         return undefined;

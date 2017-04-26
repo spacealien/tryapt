@@ -21,7 +21,9 @@ class LoginForm extends React.Component {
 
     handleClick(e) {
 
+
     }
+
 
     isValid(e) {
         const { errors, isValid } = validateInput(this.state);
@@ -48,6 +50,11 @@ class LoginForm extends React.Component {
         }
     }
 
+    onForget(e) {
+        e.preventDefault(); 
+        browserHistory.push("/forgot");
+    }
+
     render() {
         const { errors, email, password, isLoading } = this.state;
 
@@ -59,14 +66,12 @@ class LoginForm extends React.Component {
                     menu="default"
                     headline="Login" />
 
-
                 <form className="login">
                     <div className="form-group row">
                         <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>
                         <div className="col-sm-10">
 
                             <input className="form-control" id="inputEmail"
-                                value={email}
                                 onInput={(e) => this.setState({ email: e.target.value })}
                                 type="email"
                                 placeholder="Email" />
@@ -78,12 +83,15 @@ class LoginForm extends React.Component {
                         <div className="col-sm-10">
 
                             <input className="form-control" id="inputPassword"
-                                value={password}
                                 onInput={(e) => this.setState({ password: e.target.value })}
                                 type="password"
                                 placeholder="Password" />
                             {errors.password && <span className="help-block">{errors.password}</span>}
                         </div>
+                    </div>
+
+                    <div>
+                        <a id="forgot" onClick={ (e) => this.onForget(e) } href="forgot">Tilbakestill password</a>
                     </div>
 
                     <div className="form-group row login-row">
