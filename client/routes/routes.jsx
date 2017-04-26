@@ -11,6 +11,8 @@ import EmployeeDetails from '../components/employee_details.jsx';
 import List from '../components/list.jsx';
 import LoginForm from '../components/login_form.jsx';
 import UserPage from '../components/user_page.jsx';
+import ForgotForm from '../components/forgot_form.jsx';
+import ForgotResetForm from '../components/forgot_reset_form.jsx';
 
 import requireAuth from '../utils/requireAuth.js';
 
@@ -30,7 +32,6 @@ import requireAuth from '../utils/requireAuth.js';
 );
 */
 
-
 export const routes = (
         <Route path='/' >
                 <IndexRoute component={HomeView} />
@@ -40,6 +41,8 @@ export const routes = (
                         <IndexRoute component={ requireAuth(UserPage)} />
                         <Route path="login" component={LoginForm} />
                 </Route>
+                <Route path="/forgot" component={ForgotForm}/>
+                <Route path="/reset/*" component={ForgotResetForm} />
                 <Route path="/info" component={InfoView} />
         </Route>
 );
