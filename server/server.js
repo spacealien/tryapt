@@ -17,7 +17,6 @@ const compiler = webpack(webpackConfig);
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-
 app.use(webpackMiddleware(compiler, {
     hot: true,
     publicPath: webpackConfig.output.publicPath,
@@ -25,7 +24,6 @@ app.use(webpackMiddleware(compiler, {
 }));
 
 app.use(webpackHotMiddleware(compiler));
-
 app.use(bodyParser.json());
 app.use(middleware.logger);
 app.use(helmet());
