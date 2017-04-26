@@ -18,23 +18,28 @@ import path from 'path';
 import TryJSON from '../try_persons';
 import AptJSON from '../apt_persons';
 
+
+/** 
 // import for hot-reloading
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.dev.config';
 const compiler = webpack(webpackConfig);
+*/
 
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+
+/** 
 app.use(webpackMiddleware(compiler, {
     hot: true,
     publicPath: webpackConfig.output.publicPath,
     noInfo: true
-}));
+})); */
 
-app.use(webpackHotMiddleware(compiler));
+//app.use(webpackHotMiddleware(compiler));
 app.use(bodyParser.json());
 app.use(middleware.logger);
 app.use(helmet());
@@ -189,12 +194,12 @@ db_context.sequelize.sync({
 
 }).then(function (res) {
     console.log('syncing finished');
-
+/**
     app.listen(PORT, function () {
         console.log('Express server started!' + '\nPORT:' + PORT);
     });
+ */
 
-    /**
     https.createServer({
         key: fs.readFileSync('key.pem'),
         cert: fs.readFileSync('cert.pem'),
@@ -203,7 +208,6 @@ db_context.sequelize.sync({
         console.log('Express server started!' + '\nPORT:' + PORT);
     });
 
-         */
 
 }).catch(function (error) {
     console.log(error);

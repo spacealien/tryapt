@@ -30,11 +30,16 @@ var config = {
 
             }
         ]
-    },
+    }
+    /**
+    ,
     node: {
         net: 'empty',
         tls: 'empty',
         dns: 'empty'
     }
+
+     */
+
 };
 module.exports = config;
