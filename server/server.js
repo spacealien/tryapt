@@ -83,8 +83,6 @@ app.get('/my_page/user', authentication, function (req, res) {
     });
 });
 
-
-// må lage funksjon/middleware for å skjekke pw reset token
 app.post("/reset", authentication, function (req, res) {
     console.log("/reset post")
     var body = _.pick(req.body, 'password');
@@ -104,13 +102,10 @@ app.post("/reset", authentication, function (req, res) {
     });
 });
 
-
 /**
  * lage en auth funksjon for å se om reset link er gyldig, sette utløpsdato på token
  */
 app.get('/reset*', function (req, res) {
-    console.log("/reset* route hit");
-
 
     res.sendFile(path.join(__dirname + '/../public/index.html'));
 });

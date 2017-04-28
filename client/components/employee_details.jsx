@@ -51,7 +51,7 @@ class EmployeeDetails extends React.Component {
     }
 
     openMobileNumber() {
-        window.location.href="tel://"+95888853;
+        window.location.href = "tel://" + 95888853;
     }
 
     addContact() {
@@ -99,7 +99,7 @@ class EmployeeDetails extends React.Component {
                             <div className="col-sm-4">
                                 <img src="https://cdn4.iconfinder.com/data/icons/black-white-social-media/32/email_mail_envelope_send_message-128.png" />
                             </div>
-                            <div id="email"  className="col-sm-8" >
+                            <div id="email" className="col-sm-8" >
                                 {employee.email}
                             </div>
                         </div>
@@ -108,7 +108,7 @@ class EmployeeDetails extends React.Component {
                             <div className="col-sm-4">
                                 <img src="https://cdn3.iconfinder.com/data/icons/black-white-social-media/32/phone_logo_social_media-2-128.png" onClick={(e) => this.handleClick(e)} />
                             </div>
-                            <div id="mobile"  className="col-sm-8">
+                            <div id="mobile" className="col-sm-8">
                                 {employee.mobile}
                             </div>
                         </div>

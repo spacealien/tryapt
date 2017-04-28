@@ -20,6 +20,7 @@ export function attemptLogin(userInput) {
 
             const token = res.headers.auth;
             localStorage.setItem('jwtToken', token);
+            localStorage.setItem('userData', res.data);
             setAuthorizationToken(token);
             dispatch(setCurrentUser(res.data));
         })
@@ -29,6 +30,7 @@ export function attemptLogin(userInput) {
 export function logout(data) {
     return dispatch => {
         localStorage.removeItem('jwtToken');
+        localStorage.removeItem('userData');
         setAuthorizationToken(false);
         dispatch(setCurrentUser({}));
   }
