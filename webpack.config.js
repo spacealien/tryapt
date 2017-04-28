@@ -30,7 +30,7 @@ var config = {
             }
         ]
     },
-    node: {
+     node: {
         net: 'empty',
         tls: 'empty',
         dns: 'empty'

@@ -25,6 +25,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.dev.config';
 const compiler = webpack(webpackConfig);
 
+
+
 var app = express();
 var PORT = process.env.PORT || 3000;
 
@@ -35,6 +37,8 @@ app.use(webpackMiddleware(compiler, {
 }));
 
 app.use(webpackHotMiddleware(compiler));
+
+
 app.use(bodyParser.json());
 app.use(middleware.logger);
 app.use(helmet());
@@ -193,17 +197,17 @@ db_context.sequelize.sync({
     app.listen(PORT, function () {
         console.log('Express server started!' + '\nPORT:' + PORT);
     });
-
-    /**
+     
+/** 
     https.createServer({
         key: fs.readFileSync('key.pem'),
         cert: fs.readFileSync('cert.pem'),
         passphrase: 'hemmelig'
-    }, app).listen(PORT, function() {
+    }, app).listen(PORT, function () {
         console.log('Express server started!' + '\nPORT:' + PORT);
     });
 
-         */
+    */
 
 }).catch(function (error) {
     console.log(error);

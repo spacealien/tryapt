@@ -18,10 +18,13 @@ class ForgotForm extends React.Component {
 
     render() {
         return (
-            <div>
-                <label value="email" htmlFor="email" >E-post:</label>
-                <input id="email" onChange={ (e) => this.setState({ email: e.target.value })} />
-                <button onClick={(e) => this.onSubmit(e)} value="submit">Tilbakestill</button>
+            <div className="col-sm-12">
+                <div className="input-group input-group-lg">
+                    <label htmlFor="email">Email: </label>
+                    <input id="email" className="form-control" onChange={(e) => this.setState({ email: e.target.value })} />
+                    <br></br>
+                    <button className="btn" onClick={(e) => this.onSubmit(e)} value="submit">Tilbakestill</button>
+                </div>
             </div>
         );
     }

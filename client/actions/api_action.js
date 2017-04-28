@@ -25,7 +25,7 @@ export function changePassword(userInput) {
     var urlParams;
     (window.onpopstate = function () {
         var match,
-            pl = /\+/g,  // Regex for replacing addition symbol with a space
+            pl = /\+/g, 
             search = /([^&=]+)=?([^&]*)/g,
             decode = function (s) { return decodeURIComponent(s.replace(pl, "+")); },
             query = window.location.search.substring(1);

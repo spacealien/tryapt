@@ -5,6 +5,9 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 
 export function setCurrentUser(user) {
+    console.log("user");
+    console.log(user);
+
     return {
         type: SET_CURRENT_USER,
         user: user
@@ -17,7 +20,6 @@ export function attemptLogin(userInput) {
             email: userInput.email,
             password: userInput.password
         }).then(function (res) {
-
             const token = res.headers.auth;
             localStorage.setItem('jwtToken', token);
             setAuthorizationToken(token);
