@@ -119,6 +119,8 @@ module.exports = function (sequelize, DataTypes) {
                     }
                     try {
                         var stringData = JSON.stringify({
+                            iss: '',
+                            exp: Math.floor(Date.now() / 1000) + (60 * 30), // expires in halv hour
                             id: this.get('id'),
                             email: this.get('email'),
                             type: type
@@ -128,11 +130,12 @@ module.exports = function (sequelize, DataTypes) {
                             token: stringData
                         }, config.jwtSecret);
 
+/**
                         var encryptedData = crypto.AES
                             .encrypt(token, config.cryptoKey)
                             .toString();
-
-                        return encryptedData;
+ */
+                        return token;
 
                     } catch (e) {
                         console.log(e);

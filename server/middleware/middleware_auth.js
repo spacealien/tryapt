@@ -5,19 +5,20 @@ import config from '../../config'
 import crypto from 'crypto-js';
 
 export default (req, res, next) => {
-    console.log("authenticating")
-    var encryptedData = req.get('Authorization') || '';
-    console.log(encryptedData);
+    var token = req.get('Authorization') || '';
+    console.log(token);
 
-    if (encryptedData) {
+    if (token) {
+        console.log("authenticating")
 
+/** 
         console.log("decrypt")
         var decrypted = crypto.AES
             .decrypt(encryptedData, config.cryptoKey)
             .toString(crypto.enc.Utf8);
+            */
 
-        console.log(decrypted);
-        jwt.verify(decrypted, config.jwtSecret, (err, decoded) => {
+        jwt.verify(token, config.jwtSecret, (err, decoded) => {
             if (err) {
                 console.log(err);
                 res.status(401).json({ error: 'Failed to authenticate ' });

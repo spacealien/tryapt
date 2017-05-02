@@ -1,5 +1,7 @@
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
+import jwtDecode from 'jwt-decode';
+
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
@@ -15,15 +17,16 @@ export function setCurrentUser(user) {
 }
 
 export function attemptLogin(userInput) {
+    console.log(attemptLogin);
     return dispatch => {
         return axios.post("/my_page/login", {
             email: userInput.email,
             password: userInput.password
         }).then(function (res) {
-            const token = res.headers.auth;
+            const token = res.data.token;
             localStorage.setItem('jwtToken', token);
             setAuthorizationToken(token);
-            dispatch(setCurrentUser(res.data));
+            dispatch(setCurrentUser(jwtDecode(token)));
         })
     }
 };

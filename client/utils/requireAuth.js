@@ -14,6 +14,7 @@ export default function (ComposedComponent) {
         }
 
         checkAuthentication(isAuthenticated) {
+            console.log("checkAuthentication");
             if(!isAuthenticated) {
                 browserHistory.push('/my_page/login');
             } 

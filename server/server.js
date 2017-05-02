@@ -18,6 +18,7 @@ import path from 'path';
 import TryJSON from '../try_persons';
 import AptJSON from '../apt_persons';
 
+
 // import for hot-reloading
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -25,10 +26,9 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.dev.config';
 const compiler = webpack(webpackConfig);
 
-
-
 var app = express();
 var PORT = process.env.PORT || 3000;
+
 
 app.use(webpackMiddleware(compiler, {
     hot: true,
@@ -62,11 +62,10 @@ app.post('/my_page/login', function (req, res) {
         userInstance = user;
         return token;
 
-    }).then(function (tokenInstance) {
-        console.log(tokenInstance);
+    }).then(function (token) {
+        console.log(token);
 
-        res.header('auth', tokenInstance)
-            .json(userInstance.toPublicJSON());
+        res.json({ token });
 
     }).catch(function (e) {
         console.log(e);
@@ -82,8 +81,6 @@ app.get('/my_page/user', authentication, function (req, res) {
     });
 });
 
-
-// må lage funksjon/middleware for å skjekke pw reset token
 app.post("/reset", authentication, function (req, res) {
     console.log("/reset post")
     var body = _.pick(req.body, 'password');
@@ -103,13 +100,10 @@ app.post("/reset", authentication, function (req, res) {
     });
 });
 
-
 /**
  * lage en auth funksjon for å se om reset link er gyldig, sette utløpsdato på token
  */
 app.get('/reset*', function (req, res) {
-    console.log("/reset* route hit");
-
 
     res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
@@ -193,12 +187,12 @@ db_context.sequelize.sync({
 
 }).then(function (res) {
     console.log('syncing finished');
+    /**
+        app.listen(PORT, function () {
+            console.log('Express server started!' + '\nPORT:' + PORT);
+        });
+        */
 
-    app.listen(PORT, function () {
-        console.log('Express server started!' + '\nPORT:' + PORT);
-    });
-     
-/** 
     https.createServer({
         key: fs.readFileSync('key.pem'),
         cert: fs.readFileSync('cert.pem'),
@@ -207,7 +201,6 @@ db_context.sequelize.sync({
         console.log('Express server started!' + '\nPORT:' + PORT);
     });
 
-    */
 
 }).catch(function (error) {
     console.log(error);
