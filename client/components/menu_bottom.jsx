@@ -1,7 +1,6 @@
 import React from 'react';
 import ListElement from './list_element.jsx';
 
-
 class Menu extends React.Component {
     constructor(props) {
         super(props);
@@ -15,7 +14,7 @@ class Menu extends React.Component {
                 this.props.browserHistory.push('/');
                 break;
             case "login":
-                this.props.browserHistory.push('/login');
+                this.props.browserHistory.push('/my_page');
                 break;
             case "people":
                 this.props.browserHistory.push('/people');

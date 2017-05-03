@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import validateInput from '../../server/shared/loginValidator';
 import { browserHistory } from 'react-router';
 
+
+import MenuTop from '../components/menu_top.jsx';
+
 class LoginForm extends React.Component {
 
     constructor(props) {
@@ -17,7 +20,7 @@ class LoginForm extends React.Component {
     }
 
     handleClick(e) {
-
+        
     }
 
     isValid(e) {
@@ -38,53 +41,69 @@ class LoginForm extends React.Component {
                 email: this.state.email,
                 password: this.state.password
             }).then(
-                (res) => { browserHistory.push("/hemmelig") },
-                (err) => this.setState({ errors: err.response.data.errors, isLoading: false }) )
-        } else {
+                (res) => { browserHistory.push("/my_page") },
+                (err) => {
+                    console.log(err); 
+                    this.setState({ errors: err.response.data.errors, isLoading: false });
+                });
+    } else {
 
-        }
+}
     }
 
-    render() {
-        const { errors, email, password, isLoading } = this.state;
+onForget(e) {
+    e.preventDefault();
+    browserHistory.push("/forgot");
+}
 
-        return (
-            <div className="container">
-                <form className="login">
-                    <div className="form-group row">
-                        <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>
-                        <div className="col-sm-10">
+render() {
+    const { errors, email, password, isLoading } = this.state;
 
-                            <input className="form-control" id="inputEmail"
-                                value={email}
-                                onInput={(e) => this.setState({ email: e.target.value })}
-                                type="email"
-                                placeholder="Email" />
-                            {errors.email && <span className="help-block">{errors.email}</span>}
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <span className="col-sm-2 glyphicon glyphicon-asterisk login-icons"></span>
-                        <div className="col-sm-10">
+    return (
 
-                            <input className="form-control" id="inputPassword"
-                                value={password}
-                                onInput={(e) => this.setState({ password: e.target.value })}
-                                type="password"
-                                placeholder="Password" />
-                            {errors.password && <span className="help-block">{errors.password}</span>}
-                        </div>
+        <div className="container">
+
+            <MenuTop
+                menu="default"
+                headline="Login" />
+
+            <form className="login">
+                <div className="form-group row">
+                    <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>
+                    <div className="col-sm-10">
+
+                        <input className="form-control" id="inputEmail"
+                            onInput={(e) => this.setState({ email: e.target.value })}
+                            type="email"
+                            placeholder="Email" />
+                        {errors.email && <span className="help-block">{errors.email}</span>}
                     </div>
-                    
-                    <div className="form-group row login-row">
-                        <div className="col-sm-12">
-                            <button className="btn btn-primary login-btn" type="button" onClick={(e) => this.onSubmit(e)} >Logg inn</button>
-                        </div>
+                </div>
+                <div className="form-group row">
+                    <span className="col-sm-2 glyphicon glyphicon-asterisk login-icons"></span>
+                    <div className="col-sm-10">
+
+                        <input className="form-control" id="inputPassword"
+                            onInput={(e) => this.setState({ password: e.target.value })}
+                            type="password"
+                            placeholder="Password" />
+                        {errors.password && <span className="help-block">{errors.password}</span>}
                     </div>
-                </form>
-            </div>
-        );
-    }
+                </div>
+
+                <div>
+                    <a id="forgot" onClick={(e) => this.onForget(e)} href="forgot">Tilbakestill password</a>
+                </div>
+
+                <div className="form-group row login-row">
+                    <div className="col-sm-12">
+                        <button className="btn btn-primary login-btn" type="button" onClick={(e) => this.onSubmit(e)} >Logg inn</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    );
+}
 }
 
 

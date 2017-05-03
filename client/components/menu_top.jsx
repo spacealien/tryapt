@@ -4,7 +4,9 @@ import MarkDropdown from './mark_dropdown.jsx';
 
 import { connect } from 'react-redux';
 import { fetchMarkedEmployees, unmarkAllEmployees } from '../actions/employee_action';
-import { browserHistory, Router, Route, IndexRoute } from 'react-router';
+import { logout } from '../actions/auth_action';
+import { browserHistory } from 'react-router'
+
 
 class MenuTop extends React.Component {
     constructor(props) {
@@ -46,7 +48,7 @@ class MenuTop extends React.Component {
                     <div className="col-sm-4"><span className="nav-brand center-block">{this.props.employees.marked.length} Markert</span></div>
 
                     <div className="col-sm-2">
-                         <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
+                        <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
                         <div className="filter-menu"><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" />
@@ -59,13 +61,13 @@ class MenuTop extends React.Component {
 
     renderPeopleMenu() {
         return (
-                <div className="navbar navbar-fixed-top ">
-                    <div className="row">
-                        <div className="col-sm-2 menu-mark-cl" onClick={() => this.enableEmployeeMarking()}  >
-                            <img src='https://cdn0.iconfinder.com/data/icons/logistic-2/450/list-512.png' width='70%' />
-                        </div>
-                        <div className="col-sm-8">
-                            <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
+            <div className="navbar navbar-fixed-top ">
+                <div className="row">
+                    <div className="col-sm-2 menu-mark-cl" onClick={() => this.enableEmployeeMarking()}  >
+                        <img src='https://cdn0.iconfinder.com/data/icons/logistic-2/450/list-512.png' width='70%' />
+                    </div>
+                    <div className="col-sm-8">
+                        <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
 
                             <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                         </div>
@@ -100,22 +102,45 @@ class MenuTop extends React.Component {
         );
     }
 
+
+    renderMyPageMenu() {
+        return (
+            <div className="navbar navbar-fixed-top ">
+                <div className="row">
+                    <div className="col-sm-2 menu-mark-cl"> </div>
+                    <div className="col-sm-8">
+                        <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
+                    </div>
+                    <div className="col-sm-2">
+                        <button onClick={(e) => { e.preventDefault(); this.props.logout();}} >logout</button>
+                        </div>
+                    </div>
+                </div>
+        );
+    }
+
+
     render() {
         switch (this.props.menu) {
             case "default":
                 return this.renderDefaultMenu();
             case "list":
                 if (this.state.markMode === 'on')
-                 return this.renderMarkMenu();
-                else return this.renderPeopleMenu();
+                    return this.renderMarkMenu();
+                else
+                    return this.renderPeopleMenu();
+            case "myPage":
+                return this.renderMyPageMenu();
+
         }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        employees: state.employees
+        employees: state.employees,
+        isAuthenticated: state.auth.isAuthenticated
     }
 }
 
-export default connect(mapStateToProps, {unmarkAllEmployees})(MenuTop);
+export default connect(mapStateToProps, { logout, unmarkAllEmployees })(MenuTop);

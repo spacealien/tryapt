@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import { connect } from 'react-redux';
 import { fetchEmployees, unmarkAllEmployees, selectEmployee } from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
 
-import MenuTop  from '../components/menu_top.jsx';
+
+
+import MenuTop from '../components/menu_top.jsx';
 
 
 class HomeView extends React.Component {
