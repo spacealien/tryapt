@@ -4,6 +4,7 @@ import MarkDropdown from './mark_dropdown.jsx';
 
 import { connect } from 'react-redux';
 import { fetchMarkedEmployees, unmarkAllEmployees } from '../actions/employee_action';
+import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 
 class MenuTop extends React.Component {
     constructor(props) {
@@ -26,6 +27,10 @@ class MenuTop extends React.Component {
             this.setState({ markMode: 'off' });
             this.props.unmarkAllEmployees();
         }
+    }
+    
+    showFilter() {
+        browserHistory.push('/people/filter');
     }
 
     renderMarkMenu() {
@@ -65,7 +70,7 @@ class MenuTop extends React.Component {
                             <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                         </div>
                         <div className="col-sm-2">
-                            <div className="filter-menu"><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" />
+                            <div className="filter-menu" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" />
                             </div>
                         </div>
                     </div>

@@ -19,7 +19,7 @@ class InfoView extends React.Component {
                 <MenuTop
                     menu="default"
                     headline="Info" />
-                <p> info </p>
+                <p> Info </p>
             </div>
         );
     }

@@ -49,14 +49,12 @@ body {
 .viewTab {
     position: fixed;
     width: 260px;
-    //height: 128px;
     margin-left: -130px;
     left: 50%;
     background: #E6E6E6;
     vertical-align: middle;
     height: 106px;
     border: 1px solid #777777;
-    //border-top: 0px;
     border-radius: 0 0 25px 25px;
     z-index: 99;
     padding: 5px 0 0 5px;
@@ -87,7 +85,6 @@ body {
 .glyph-menu {
     position: relative;
     top: 7px;
-    //bottom: 6px;
     display: inline-block;
     font-family: 'Glyphicons Halflings';
     font-style: normal;
@@ -172,9 +169,9 @@ li  {
     margin-top: 10px;
 }
 
-a {
+/*a {
     font-size: 50px;
-}
+}*/
 
 .center-block {
     text-align: center;
@@ -220,7 +217,7 @@ a {
 }
 
 ::-webkit-input-placeholder {
-    //font-size: 25px;
+    /*font-size: 25px;*/
 
 }
 
@@ -239,7 +236,7 @@ input[type=search] {
 }
 
 input[type=search]::-webkit-search-cancel-button {
-    //display: none; 
+    /*display: none; */
     position: relative;
     margin-right: 20px;
 
@@ -327,7 +324,6 @@ input::-webkit-input-placeholder {
     -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
-    //float: right;
 }
 
 .search-icon img {
@@ -429,3 +425,96 @@ input::-webkit-input-placeholder {
     text-align: left;
     z-index: 300;
 }
+/*.during-scroll {
+    opacity: 0.2;
+
+}*/
+
+.filter-box {
+    margin-top: 25px;
+}
+
+.filter-box input[type="checkbox"] {
+    zoom: 6;
+}
+
+.filter-box select {
+    font-size: 40px;
+}
+
+.filter-box option {
+    font-size: 40px;
+    zoom: 1;
+    min-height: 0em;
+}
+.filter-box .margin-top {
+    margin-top: 20px;
+}
+.filter-box .filter-title {
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+.btn-group-lg>.btn {
+    padding: 20px 32px;
+    font-size: 40px;
+    line-height: 2.6666666;
+    border-radius: 0px;
+}
+.btn-group-lg>.sort-option {
+    width: 275px;
+    background: white;
+    color: #777;
+    border-color: #e3e3e3;
+ 
+}
+
+.btn-group-lg>.btn-sort {
+    margin-right: 30px;
+}
+.btn-group>.btn>.sort-option:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.btn-group>.btn>.sort-option:last-child:not(:first-child), .btn-group>.dropdown-toggle:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.filter-box .selected {
+    color: #D0A164;
+    border: 1px solid #D0A164;
+}
+
+.filter-submit {
+    background-color: #D1A25F;
+    color: white;
+    font-size: 40px;
+    appearance: button;
+    width: 100%;
+}
+.positions {
+    font-size: 35px;
+    line-height: 3em;
+}
+.positions img {
+    margin-left: 40%;
+    display: none;
+}
+
+.checked-position img {
+    display: initial;
+}
+
+.filterposition {
+    font-size: 40px;
+    line-height: 3em;
+}
+.menu-mark-cl a:hover, a:focus {
+    text-decoration: none;
+}
+/*.sort-option {
+    line-height: 5em;
+    text-align: center;
+    font-size: 40px;
+}*/

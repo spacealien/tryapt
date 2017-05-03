@@ -9,6 +9,8 @@ import EmployeeDetails from '../components/employee_details.jsx';
 import List from '../components/list.jsx';
 import HomeView from '../containers/home_view.jsx';
 import InfoView from '../containers/info_view.jsx';
+import EmployeeFilter from '../containers/filter_view.jsx';
+import FilterPositions from '../containers/filter_positions_view.jsx';
 
 
 /*
@@ -33,8 +35,11 @@ export const routes = (
                 <IndexRoute component={HomeView} />
                 <Route path="/people" component={EmployeeView} />
                 <Route path="/people/details" component={EmployeeDetails} />
+                <Route path="/people/filter" component={EmployeeFilter} />
+                <Route path="/people/filter/positions" component={FilterPositions} />
                 <Route path="/login" component={LoginForm} />
                 <Route path="/info" component={InfoView} />
+                        
         </Route>
 );
 
