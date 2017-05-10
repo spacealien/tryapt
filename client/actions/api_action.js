@@ -5,8 +5,8 @@ export function fetchUserData() {
     return dispatch => {
         return axios.get("/my_page/user").then(function (res) {
             console.log(res);
-        })
-    }
+        });
+    };
 }
 
 export function forgotPassword(userInput) {
@@ -16,8 +16,8 @@ export function forgotPassword(userInput) {
             email: userInput.email
         }).then(function (res) {
             console.log(res);
-        })
-    }
+        });
+    };
 }
 
 export function changePassword(userInput) {

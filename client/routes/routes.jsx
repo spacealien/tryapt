@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
-
-
 import EmployeeView from '../containers/employee_view.jsx';
 import MyPage from '../containers/my_page_view.jsx';
 import HomeView from '../containers/home_view.jsx';
@@ -14,7 +12,6 @@ import LoginForm from '../components/login_form.jsx';
 import UserPage from '../components/user_page.jsx';
 import ForgotForm from '../components/forgot_form.jsx';
 import ForgotResetForm from '../components/forgot_reset_form.jsx';
-
 import requireAuth from '../utils/requireAuth.js';
 
 
@@ -42,8 +39,8 @@ export const routes = (
                 <Route path="/people/filter/positions" component={FilterPositions} />
                 <Route path="/login" component={LoginForm} />
                 <Route path="/my_page" component={MyPage} >
-                        <IndexRoute component={ requireAuth(UserPage)} />
-                        <Route path="login" component={LoginForm} />
+                       <IndexRoute component={ requireAuth(UserPage)} />
+                       <Route path="login" component={LoginForm} />
                 </Route>
                 <Route path="/forgot" component={ForgotForm}/>
                 <Route path="/reset*" component={ForgotResetForm} />

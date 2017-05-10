@@ -5,7 +5,7 @@ import {
 
 const INITIAL_STATE = {
     isAuthenticated: false,
-    user: {}
+    user: []
 };
 
 export default function (state = INITIAL_STATE, action) {

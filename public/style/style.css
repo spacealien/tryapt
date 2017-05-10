@@ -337,10 +337,16 @@ input::-webkit-input-placeholder {
     padding: 10px;
     margin-top: 55px;
 }
+.my-profile-box {
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 55px;
+}
 .profile-box p{
     text-transform: capitalize;
 }
-.profile-box .col-sm-8 {
+.profile-box .col-sm-8, .my-profile-box .col-sm-4, .my-profile-box .col-sm-6 {
     vertical-align: middle;
     display: inline-block;
     /* height: 100px; */
@@ -518,3 +524,25 @@ input::-webkit-input-placeholder {
     text-align: center;
     font-size: 40px;
 }*/
+.linkedInTextField {
+    display: inline;
+    border: 1px solid #eee;
+    width: 100%;
+    height: 80%;
+    overflow: scroll;
+}
+
+.my-profile-box textarea {
+    /*margin: 10px;*/
+    padding: 10px;
+    overflow: scroll;
+    /*max-height: 300px;*/
+    width: 100%;
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+}
+.btn-expand-textarea {
+    width: 100%;
+    height: 80px;
+    font-size: 40px;
+}
