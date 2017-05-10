@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-start": "nodemon ./server/server.js --exec babel-node --presets es2015",
-    "start": "babel-node ./server/server.js --presets es2015",
+    "dev-start": "SET NODE_ENV=development && nodemon ./server/server.js --exec babel-node --presets es2015",
+    "start": "SET NODE_ENV=production && babel-node ./server/server.js --presets es2015",
     "build": "webpack --config ./webpack.config.js --progress --colors"
   },
   "author": "",

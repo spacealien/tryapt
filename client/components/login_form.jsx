@@ -1,10 +1,8 @@
 import React from 'react';
 import { attemptLogin } from '../actions/auth_action';
 import { connect } from 'react-redux';
-import validateInput from '../../server/shared/loginValidator';
+import validateInput from '../../server/shared/validation/login_validation';
 import { browserHistory } from 'react-router';
-
-
 import MenuTop from '../components/menu_top.jsx';
 
 class LoginForm extends React.Component {
@@ -43,8 +41,8 @@ class LoginForm extends React.Component {
             }).then(
                 (res) => { browserHistory.push("/my_page") },
                 (err) => {
-                    console.log(err); 
-                    this.setState({ errors: err.response.data.errors, isLoading: false });
+                    console.log(err.response.data.errors);
+                    this.setState({ errors: err.response.data.error, isLoading: false });
                 });
     } else {
 
@@ -105,8 +103,6 @@ render() {
     );
 }
 }
-
-
 
 function mapStateToProps(state) {
     return {

@@ -1,31 +1,36 @@
 import axios from 'axios';
 
+export function setUserData(user) {
+    return {
+        type: SET_CURRENT_USER,
+        user: user
+    }
+}
+
 export function fetchUserData() {
-    console.log("action fetchUserData");
     return dispatch => {
-        return axios.get("/my_page/user").then(function (res) {
-            console.log(res);
-        })
+        return axios.get("/my_page/user")
+            .then((res) => {
+                console.log(res);
+            });
     }
 }
 
 export function forgotPassword(userInput) {
-    console.log(userInput.email);
     return dispatch => {
         return axios.post("/forgot", {
             email: userInput.email
-        }).then(function (res) {
+        }).then((res) => {
             console.log(res);
-        })
+        });
     }
 }
 
 export function changePassword(userInput) {
-
     var urlParams;
-    (window.onpopstate = function () {
+    window.onpopstate = function () {
         var match,
-            pl = /\+/g, 
+            pl = /\+/g,
             search = /([^&=]+)=?([^&]*)/g,
             decode = function (s) { return decodeURIComponent(s.replace(pl, "+")); },
             query = window.location.search.substring(1);
@@ -33,8 +38,7 @@ export function changePassword(userInput) {
         urlParams = {};
         while (match = search.exec(query))
             urlParams[decode(match[1])] = decode(match[2]);
-    })();
-    console.log(urlParams.token);
+    }();
 
     var config = {
         headers: {
@@ -44,11 +48,10 @@ export function changePassword(userInput) {
 
     return dispatch => {
         return axios.post("/reset", {
-            password: userInput.password,
-            Authorization: urlParams.token
-        }, config).then(function (res) {
+            password: userInput.password
+        }, config).then((res) => {
             console.log(res);
-        })
+        });
     }
 }
 

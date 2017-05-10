@@ -33,6 +33,8 @@ ReactDOM.render(
   , document.getElementById('app')
 );
 
+
+//UNCOMMENT THIS PIECE OF CODE TO ENABLE TO HOT-RELOADING
 if (module.hot) {
-  module.hot.accept();
+   module.hot.accept();
 }

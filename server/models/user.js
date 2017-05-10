@@ -4,13 +4,13 @@ var crypto = require('crypto-js');
 var jwt = require('jsonwebtoken');
 import config from '../../config.js';
 
-
 module.exports = function (sequelize, DataTypes) {
     var user = sequelize.define('user', {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
+            forginKey: true
 
         },
         salt: {
@@ -23,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.VIRTUAL,
             allowNull: false,
             validate: {
-                len: [7, 40]
+                len: [7, 30]   // sets min max length for password stored in database
             },
             set: function (value) {
                 var salt = bcrypt.genSaltSync(10);
@@ -62,36 +62,10 @@ module.exports = function (sequelize, DataTypes) {
                             reject();
                         });
                     });
-                },
-                findByToken: function (token) {
-                    return new Promise(function (resolve, reject) {
-                        try {
-                            var decodedJWT = jwt.verify(token, config.jwtSecret);
-                            var bytes = crypto.AES.decrypt(decodedJWT.token, config.cryptoKey);
-                            var tokenData = JSON.parse(bytes.toString(crypto.enc.Utf8));
-
-                            User.query({
-                                where: { id: decoded.id },
-                                select: ['email', 'id']
-                            })
-                                .fetch().then(function (user) {
-                                    if (user) {
-                                        resolve(user);
-                                    } else {
-                                        reject();
-                                    }
-                                }, function (e) {
-                                    reject();
-                                });
-                        } catch (e) {
-                            console.log(e);
-                            reject();
-                        }
-                    });
-                },
+                }, 
                 findByEmail: function (body) {
                     return new Promise(function (resolve, reject) {
-                         if (typeof body.email !== 'string') {
+                        if (typeof body.email !== 'string') {
                             return reject();
                         }
 
@@ -119,7 +93,7 @@ module.exports = function (sequelize, DataTypes) {
                     }
                     try {
                         var stringData = JSON.stringify({
-                            iss: '',
+                            iss: 'try.apt',
                             exp: Math.floor(Date.now() / 1000) + (60 * 30), // expires in halv hour
                             id: this.get('id'),
                             email: this.get('email'),
@@ -129,16 +103,9 @@ module.exports = function (sequelize, DataTypes) {
                         var token = jwt.sign({
                             token: stringData
                         }, config.jwtSecret);
-
-/**
-                        var encryptedData = crypto.AES
-                            .encrypt(token, config.cryptoKey)
-                            .toString();
- */
+                        
                         return token;
-
                     } catch (e) {
-                        console.log(e);
                         return undefined;
                     }
                 }

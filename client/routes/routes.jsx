@@ -13,9 +13,9 @@ import List from '../components/list.jsx';
 import LoginForm from '../components/login_form.jsx';
 import UserPage from '../components/user_page.jsx';
 import ForgotForm from '../components/forgot_form.jsx';
-import ForgotResetForm from '../components/forgot_reset_form.jsx';
-
+import ForgotResetForm from '../components/password_reset_form.jsx';
 import requireAuth from '../utils/requireAuth.js';
+
 
 
 /*

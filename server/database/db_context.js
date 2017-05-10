@@ -1,4 +1,9 @@
-var Sequelize = require('sequelize');
+import Sequelize from 'sequelize';
+import config from '../../config.js';
+import User from '../models/user';
+import Profile from '../models/profile';
+
+
 var sequelize = new Sequelize('test', 'root', null, {
     dialect: 'mysql',
     host: 'localhost',
@@ -13,12 +18,16 @@ sequelize.authenticate()
         console.log('Unable to connect to database:', err);
     });
 
+
 var db = {};
-db.user = sequelize.import(__dirname + '/models/user.js');
-db.token = sequelize.import(__dirname + '/models/token.js');
+db.user = sequelize.import(__dirname + '/../models/user.js');
+db.token = sequelize.import(__dirname + '/../models/token.js');
+db.profile = sequelize.import(__dirname + '/../models/profile.js');
+
+db.user.hasOne(db.profile);
+db.profile.belongsTo(db.user );
 
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
 module.exports = db;

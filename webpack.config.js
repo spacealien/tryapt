@@ -11,22 +11,13 @@ var config = {
         path: path.join(__dirname, '/public/bundle'),
         filename: 'bundle.js',
         publicPath: '/bundle',
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-    ],
-    devtool: 'source-map',
-    devServer: {
-        contentBase: 'public'
-    },
+    },    
     module: {
         loaders: [
             {
                 test: /\.jsx?$/,
                 loader: ['babel-loader'],
                 exclude: /node_modules/,
-
             }
         ]
     }

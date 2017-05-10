@@ -8,19 +8,15 @@ import MenuTop from './menu_top.jsx';
 class EmployeeDetails extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentWillMount() {
 
     }
 
+
     handleClick(e) {
         console.log("handleClick");
-
-        /**
-        ReactDom.render(
-            <Popup />,
-            document.getElementById('popupContainer')
-        );
-        Popup.alert('Popup test');
-         */
 
         var id = e.target.id;
         console.log(id);

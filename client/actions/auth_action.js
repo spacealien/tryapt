@@ -7,9 +7,6 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 
 export function setCurrentUser(user) {
-    console.log("user");
-    console.log(user);
-
     return {
         type: SET_CURRENT_USER,
         user: user
@@ -17,7 +14,6 @@ export function setCurrentUser(user) {
 }
 
 export function attemptLogin(userInput) {
-    console.log(attemptLogin);
     return dispatch => {
         return axios.post("/my_page/login", {
             email: userInput.email,
@@ -27,7 +23,7 @@ export function attemptLogin(userInput) {
             localStorage.setItem('jwtToken', token);
             setAuthorizationToken(token);
             dispatch(setCurrentUser(jwtDecode(token)));
-        })
+        });
     }
 };
 
