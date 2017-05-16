@@ -76,22 +76,21 @@ class UserPage extends React.Component {
     }
 
     componentWillMount() {
-        var user = JSON.parse(this.props.userToken);
-        console.log(user);
+        if (this.props.isAuthenticated) {
+            var user = JSON.parse(this.props.userToken);
+            console.log(user);
 
-        var now = Math.floor(Date.now() / 1000)
-        if(user.exp<now) {
-            this.props.logout()
-        }
+            var now = Math.floor(Date.now() / 1000)
+            if (user.exp < now) {
+                this.props.logout();
+                browserHistory.push("/my_page/login");
+            }
 
-        if (!this.props.isAuthenticated) {
-
-            console.log("redirecting");
-            browserHistory.push("/my_page/login");
-        } else {
             this.getEmployee(user);
             this.getProfile(user);
             this.getUserData();
+        } else {
+            browserHistory.push("/my_page/login");
         }
     }
 

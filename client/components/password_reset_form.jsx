@@ -32,7 +32,9 @@ class ForgotResetForm extends React.Component {
                 password: this.state.password,
                 passwordConfirm: this.state.passwordConfirm
             }).then(
-                (res) => { },
+                (res) => {
+                    
+                 },
                 (err) => {
                     console.log(err.response.data.error);
                     this.setState({ errors: err.response.data.error, isLoading: false });

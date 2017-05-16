@@ -37,7 +37,6 @@ class EmployeeView extends React.Component {
                     headline="Mennesker"
                     onSearchTermChange={(searchTerm) => this.setState({ searchTerm })}
                     mark={this.state.mark}
-                    handleMarkedEmployee={(employee) => this.handleMarkedEmployee(employee)}
                     onMenuClick={(e) => this.onMenuClick(e)}
                 />
 

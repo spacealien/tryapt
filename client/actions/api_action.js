@@ -8,7 +8,19 @@ export function fetchUserData() {
     }
 }
 
+
+
+// fetches a employee from json file with matching
+export function fetchEmployee(email) {
+    return dispatch => {
+        return axios.post("/people/employee", {
+            email: email
+        });
+    }
+}
+
 // fetches public profile data
+// linkedn, and experience
 export function fetchProfileData(email) {
     return dispatch => {
         return axios.post("/people/profile", {
@@ -17,13 +29,6 @@ export function fetchProfileData(email) {
     }
 }
 
-export function fetchEmployee(email) {
-    return dispatch => {
-        return axios.post("/people/employee", {
-            email: email
-        });
-    }
-}
 
 // save changges to profile data in my page view
 export function submitProfileChanges(profile) {
@@ -34,7 +39,11 @@ export function submitProfileChanges(profile) {
     }
 }
 
+
+
+// sends post request with email to send reset link to 
 export function forgotPassword(userInput) {
+    console.log(userInput);
     return dispatch => {
         return axios.post("/forgot", {
             email: userInput.email
@@ -44,6 +53,9 @@ export function forgotPassword(userInput) {
     }
 }
 
+
+
+// change user password
 export function changePassword(userInput) {
     var urlParams;
     window.onpopstate = function () {

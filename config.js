@@ -20,11 +20,6 @@ export default {
                 user: 'aptemailtester1@gmail.com', 
                 pass: 'passord123' 
             }
-        },
-        mailOptions: {
-            from: 'aptemailtester1@gmail.com', // sender address
-            subject: 'TILBAKESTILL PASSORD', // Subject line
-
         }
     }
 } // end config

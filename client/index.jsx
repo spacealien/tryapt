@@ -13,6 +13,7 @@ import { setCurrentUser } from './actions/auth_action';
 import jwtDecode from 'jwt-decode';
 import App from './app.jsx';
 
+
 const createStoreWithMiddleWare = applyMiddleware(ReduxThunk)(createStore);
 var store = createStoreWithMiddleWare(reducers);
 

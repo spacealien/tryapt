@@ -32,10 +32,16 @@ class ForgotForm extends React.Component {
 
             this.props.forgotPassword(this.state).then(
                 (res) => {
-                    this.setState({ message: res.data.message });
+                    this.setState({
+                        message: res.data.message,
+                        isLoading: false
+                    });
                 },
                 (err) => {
-                    this.setState({ errors: err.response.data.error, isLoading: false });
+                    this.setState({
+                        errors: err.response.data.error,
+                        isLoading: false
+                    });
                 });
         }
     }
@@ -47,8 +53,8 @@ class ForgotForm extends React.Component {
             <div className="col-sm-12">
                 <div className="input-group input-group-lg">
                     {errors.error && <span className="help-block">{errors.error}</span>}
-                   
-                   
+
+
                     <label htmlFor="email">Email: </label>
                     <input id="email" className="form-control" onChange={(e) => this.setState({ email: e.target.value })} />
 

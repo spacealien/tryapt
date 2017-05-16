@@ -5,9 +5,16 @@ import GridListTab from './grid_list_tab.jsx';
 import SearchBar from './search_bar.jsx';
 
 import { connect } from 'react-redux';
-import { fetchEmployees, selectEmployee, markEmployee, unmarkAllEmployees, updateSorting } from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
+import {
+    fetchEmployees,
+    selectEmployee,
+    markEmployee,
+    unmarkEmployee,
+    unmarkAllEmployees,
+    updateSorting
+} from '../actions/employee_action';
 
 
 class List extends React.Component {
@@ -28,16 +35,22 @@ class List extends React.Component {
         );
     }
 
+    isMarked(employee) {
+        var marked = false;
+        return this.props.employees.marked.indexOf(employee) > -1 ? marked = true : marked = false;
+    }
+
     handleClick(employee) {
-        console.log(employee);
         if (this.props.mark === true) {
-            this.props.markEmployee(employee);
+
+            this.isMarked(employee) ?
+                this.props.unmarkEmployee(employee) : this.props.markEmployee(employee);
+
         } else {
             const path = '/people/details';
             this.props.selectEmployee(employee);
             browserHistory.push(path);
         }
-        console.log(this.props.employees.marked);
     }
 
     renderList() {
@@ -90,7 +103,7 @@ class List extends React.Component {
     }
 
     render() {
-        console.log(this.props.employees.mark);
+        console.log(this.props.employees.all);
         if (this.state.view === 'list') {
             return (
                 <ul className="list-group list-unstyled">
@@ -114,4 +127,11 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps,
-    { fetchEmployees, selectEmployee, markEmployee, unmarkAllEmployees, updateSorting })(List);
+    {
+        fetchEmployees,
+        selectEmployee,
+        markEmployee,
+        unmarkEmployee,
+        unmarkAllEmployees,
+        updateSorting
+    })(List);

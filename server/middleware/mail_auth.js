@@ -34,7 +34,7 @@ export default (req, res, next) => {
                     select: ['email', 'id']
                 }).then(user => {
                     if (!user) {
-                        res.status(404).json({ error: 'user not found' });
+                        reject('Invalid reset link');
                     }
                     req.currentUser = user;
                     next();
@@ -43,7 +43,7 @@ export default (req, res, next) => {
         })
     }
     else {
-        res.status(403).send();
+        reject({error: 'Invalid Reset Link'});
     }
 }
 

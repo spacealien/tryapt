@@ -7,13 +7,13 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 
 export function setCurrentUser(user) {
-
     return {
         type: SET_CURRENT_USER,
         user: user
     }
 }
 
+// Attempt a login
 export function attemptLogin(userInput) {
     return dispatch => {
         return axios.post("/my_page/login", {
@@ -28,6 +28,8 @@ export function attemptLogin(userInput) {
     }
 };
 
+
+// Logout method, removes token from storage.
 export function logout() {
     return dispatch => {
         localStorage.removeItem('jwtToken');

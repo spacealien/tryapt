@@ -29,8 +29,8 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
-        case FETCH_EMPLOYEES:
 
+        case FETCH_EMPLOYEES:
             const data = action.payload.apt
                 .concat(action.payload.try)
                 .concat(action.payload.opt)
@@ -188,6 +188,15 @@ export default function (state = INITIAL_STATE, action) {
 
         case MARK_EMPLOYEE:
             var array = state.marked;
+            return Object.assign({}, state, {
+                marked: array.concat(action.payload)
+            });
+
+        case UNMARK_EMPLOYEE:
+            console.log("UNMARK_EMPLOYEE");
+            console.log(state.marked);
+
+            var array = state.marked;
             var index = array.indexOf(action.payload);
 
             if (index !== -1) {
@@ -195,23 +204,21 @@ export default function (state = INITIAL_STATE, action) {
                 return Object.assign({}, state, {
                     marked: array
                 });
-            } else {
-                return Object.assign({}, state, {
-                    marked: array.concat(action.payload)
-                });
             }
 
+            break;
         case MARK_ALL_EMPLOYEES:
             const array = state.all;
+
             return Object.assign({}, state, {
-                marked: array
+                marked: array.slice()
             });
 
         case UNMARK_ALL_EMPLOYEES:
+
             return Object.assign({}, state, {
                 marked: []
             });
-
         default:
             return state;
     }

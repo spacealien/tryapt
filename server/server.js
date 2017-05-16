@@ -11,7 +11,7 @@ import helmet from 'helmet';
 import request from 'request';
 import middleware from './middleware/middleware';
 import authentication from './middleware/auth';
-import resetValidator from './middleware/mail_auth'
+import mailAuthentication from './middleware/mail_auth'
 
 import validateLogin from './shared/validation/login_validation';
 import mailer from 'nodemailer';
@@ -22,7 +22,6 @@ import config from '../config';
 //import  test data to populate database
 import TryJSON from '../try.json';
 import AptJSON from '../apt.json';
-
 
 // import for hot-reloading
 import webpack from 'webpack';
@@ -51,7 +50,7 @@ app.use(helmet());
 app.use(express.static(__dirname + '/../public')); // handles request for static files
 
 
-// LOGIN TEST URL
+// Login post request 
 app.post('/my_page/login', function (req, res) {
     var body = _.pick(req.body, 'email', 'password');
     const { errors, isValid } = validateLogin(body);
@@ -61,10 +60,13 @@ app.post('/my_page/login', function (req, res) {
     }
 
     var userInstance;
+
+    // Uses class method in user model to authenticate user.
     db_context.user.authenticate(body).then(function (user) {
         var token = user.generateToken('authentication');
         userInstance = user;
         return token;
+
     }).then(function (token) {
         res.json({ token });
     }).catch(function (e) {
@@ -74,7 +76,7 @@ app.post('/my_page/login', function (req, res) {
 });
 
 
-// updates user profile
+// Updates user profile
 app.post('/my_page/update', authentication, function (req, res) {
     var body = _.pick(req.body, 'user', 'profile');
     var attributes = {};
@@ -86,6 +88,7 @@ app.post('/my_page/update', authentication, function (req, res) {
     if (body.profile.experience) {
         attributes.experience = body.profile.experience;
     }
+
 
     db_context.profile.findOne({
         where: {
@@ -106,26 +109,25 @@ app.post('/my_page/update', authentication, function (req, res) {
             );
         }
     });
-});
 
+}); //end /my_page/update
+
+
+// Get method for fetching employees from json file 
 app.get('/people', function (req, res) {
     var body = _.pick(req.body, 'email');
 
-
-    // BØR ENDRES TIL TIL Å LESE FIL ASYNC 
     var employees = {
         try: JSON.parse(fs.readFileSync('try.json')),
         apt: JSON.parse(fs.readFileSync('apt.json')),
         opt: JSON.parse(fs.readFileSync('opt.json'))
     };
-    
-    console.log(employees),
 
     res.status(200).json({ employees: employees });
 });
 
 
-// finds public profile
+// Finds public profile
 app.post('/people/profile', function (req, res) {
     var body = _.pick(req.body, 'email');
 
@@ -151,12 +153,13 @@ app.post('/people/profile', function (req, res) {
 });
 
 
-// HER SKAL SYKEDAGER OG FRAVÆR SENDES MED HER
+// Get method for fetching private user data
 app.get('/my_page/user_data', authentication, function (req, res) {
     var body = _.pick(req.body, 'email');
     res.status(200).json({ userData: 'melding' });
 });
 
+//
 app.post("/reset", authentication, function (req, res) {
     var body = _.pick(req.body, 'password');
 
@@ -173,12 +176,25 @@ app.post("/reset", authentication, function (req, res) {
     });
 });
 
-app.get('/reset*', function (req, res) {
+// Get request for navigating to password reset page 
+// after clicking email link.
+// Must check if reset token is still valid
+
+app.get('/reset*', mailAuthentication, function (req, res) {
+
+    
+
+
+
+
     res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
 
+// Get request for creating password reset link
 app.post('/forgot', function (req, res) {
     var body = _.pick(req.body, 'email');
+
+    console.log(body);
 
     db_context.user.findByEmail(body).then(function (user) {
         var token = user.generateToken('email_token');
@@ -190,11 +206,14 @@ app.post('/forgot', function (req, res) {
     }).then(function (e) {
         var transporter = mailer.createTransport(config.mailer.transport);
 
-        concosle.log(e.user);
-        var mailOptions = config.mailOptions;
-        mailOptions.to = 's236313@stud.hioa.no';
-        mailOptions.html = '<a href="https://localhost:3000/reset?token='
-            + e.token + '">Tilbakestill passord</a>' // You can choose to send an HTML body instead;
+
+        var mailOptions = {
+            to: 's236313@stud.hioa.no',
+            from: 'aptemailtester1@gmail.com',
+            subject: 'TILBAKESTILL PASSORD',
+            html: '<a href="https://localhost:3000/reset?token=' +
+            e.token + '<a>Tilbakestill passord</a>'
+        }
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
@@ -204,16 +223,21 @@ app.post('/forgot', function (req, res) {
             };
         });
     }).catch(function (e) {
+        console.log(e);
         res.status(500).json({ errors: 'En feil har oppstått' }).send();
     });
 });
 
+
+// Get method for redirecting all traffic 
+// that does not match any url.
 app.get('/*', function (req, res) {
     res.redirect('/');
 });
 
+// Method for creating database
 db_context.sequelize.sync({
-    force: true
+    force: true 
 }).then(function (res) {
 
     for (var i = 0; i < TryJSON.length; i++) {
@@ -280,7 +304,9 @@ db_context.sequelize.sync({
 });
 
 
-// REDIRECTS FROM HTTP TO HTTPS
+
+// forces all every request on http protocol 
+// use to https protocol
 var HTTP_PORT = 8080;
 var HTTPS_PORT = 3000;
 

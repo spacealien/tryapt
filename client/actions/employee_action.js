@@ -11,6 +11,7 @@ export const REMOVE_EMPLOYEE = 'REMOVE_EMPLOYEE';
 export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
 export const UPDATE_CHECKED = 'UPDATE_CHECKED';
 export const MARK_EMPLOYEE = 'MARK_EMPLOYEE';
+export const UNMARK_EMPLOYEE = 'UNMARK_EMPLOYEE';
 export const MARK_ALL_EMPLOYEES = 'MARK_ALL_EMPLOYEES';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 export const FETCH_EMPLOYEE = 'FETCH_EMPLOYEE';
@@ -100,6 +101,14 @@ export function markEmployee(employee) {
         type: MARK_EMPLOYEE,
         payload: employee
     };
+}
+
+export function unmarkEmployee(employee) {
+    return {
+        type: UNMARK_EMPLOYEE,
+        payload: employee
+    };
+
 }
 
 export function markAllEmployees() {
