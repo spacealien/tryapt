@@ -17,8 +17,14 @@ class LoginForm extends React.Component {
         }
     }
 
+    componentWillMount() {
+        if(this.props.isAuthenticated) {
+            browserHistory.push('/my_page');
+        }
+    }
+
     handleClick(e) {
-        
+
     }
 
     isValid(e) {
@@ -39,73 +45,108 @@ class LoginForm extends React.Component {
                 email: this.state.email,
                 password: this.state.password
             }).then(
-                (res) => { browserHistory.push("/my_page") },
+                (res) => {
+                    console.log(res);
+                    browserHistory.push("/my_page");
+                },
                 (err) => {
-                    console.log(err.response.data.errors);
+                    console.log(err);
                     this.setState({ errors: err.response.data.error, isLoading: false });
                 });
-    } else {
-
-}
+        } 
     }
 
-onForget(e) {
-    e.preventDefault();
-    browserHistory.push("/forgot");
-}
+    onForget(e) {
+        e.preventDefault();
+        browserHistory.push("/forgot");
+    }
 
-render() {
-    const { errors, email, password, isLoading } = this.state;
+    render() {
+        const { errors, email, password, isLoading } = this.state;
 
-    return (
+        return (
+            <div className="container">
 
-        <div className="container">
+                <MenuTop
+                    menu="default"
+                    headline="Login" />
 
-            <MenuTop
-                menu="default"
-                headline="Login" />
+                <form id="loginForm" className="login" onSubmit={(e) => this.onSubmit(e)}>
+                    <div className="form-group row">
+                        <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>
+                        <div className="col-sm-10">
 
-            <form className="login">
-                <div className="form-group row">
-                    <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>
-                    <div className="col-sm-10">
+                            <input
+                                className="form-control"
+                                id="email"
+                                onInput={(e) => this.setState({ email: e.target.value })}
+                                type="email"
+                                placeholder="Email"
+                                autoComplete="on" />
 
-                        <input className="form-control" id="inputEmail"
+                            {errors.email && <span className="help-block">{errors.email}</span>}
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <span className="col-sm-2 glyphicon glyphicon-asterisk login-icons"></span>
+                        <div className="col-sm-10">
+
+                            <input
+                                className="form-control"
+                                id="password"
+                                onInput={(e) => this.setState({ password: e.target.value })}
+                                type="password"
+                                placeholder="Password"
+                                autoComplete="on" />
+
+                            {errors.password && <span className="help-block">{errors.password}</span>}
+                        </div>
+                    </div>
+
+                    <div>
+                        <a id="forgot" onClick={(e) => this.onForget(e)} href="forgot">Tilbakestill password</a>
+                    </div>
+
+                    <div className="form-group row login-row">
+                        <div className="col-sm-12">
+                            <button className="btn btn-primary login-btn" type="submit" >Logg inn</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        );
+
+        /**
+                return (
+                    <form id="loginForm" className="login" onSubmit={(e) => this.onSubmit(e)}>
+                        <input
+                            className="form-control"
+                            id="email"
                             onInput={(e) => this.setState({ email: e.target.value })}
                             type="email"
-                            placeholder="Email" />
-                        {errors.email && <span className="help-block">{errors.email}</span>}
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <span className="col-sm-2 glyphicon glyphicon-asterisk login-icons"></span>
-                    <div className="col-sm-10">
-
-                        <input className="form-control" id="inputPassword"
+                            placeholder="Email"
+                            autoComplete="on" />
+        
+                        <input
+                            className="form-control"
+                            id="password"
                             onInput={(e) => this.setState({ password: e.target.value })}
                             type="password"
-                            placeholder="Password" />
-                        {errors.password && <span className="help-block">{errors.password}</span>}
-                    </div>
-                </div>
+                            placeholder="Password"
+                            autoComplete="on" />
+        
+                        <button className="btn btn-primary login-btn" type="submit" >Logg inn</button>
+                    </form>
+                );
+         */
 
-                <div>
-                    <a id="forgot" onClick={(e) => this.onForget(e)} href="forgot">Tilbakestill password</a>
-                </div>
 
-                <div className="form-group row login-row">
-                    <div className="col-sm-12">
-                        <button className="btn btn-primary login-btn" type="button" onClick={(e) => this.onSubmit(e)} >Logg inn</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    );
-}
+    }
 }
 
 function mapStateToProps(state) {
     return {
+        isAuthenticated: state.auth.isAuthenticated,
         selectedEmployee: state.employees.selectedEmployee
     };
 }

@@ -10,20 +10,18 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import setAuthorizationToken from './utils/setAuthorizationToken.js';
 import { setCurrentUser } from './actions/auth_action';
-
 import jwtDecode from 'jwt-decode';
-
 import App from './app.jsx';
 
 const createStoreWithMiddleWare = applyMiddleware(ReduxThunk)(createStore);
 var store = createStoreWithMiddleWare(reducers);
 
-console.log(localStorage.jwtToken);
-
 if (localStorage.jwtToken) {
-  console.log("setting user data");
   setAuthorizationToken(localStorage.jwtToken);
   store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+} else {
+  setAuthorizationToken(false);
+  store.dispatch(setCurrentUser({}));
 }
 
 ReactDOM.render(
@@ -36,5 +34,5 @@ ReactDOM.render(
 
 //UNCOMMENT THIS PIECE OF CODE TO ENABLE TO HOT-RELOADING
 if (module.hot) {
-   module.hot.accept();
+  module.hot.accept();
 }

@@ -1,19 +1,20 @@
 import {
-FETCH_EMPLOYEES,
-        SELECT_EMPLOYEE,
-        SEARCH_EMPLOYEE,
-        FILTER_EMPLOYEE,
-        TOGGLE_POSITION,
-        TOGGLE_EMPLOYEE,
-        REMOVE_EMPLOYEE,
-        ADD_EMPLOYEE,
-        UNCHECK_ALL_POSITIONS,
-        UPDATE_CHECKED,
-        MARK_EMPLOYEE,
-        UNMARK_EMPLOYEE,
-        MARK_ALL_EMPLOYEES,
-        UNMARK_ALL_EMPLOYEES
-        } from '../actions/employee_action';
+    FETCH_EMPLOYEES,
+    SELECT_EMPLOYEE,
+    SEARCH_EMPLOYEE,
+    FILTER_EMPLOYEE,
+    TOGGLE_POSITION,
+    TOGGLE_EMPLOYEE,
+    REMOVE_EMPLOYEE,
+    ADD_EMPLOYEE,
+    UNCHECK_ALL_POSITIONS,
+    UPDATE_CHECKED,
+    MARK_EMPLOYEE,
+    UNMARK_EMPLOYEE,
+    MARK_ALL_EMPLOYEES,
+    UNMARK_ALL_EMPLOYEES,
+    FETCH_EMPLOYEE
+} from '../actions/employee_action';
 
 const INITIAL_STATE = {
     all: [],
@@ -22,15 +23,17 @@ const INITIAL_STATE = {
     checked: [],
     positions: [],
     showAfter: 'department',
-    selectedEmployee: null
+    selectedEmployee: null,
 };
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case FETCH_EMPLOYEES:
-            const data = action.payload[0].data
-                    .concat(action.payload[1].data);
-
+                
+            const data = action.payload.apt;
+            data.concat(action.payload.try);
+            data.concat(action.payload.opt);
+        
             return Object.assign({}, state, {
                 all: data,
                 visible: data
@@ -48,9 +51,28 @@ export default function (state = INITIAL_STATE, action) {
 
         case FILTER_EMPLOYEE:
             // filtrere data her her
-
             return Object.assign({}, state, {
                 visible: newList
+            });
+
+        case FETCH_EMPLOYEE:
+            console.log("redyucer");
+            var emp = null;
+
+            console.log(action.payload);
+
+            for (var i = 0; i < state.all.length; i++) {
+                if (state.all[i].email == action.payload.email) {
+                    console.log("MATCH");
+                    emp = state.all[i];
+
+                    return Object.assign({}, state, {
+                        selectedEmployee: emp
+                    });
+                }
+            }
+            return Object.assign({}, state, {
+                selectedEmployee: null
             });
 
         case TOGGLE_POSITION:
@@ -116,8 +138,7 @@ export default function (state = INITIAL_STATE, action) {
             });
 
         case UPDATE_CHECKED:
-            switch (action.payload[0])
-            {
+            switch (action.payload[0]) {
                 case 'position':
                     if (action.payload[1] === 'department') {
                         state.showAfterDepartment = true;
@@ -193,5 +214,5 @@ export default function (state = INITIAL_STATE, action) {
 
         default:
             return state;
-}
+    }
 }

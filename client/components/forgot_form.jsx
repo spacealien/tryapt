@@ -11,6 +11,7 @@ class ForgotForm extends React.Component {
         this.state = {
             email: '',
             errors: {},
+            message: {},
             isLoading: false
         }
     }
@@ -18,7 +19,7 @@ class ForgotForm extends React.Component {
     isValid(e) {
         const { errors, isValid } = validateInput(this.state);
         if (!isValid) {
-            this.setState({ errors });
+            this.setState({ errors: errors });
         }
         return isValid;
     }
@@ -27,22 +28,31 @@ class ForgotForm extends React.Component {
         e.preventDefault();
 
         if (this.isValid()) {
+            this.setState({ errors: {}, isLoading: true });
+
             this.props.forgotPassword(this.state).then(
-                (res) => { },
+                (res) => {
+                    this.setState({ message: res.data.message });
+                },
                 (err) => {
-                    console.log(err.response.data.errors);
                     this.setState({ errors: err.response.data.error, isLoading: false });
-                }
-            );
+                });
         }
     }
 
     render() {
+        const { errors, isLoading } = this.state;
+
         return (
             <div className="col-sm-12">
                 <div className="input-group input-group-lg">
+                    {errors.error && <span className="help-block">{errors.error}</span>}
+                   
+                   
                     <label htmlFor="email">Email: </label>
                     <input id="email" className="form-control" onChange={(e) => this.setState({ email: e.target.value })} />
+
+                    {errors.email && <span className="help-block">{errors.email}</span>}
                     <br></br>
                     <button className="btn" onClick={(e) => this.onSubmit(e)} value="submit">Tilbakestill</button>
                 </div>

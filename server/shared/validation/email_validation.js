@@ -9,5 +9,13 @@ export default function emailValidator(data) {
         errors.email = 'Dette feltet er påkrevd';
     }
 
+
+
+
+
+
+
+    
+
     return { errors, isValid: _.isEmpty(errors) };
 }

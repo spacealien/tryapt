@@ -31,30 +31,31 @@ class Menu extends React.Component {
                 <nav className="navbar navbar-default navbar-fixed-bottom">
                     <div className="navbar-header">
                         <div className="row">
-                            <div className="col-sm-3">
-                                <div className="menu-bottom-cl">
-                                    <i id="home" onClick={(e) => this.handleClick(e)} className="material-icons icons-menu-bottom">home</i>
 
-                                </div>
-                            </div>
-                            <div className="col-sm-3">
-                                <div className="menu-bottom-cl">
-                                    <i id="people" onClick={(e) => this.handleClick(e)} className="material-icons icons-menu-bottom">people</i>
-                                </div>
+                            <div className="col-sm-3 menu-bottom-cl">
+                                <button className="btn menu-bottom" onClick={(e) => this.handleClick(e)}>
+                                    <i id="home" className="material-icons icons-menu-bottom">home</i>
+                                </button>
                             </div>
 
-                            <div className="col-sm-3">
-                                <div className="menu-bottom-cl">
-                                    <i id="login" onClick={(e) => this.handleClick(e)} className="material-icons icons-menu-bottom">account_box</i>
-
-                                </div>
+                            <div className="col-sm-3 menu-bottom-cl">
+                                <button className="btn menu-bottom" onClick={(e) => this.handleClick(e)}>
+                                    <i id="people" className="material-icons icons-menu-bottom">people</i>
+                                </button>
                             </div>
-                            <div className="col-sm-3">
 
-                                <div className="menu-bottom-cl">
-                                    <i id="info" className="info" onClick={(e) => this.handleClick(e)} className="material-icons icons-menu-bottom">info</i>
-                                </div>
+                            <div className="col-sm-3 menu-bottom-cl">
+                                    <button className="btn menu-botton" onClick={(e) => this.handleClick(e)}>
+                                        <i id="login" className="material-icons icons-menu-bottom">account_box</i>
+                                    </button>
                             </div>
+
+                            <div className="col-sm-3 menu-bottom-cl">
+                                <button className="btn menu-botton" onClick={(e) => this.handleClick(e)}>
+                                    <i id="info" className="material-icons icons-menu-bottom">info</i>
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </nav>

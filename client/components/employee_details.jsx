@@ -2,16 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactDom from 'react-dom';
 import MenuTop from './menu_top.jsx';
-
+import { fetchProfileData } from '../actions/api_action';
 
 
 class EmployeeDetails extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            profile: {}
+        };
     }
 
     componentWillMount() {
+        const employee = this.props.selectedEmployee;
 
+        this.props.fetchProfileData(employee.email).then(
+            (res) => { 
+                this.setState({ profile: res.data.profile });
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     }
 
 
@@ -23,7 +35,6 @@ class EmployeeDetails extends React.Component {
 
         switch (id) {
             case "email":
-                console.log("email btn pressed");
                 this.sendEmail();
                 break;
             case "mobile":
@@ -61,6 +72,9 @@ class EmployeeDetails extends React.Component {
 
     render() {
         const employee = this.props.selectedEmployee;
+        const profile = this.state.profile;
+        console.log(profile);
+
         return (
             <div>
                 <MenuTop
@@ -109,22 +123,22 @@ class EmployeeDetails extends React.Component {
                             </div>
                         </div>
 
-                        <div id="addContact" className="row" onClick={(e) => this.handleClick(e)} >
+                        {/*<div id="addContact" className="row" onClick={(e) => this.handleClick(e)} >
                             <div className="col-sm-4">
                                 <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-add-128.png" />
                             </div>
                             <div id="addContact" className="col-sm-8">
                                 Legg til i kontakter
                                 </div>
-                        </div>
+                        </div>*/}
 
                         <div id="linkedin" className="row" onClick={(e) => this.handleClick(e)}>
                             <div className="col-sm-4">
                                 <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_gray-128.png" />
                             </div>
                             <div id="linkedin" className="col-sm-8">
-                                linkedin.com/in/brukernavn-123
-                                </div>
+                                {profile.linkedIn}
+                            </div>
                         </div>
                         <div id="popupContainer"></div>
                     </div>
@@ -141,6 +155,6 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(EmployeeDetails);
+export default connect(mapStateToProps, { fetchProfileData })(EmployeeDetails);
 
 

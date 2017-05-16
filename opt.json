@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Anders Nymoen Valseth",
+        "email": "Anders@taopt.no",
+        "mobile": "40219054",
+        "jobtitle": "Head of Search Engine Marketing",
+        "image": "http:\/\/taopt.no\/uploads\/images\/20170331\/a7e6f5e9a0b8673da8298ea5e96283918b7ab86b.png",
+        "company": "opt"
+    },
+    {
+        "name": "Gunnar Stensaker",
+        "email": "Gunnar@taopt.no",
+        "mobile": "41679241",
+        "jobtitle": "Daglig leder",
+        "image": "http:\/\/taopt.no\/uploads\/images\/20170130\/2cd29b93757f508d1647cff6cb43267a5bc96205.png",
+        "company": "opt"
+    },
+    {
+        "name": "Hanne Henriksen",
+        "email": "Hanne@taopt.no",
+        "mobile": "97718736",
+        "jobtitle": "Kundeansvarlig",
+        "image": "http:\/\/taopt.no\/uploads\/images\/20170127\/82e2d17f017fe9ec59314a437dd49c0e9925a0cc.png",
+        "company": "opt"
+    },
+    {
+        "name": "Trine Humlen",
+        "email": "Trine@taopt.no",
+        "mobile": "92891062",
+        "jobtitle": "Head of Paid Social",
+        "image": "http:\/\/taopt.no\/uploads\/images\/20170509\/cad9f28a82a76d93e91febe6c13fb6f172a7f90c.png",
+        "company": "opt"
+    }
+]

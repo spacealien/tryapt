@@ -111,9 +111,25 @@ li  {
 }
 
 .menu-bottom-cl {
-    width: 100%;
     text-align: center;
     height: 100%;
+    display: inline-block;
+}
+
+
+.menu-bottom-cl > .btn {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.menu-bottom-cl > .btn:active {
+   color: #3e8e41;
+   transform: translateY(4px);
+   outline:none;
 }
 
 .infotab {
@@ -337,10 +353,16 @@ input::-webkit-input-placeholder {
     padding: 10px;
     margin-top: 55px;
 }
+.my-profile-box {
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 55px;
+}
 .profile-box p{
     text-transform: capitalize;
 }
-.profile-box .col-sm-8 {
+.profile-box .col-sm-8, .my-profile-box .col-sm-4, .my-profile-box .col-sm-6 {
     vertical-align: middle;
     display: inline-block;
     /* height: 100px; */
@@ -518,3 +540,39 @@ input::-webkit-input-placeholder {
     text-align: center;
     font-size: 40px;
 }*/
+.linkedInTextField {
+    display: inline;
+    border: 1px solid #eee;
+    width: 100%;
+    height: 80%;
+    overflow: scroll;
+}
+
+.my-profile-box textarea {
+    /*margin: 10px;*/
+    padding: 10px;
+    overflow: scroll;
+    /*max-height: 300px;*/
+    width: 100%;
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+}
+.btn-expand-textarea {
+    width: 100%;
+    height: 80px;
+    font-size: 40px;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

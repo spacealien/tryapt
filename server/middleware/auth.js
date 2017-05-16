@@ -16,7 +16,6 @@ export default (req, res, next) => {
                 var stringData = JSON.parse(decoded.token);
                 console.log(stringData);
 
-
                 var now = Math.floor(Date.now() / 1000);
                 var exp = stringData.exp;
 
@@ -27,8 +26,10 @@ export default (req, res, next) => {
                             email: stringData.email
                         },
                         select: ['email', 'id']
-                    }).then(user => {
+                    }).then( (user) => {
+
                         if (!user) {
+                            console.log("FINNER IKKE EN DRITT");
                             res.status(404).json({ error: 'user not found' });
                         }
                         req.currentUser = user;

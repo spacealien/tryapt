@@ -7,6 +7,7 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 
 export function setCurrentUser(user) {
+
     return {
         type: SET_CURRENT_USER,
         user: user
@@ -27,7 +28,7 @@ export function attemptLogin(userInput) {
     }
 };
 
-export function logout(data) {
+export function logout() {
     return dispatch => {
         localStorage.removeItem('jwtToken');
         setAuthorizationToken(false);

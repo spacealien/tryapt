@@ -21,13 +21,13 @@ class EmployeeView extends React.Component {
             mark: false,
             viewTab: 'visible'
         };
+
     }
 
     onMenuClick(e) {
         this.setState({ mark: e });
         this.setState({ markedEmployeeList: [] });
     }
-
 
     render() {
         return (
@@ -45,13 +45,8 @@ class EmployeeView extends React.Component {
                     mark={this.state.mark}
                     searchTerm={this.state.searchTerm} />
 
-
             </div>
-
-
-
         );
     }
 }
-
 export default EmployeeView;

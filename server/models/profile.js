@@ -12,6 +12,9 @@ module.exports = function (sequelize, DataTypes) {
         },
         experience: {
             type: DataTypes.STRING,
+            validate: {
+                len: [0,500]
+            } 
         }
     }, {
         /** 

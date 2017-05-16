@@ -1,18 +1,36 @@
 import axios from 'axios';
 
-export function setUserData(user) {
-    return {
-        type: SET_CURRENT_USER,
-        user: user
+
+// fetches private user data
+export function fetchUserData() {
+    return dispatch => {
+        return axios.get("/my_page/user_data")
     }
 }
 
-export function fetchUserData() {
+// fetches public profile data
+export function fetchProfileData(email) {
     return dispatch => {
-        return axios.get("/my_page/user")
-            .then((res) => {
-                console.log(res);
-            });
+        return axios.post("/people/profile", {
+            email: email
+        });
+    }
+}
+
+export function fetchEmployee(email) {
+    return dispatch => {
+        return axios.post("/people/employee", {
+            email: email
+        });
+    }
+}
+
+// save changges to profile data in my page view
+export function submitProfileChanges(profile) {
+    return dispatch => {
+        return axios.post("/my_page/update", {
+            profile: profile
+        });
     }
 }
 

@@ -1,13 +1,14 @@
 import express from 'express';
 import fs from 'fs';
 import https from 'https';
-import http from 'http';
+import http from 'http'
 
 import bodyParser from 'body-parser';
 import _ from 'underscore';
 import db_context from './database/db_context';
 import bcrypt from 'bcrypt';
 import helmet from 'helmet';
+import request from 'request';
 import middleware from './middleware/middleware';
 import authentication from './middleware/auth';
 import resetValidator from './middleware/mail_auth'
@@ -19,8 +20,9 @@ import path from 'path';
 import config from '../config';
 
 //import  test data to populate database
-import TryJSON from '../try_persons';
-import AptJSON from '../apt_persons';
+import TryJSON from '../try.json';
+import AptJSON from '../apt.json';
+
 
 // import for hot-reloading
 import webpack from 'webpack';
@@ -33,7 +35,6 @@ var PORT = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV != 'production') {
     console.log("development");
-
 
     const compiler = webpack(webpackConfig);
     app.use(webpackMiddleware(compiler, {
@@ -66,16 +67,15 @@ app.post('/my_page/login', function (req, res) {
         return token;
     }).then(function (token) {
         res.json({ token });
-
     }).catch(function (e) {
         console.log(e);
-        res.status(401).json({ errors: 'Ugyldig brukernavn/passord' }).send();
+        res.status(401).json({ message: 'Ugyldig brukernavn/passord' }).send();
     });
 });
 
 
 // updates user profile
-app.put('/my_page/user/update', authentication, function (req, res) {
+app.post('/my_page/update', authentication, function (req, res) {
     var body = _.pick(req.body, 'user', 'profile');
     var attributes = {};
 
@@ -89,12 +89,11 @@ app.put('/my_page/user/update', authentication, function (req, res) {
 
     db_context.profile.findOne({
         where: {
-            userId: req.body.user
+            userId: req.currentUser.id
         }
     }).then(function (profile) {
         if (profile) {
             profile.update(attributes).then(
-
                 function (profile) {
                     res.json(profile.toJSON());
                 },
@@ -102,52 +101,60 @@ app.put('/my_page/user/update', authentication, function (req, res) {
                     res.status(400).json({ error: '' });
                 },
                 function () {
-                    res.status(500).send();
+                    res.status(500).json().send();
                 }
             );
         }
     });
 });
 
+app.get('/people', function (req, res) {
+    var body = _.pick(req.body, 'email');
+
+
+    // BØR ENDRES TIL TIL Å LESE FIL ASYNC 
+    var employees = {
+        try: JSON.parse(fs.readFileSync('try.json')),
+        apt: JSON.parse(fs.readFileSync('apt.json')),
+        opt: JSON.parse(fs.readFileSync('opt.json'))
+    };
+    
+    console.log(employees),
+
+    res.status(200).json({ employees: employees });
+});
+
+
 // finds public profile
-app.get('/people/details', function (req, res) {
+app.post('/people/profile', function (req, res) {
     var body = _.pick(req.body, 'email');
 
     db_context.user.findOne({
         where: {
             email: body.email
         }
-    }).then( function(user) {
-        user.getProfile({
-            where: {
-                userId: user.id
-            }
-        }).then( function(profile) {
-            res.status(200).json({profile: profile})
-        });
+    }).then(function (user) {
+
+        if (user) {
+            user.getProfile({
+                where: {
+                    userId: user.id
+                }
+            }).then(function (profile) {
+                res.status(200).json({ profile: profile })
+            });
+        } else {
+            res.status().json({ message: '' });
+        }
     });
+
 });
 
+
 // HER SKAL SYKEDAGER OG FRAVÆR SENDES MED HER
-app.get('/my_page/user', authentication, function (req, res) {
+app.get('/my_page/user_data', authentication, function (req, res) {
     var body = _.pick(req.body, 'email');
-
-    // db_context.profile.findOne({
-    //     where: {
-    //         email: body.email
-    //     }
-    // }).then(
-    //     function (profile) {
-    //         res.status(200).json({
-    //             profile: profile
-    //         });
-    //     },
-    //     function (error) {
-
-    //     },
-    //     function () {
-
-    //     });
+    res.status(200).json({ userData: 'melding' });
 });
 
 app.post("/reset", authentication, function (req, res) {
@@ -166,14 +173,6 @@ app.post("/reset", authentication, function (req, res) {
     });
 });
 
-app.post('/register', function (req, res) {
-
-});
-
-
-/**
- * lage en auth funksjon for å se om reset link er gyldig, sette utløpsdato på token
- */
 app.get('/reset*', function (req, res) {
     res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
@@ -217,38 +216,46 @@ db_context.sequelize.sync({
     force: true
 }).then(function (res) {
 
-    for (var i = 0; i < TryJSON.length; i++) {
-        var user = TryJSON[i];
-        db_context.user.create({
-            email: user.email,
-            password: 'password'
-        }).then(function (result) {
-            console.log(result.id);
-            db_context.profile.create({
-                userId: result.id,
-                linkedin: result.email,
-                experience: result.email
-            });
-        });
-    }
+    // for (var i = 0; i < TryJSON.length; i++) {
+    //     var user = TryJSON[i];
 
-    for (var i = 0; i < AptJSON.length; i++) {
-        var user = AptJSON[i];
-        db_context.user.create({
-            email: user.email,
-            password: 'password'
-        }).then(function (result) {
+    //     // console.log(user);
+    //     db_context.user.create({
+    //         email: user.email,
+    //         password: 'password'
+    //     }).then(function (result) {
 
-            db_context.profile.create({
-                userId: result.id
-            });
-        });
-    }
+    //         db_context.profile.create({
+    //             userId: result.id,
+    //             linkedin: result.email,
+    //             experience: result.email
+    //         });
 
-    db_context.user.create({
-        email: 'try@try.no',
-        password: 'password'
-    });
+    //     });
+    // }
+
+    // for (var i = 0; i < AptJSON.length; i++) {
+    //     var user = AptJSON[i];
+
+    //     db_context.user.create({
+    //         email: user.email,
+    //         password: 'password'
+    //     }).then(function (result) {
+
+
+    //         db_context.profile.create({
+    //             userId: result.id,
+    //             linkedin: result.email,
+    //             experience: result.email
+    //         });
+
+    //     });
+    // }
+
+    // db_context.user.create({
+    //     email: 'try@try.no',
+    //     password: 'password'
+    // });
 
 
 }).then(function (res) {
@@ -273,6 +280,27 @@ db_context.sequelize.sync({
 });
 
 
+// REDIRECTS FROM HTTP TO HTTPS
+var HTTP_PORT = 8080;
+var HTTPS_PORT = 3000;
 
+var http_app = express();
+http_app.set('port', HTTP_PORT);
 
+http_app.get('/*', function (req, res, next) {
+    if (/^http$/.test(req.protocol)) {
+        var host = req.headers.host.replace(/:[0-9]+$/g, ""); // strip the port # if any
 
+        if ((HTTPS_PORT != null) && HTTPS_PORT !== 443) {
+            return res.redirect("https://" + host + ":" + HTTPS_PORT + req.url, 301);
+        } else {
+            return res.redirect("https://" + host + req.url, 301);
+        }
+    } else {
+        return next();
+    }
+});
+
+http.createServer(http_app).listen(HTTP_PORT).on('listening', function () {
+    return console.log("HTTP to HTTPS redirect app launched.");
+});
