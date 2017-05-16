@@ -63,6 +63,7 @@ class LoginForm extends React.Component {
 
     render() {
         const { errors, email, password, isLoading } = this.state;
+        console.log(errors);
 
         return (
             <div className="container">
@@ -78,9 +79,9 @@ class LoginForm extends React.Component {
 
                             <input
                                 className="form-control"
-                                id="email"
+                                id="user"
                                 onInput={(e) => this.setState({ email: e.target.value })}
-                                type="email"
+                                type="user"
                                 placeholder="Email"
                                 autoComplete="on" />
 
