@@ -29,8 +29,8 @@ class UserPage extends React.Component {
         };
     }
 
-    getEmployee(user) {
-        // checking of profile data is allready fetched
+    getEmployee(userToken) {
+        // checks of all profile data is allready fetched
         if (this.props.employees.length == 0) {
 
             this.props.fetchEmployee().then(
@@ -43,12 +43,12 @@ class UserPage extends React.Component {
                 }
             )
         } else {
-            this.props.findEmployeeByUser(user);
+            this.props.findEmployeeByUser(userToken);
         }
     }
 
-    getProfile(user) {
-        this.props.fetchProfileData(user.email).then(
+    getProfile(userToken) {
+        this.props.fetchProfileData(userToken.email).then(
             (res) => {
                 console.log(res);
 
@@ -76,18 +76,22 @@ class UserPage extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.isAuthenticated) {
-            var user = JSON.parse(this.props.user);
-            console.log(user);
+        var user = JSON.parse(this.props.userToken);
+        console.log(user);
 
+        var now = Math.floor(Date.now() / 1000)
+        if(user.exp<now) {
+            this.props.logout()
+        }
 
+        if (!this.props.isAuthenticated) {
 
+            console.log("redirecting");
+            browserHistory.push("/my_page/login");
+        } else {
             this.getEmployee(user);
             this.getProfile(user);
             this.getUserData();
-        } else {
-            console.log("redirecting");
-            browserHistory.push("/my_page/login");
         }
     }
 
@@ -162,7 +166,7 @@ class UserPage extends React.Component {
                     <LoadingScreen />
                 </div>
             );
-            
+
         } else
             return (
                 <div>
@@ -262,7 +266,7 @@ class UserPage extends React.Component {
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.auth.isAuthenticated,
-        user: state.auth.user,
+        userToken: state.auth.user,
         employee: state.employees.authenticatedEmployee,
         employees: state.employees.all
     };
@@ -273,6 +277,7 @@ export default connect(mapStateToProps, {
     fetchProfileData,
     fetchEmployee,
     findEmployeeByUser,
-    submitProfileChanges
+    submitProfileChanges,
+    logout
 
 })(UserPage);
