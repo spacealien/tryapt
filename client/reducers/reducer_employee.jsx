@@ -24,16 +24,17 @@ const INITIAL_STATE = {
     positions: [],
     showAfter: 'department',
     selectedEmployee: null,
+    authenticatedEmployee: null
 };
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case FETCH_EMPLOYEES:
-                
+
             const data = action.payload.apt;
             data.concat(action.payload.try);
             data.concat(action.payload.opt);
-        
+
             return Object.assign({}, state, {
                 all: data,
                 visible: data
@@ -56,24 +57,23 @@ export default function (state = INITIAL_STATE, action) {
             });
 
         case FETCH_EMPLOYEE:
-            console.log("redyucer");
             var emp = null;
 
-            console.log(action.payload);
-
             for (var i = 0; i < state.all.length; i++) {
+
                 if (state.all[i].email == action.payload.email) {
                     console.log("MATCH");
                     emp = state.all[i];
-
                     return Object.assign({}, state, {
-                        selectedEmployee: emp
+                        authenticatedEmployee: emp
                     });
                 }
             }
+
             return Object.assign({}, state, {
-                selectedEmployee: null
+                authenticatedEmployee: null
             });
+
 
         case TOGGLE_POSITION:
             var positionList = state.positions;

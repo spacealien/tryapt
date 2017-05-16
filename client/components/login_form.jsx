@@ -64,6 +64,7 @@ class LoginForm extends React.Component {
     render() {
         const { errors, email, password, isLoading } = this.state;
         console.log(errors);
+        console.log(errors.email);
 
         return (
             <div className="container">
@@ -74,9 +75,11 @@ class LoginForm extends React.Component {
 
                 <form id="loginForm" className="login" onSubmit={(e) => this.onSubmit(e)}>
                     <div className="form-group row">
+
+                         {/*{errors && <span className="help-block">{errors}</span>}*/}
+
                         <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>
                         <div className="col-sm-10">
-
                             <input
                                 className="form-control"
                                 id="user"
@@ -85,7 +88,7 @@ class LoginForm extends React.Component {
                                 placeholder="Email"
                                 autoComplete="on" />
 
-                            {errors.email && <span className="help-block">{errors.email}</span>}
+                            {/*{errors.email && <span className="help-block">{errors.email}</span>}*/}
                         </div>
                     </div>
                     <div className="form-group row">
@@ -100,7 +103,7 @@ class LoginForm extends React.Component {
                                 placeholder="Password"
                                 autoComplete="on" />
 
-                            {errors.password && <span className="help-block">{errors.password}</span>}
+                            {/*{errors.password && <span className="help-block">{errors.password}</span>}*/}
                         </div>
                     </div>
 
@@ -116,32 +119,6 @@ class LoginForm extends React.Component {
                 </form>
             </div>
         );
-
-        /**
-                return (
-                    <form id="loginForm" className="login" onSubmit={(e) => this.onSubmit(e)}>
-                        <input
-                            className="form-control"
-                            id="email"
-                            onInput={(e) => this.setState({ email: e.target.value })}
-                            type="email"
-                            placeholder="Email"
-                            autoComplete="on" />
-        
-                        <input
-                            className="form-control"
-                            id="password"
-                            onInput={(e) => this.setState({ password: e.target.value })}
-                            type="password"
-                            placeholder="Password"
-                            autoComplete="on" />
-        
-                        <button className="btn btn-primary login-btn" type="submit" >Logg inn</button>
-                    </form>
-                );
-         */
-
-
     }
 }
 

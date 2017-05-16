@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { findEmployeeByUser } from '../actions/employee_action';
+import { logout } from '../actions/auth_action';
 import {
     fetchUserData,
     fetchProfileData,
@@ -8,6 +9,8 @@ import {
     submitProfileChanges
 } from '../actions/api_action';
 
+
+import { browserHistory } from 'react-router';
 import MenuTop from '../components/menu_top.jsx';
 import LoadingScreen from './loading_screen.jsx';
 
@@ -29,7 +32,6 @@ class UserPage extends React.Component {
     getEmployee(user) {
         // checking of profile data is allready fetched
         if (this.props.employees.length == 0) {
-            console.log('....fetching employee');
 
             this.props.fetchEmployee().then(
                 (res) => {
@@ -41,7 +43,6 @@ class UserPage extends React.Component {
                 }
             )
         } else {
-            console.log('finding employee');
             this.props.findEmployeeByUser(user);
         }
     }
@@ -77,10 +78,22 @@ class UserPage extends React.Component {
     componentWillMount() {
         if (this.props.isAuthenticated) {
             var user = JSON.parse(this.props.user);
+            console.log(user);
+
+
+
             this.getEmployee(user);
             this.getProfile(user);
             this.getUserData();
+        } else {
+            console.log("redirecting");
+            browserHistory.push("/my_page/login");
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps");
+        console.log(nextProps.isAuthenticated);
     }
 
     textAreaClick(e) {
@@ -120,7 +133,7 @@ class UserPage extends React.Component {
             linkedin: this.state.linkedin,
             experience: this.state.experience
         }
-        
+
         this.props.submitProfileChanges(profile).then(
             (res) => {
                 console.log(res);
@@ -133,11 +146,11 @@ class UserPage extends React.Component {
     }
 
     render() {
-        const user = this.state.userData;
+
+        // userData is private data, sick days and what not.
         const userData = this.state.userData;
         const profile = this.state.profile;
         const employee = this.props.employee;
-
 
         if (!userData && !profile && !employee) {
             return (
@@ -149,6 +162,7 @@ class UserPage extends React.Component {
                     <LoadingScreen />
                 </div>
             );
+            
         } else
             return (
                 <div>
@@ -234,10 +248,12 @@ class UserPage extends React.Component {
                             <div id="popupContainer"></div>
                         </div>
                     </div>
+
                     {!this.state.edit &&
                         <button id="edit" className="btn btn-primary" type="button" onClick={(e) => this.handleClick(e)}>Endre</button>}
                     {this.state.edit &&
                         <button id="save" className="btn btn-primary" type="button" onClick={(e) => this.handleClick(e)}>Lagre</button>}
+
                 </div>
             );
     }
@@ -247,7 +263,7 @@ function mapStateToProps(state) {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         user: state.auth.user,
-        employee: state.employees.selectedEmployee,
+        employee: state.employees.authenticatedEmployee,
         employees: state.employees.all
     };
 }
