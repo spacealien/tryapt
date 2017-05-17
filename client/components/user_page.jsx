@@ -26,6 +26,7 @@ class UserPage extends React.Component {
             isLoading: false,
             experience: '',
             linkedin: '',
+            textArea: false,
             chars_left: 800
         };
     }
@@ -56,7 +57,7 @@ class UserPage extends React.Component {
                 this.setState({
                     profile: res.data.profile,
                     experience: res.data.profile.experience,
-                    linkedin: res.data.profile.linkedin
+                    linkedin: res.data.profile.linkedin,
                 });
             },
             (error) => {
@@ -100,7 +101,6 @@ class UserPage extends React.Component {
         console.log(nextProps.isAuthenticated);
     }
     handleChange(event) {
-        console.log("handleChange");
         var input = event.target.value;
         this.setState({ chars_left: 800 - input.length, experience: input });
     }
@@ -116,10 +116,11 @@ class UserPage extends React.Component {
             document.getElementById(e.target.id).innerHTML="Se og rediger";
             document.getElementById('bioText').rows = 2;
             document.getElementById('charCounter').style.display="none"; 
+            this.submitChanges();
         }
 
         this.setState({
-            term: '', edit: !this.state.edit
+            term: '', textArea: !this.state.textArea, chars_left: 800 - document.getElementById('bioText').value.length
         });
     }
 
@@ -128,11 +129,18 @@ class UserPage extends React.Component {
         console.log(id);
 
         switch (id) {
+            case 'toggleTextArea':
+                this.textAreaClick(e);
+                break;
             case 'edit':
                 this.setState({ edit: true });
+                document.getElementById('linkedInTxt').disabled = false;
+                this.refs.txtField.focus();
                 break;
             case 'save':
                 this.submitChanges();
+                document.getElementById('linkedInTxt').disabled = true;
+                this.setState({ edit: false });
                 break;
         }
     }
@@ -152,16 +160,15 @@ class UserPage extends React.Component {
                 console.log(error);
             }
         );
-        this.setState({ edit: false });
     }
-
+    
+    
     render() {
 
         // userData is private data, sick days and what not.
         const userData = this.state.userData;
         const profile = this.state.profile;
         const employee = this.props.employee;
-
         if (!userData && !profile && !employee) {
             return (
                 <div>
@@ -188,7 +195,7 @@ class UserPage extends React.Component {
                             <div className="col-sm-7">
                                 <div className="profile-name"><p>{employee.name}</p></div>
                                 <div className="profile-position"><p>{employee.jobtitle}</p></div>
-                                <div className="profile-company"><p>{employee.company}</p></div>
+                                <div className="profile-company capitalize"><p>{employee.company}</p></div>
                             </div>
                         </div>
 
@@ -201,9 +208,10 @@ class UserPage extends React.Component {
                                 <textarea
                                     id="bioText"
                                     placeholder="Skriv om deg selv her.."
+                                    maxLength="800"
                                     onChange={this.handleChange.bind(this)}
                                     value={this.state.experience}
-                                    disabled={!this.state.edit} >
+                                    disabled={!this.state.textArea} >
                                 </textarea>
 
                                 <div className="row">
@@ -214,7 +222,7 @@ class UserPage extends React.Component {
                                         <button
                                             id="toggleTextArea"
                                             className="btn btn-primary btn-expand-textarea"
-                                            type="button" onClick={(e) => this.textAreaClick(e)} >Se og rediger</button>
+                                            type="button" onClick={(e) => this.handleClick(e)} >Se og rediger</button>
                                     </div>
                                 </div>
                             </form>
@@ -250,23 +258,27 @@ class UserPage extends React.Component {
                                 </div>
                                 <div id="linkedin" className="col-sm-6">
                                     <form>
-                                        <input className="linkedInTextField" type="text" name="linkedInUserName"
-                                            onChange={(e) => { this.setState({ linkedin: e.target.value }) }}
+                                        <input id="linkedInTxt" className="linkedInTextField" type="text" name="linkedInUserName"
+                                            onChange={(e) => { this.setState({ linkedin: e.target.value })}}
                                             value={this.state.linkedin}
-                                            disabled={!this.state.edit} />
+                                            ref='txtField'
+                                            disabled='true'/>
                                     </form>
                                 </div>
                             </div>
-                            <div id="popupContainer"></div>
+                            <div className="row margin-top">
+                            <div className="col-sm-8"></div>
+                            <div className="col-sm-4">
+                    {!this.state.edit &&
+                        <button id="edit" className="btn btn-primary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Endre</button>}
+                    {this.state.edit &&
+                        <button id="save" className="btn btn-primary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Lagre</button>}
+                        </div>
+                </div>
+                        </div>
                         </div>
                     </div>
-
-                    {!this.state.edit &&
-                        <button id="edit" className="btn btn-primary" type="button" onClick={(e) => this.handleClick(e)}>Endre</button>}
-                    {this.state.edit &&
-                        <button id="save" className="btn btn-primary" type="button" onClick={(e) => this.handleClick(e)}>Lagre</button>}
-
-                </div>
+                    
             );
     }
 }
