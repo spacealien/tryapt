@@ -1,16 +1,12 @@
 import React from 'react';
 import ListElement from './list_element.jsx';
 
-import { setDefaultPeople, setListView, setGridView } from '../actions/menu_action';
+import { setListView, setGridView } from '../actions/menu_action';
 import { connect } from 'react-redux';
 
 class Menu extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            update: false
-
-        };
     }
 
     handleClick(e) {
@@ -20,35 +16,37 @@ class Menu extends React.Component {
             case 'home':
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('login').style.color="#333333";
+                document.getElementById('listgrid').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
                 this.props.setDefaultPeople();
+                this.props.browserHistory.push('/info');
                 this.props.browserHistory.push('/');
                 break;
             case "login":
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('home').style.color="#333333";
+                document.getElementById('listgrid').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
-                this.props.setDefaultPeople();
                 this.props.browserHistory.push('/my_page');
                 break;
             case "people":
+                
+                if(this.props.listView==='list') {
+                    this.props.setGridView();
+                } else {
+                    this.props.setListView();
+                }
                 document.getElementById('login').style.color="#333333";
                 document.getElementById('home').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
-                if(this.props.listView==='default' || this.props.listView==='grid') {
-                    this.props.setListView();
-                }
-                else if(this.props.listView==='list') {
-                    this.props.setGridView();
-                } 
-        
+                document.getElementById('listgrid').style.color="#D1A25F";
                 this.props.browserHistory.push('/people');
                 break;
             case 'info':
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('login').style.color="#333333";
+                document.getElementById('listgrid').style.color="#333333";
                 document.getElementById('home').style.color="#333333";
-                this.props.setDefaultPeople();
                 this.props.browserHistory.push('/info');
                 break;
         }
@@ -71,11 +69,10 @@ class Menu extends React.Component {
                                 </button>
                             </div>
 
-                            <div className="col-sm-3 menu-bottom-cl">
+                            <div id="listgrid" className="col-sm-3 menu-bottom-cl">
                                 <button className="btn menu-bottom" onClick={(e) => this.handleClick(e)}>
-                                    {listView==='default' && <i id="people" className="material-icons icons-menu-bottom">people</i>} 
-                                    {listView==='list' && <i id="people" className="material-icons icons-menu-bottom icon-listview">view_module</i>} 
-                                    {listView==='grid' && <i id="people" className="material-icons icons-menu-bottom icon-gridview">view_list</i>} 
+                                    {listView==='list' && <i id="people" className="material-icons icons-menu-bottom">view_module</i>} 
+                                    {listView==='grid' && <i id="people" className="material-icons icons-menu-bottom">view_list</i>} 
                                 </button>
                             </div>
 
@@ -106,5 +103,5 @@ function mapStateToProps(state) {
         listView: state.menu.listView
     };
 }
-export default connect(mapStateToProps, { setDefaultPeople, setListView, setGridView })(Menu);
+export default connect(mapStateToProps, { setListView, setGridView })(Menu);
 

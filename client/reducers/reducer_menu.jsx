@@ -4,7 +4,7 @@ import {
 } from '../actions/menu_action.js';
 
 const INITIAL_STATE = {
-    listView: 'default'
+    listView: 'grid'
 };
 
 export default function (state = INITIAL_STATE, action) {

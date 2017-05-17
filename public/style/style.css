@@ -599,9 +599,7 @@ input::-webkit-input-placeholder {
 #charCounter {
     display: none;
 }
-.linkedInTextField {
-    
-}
+
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */
@@ -614,8 +612,4 @@ input::-webkit-input-placeholder {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-.icon-listview, .icon-gridview {
-    color: #D1A25F;
 }
