@@ -1,6 +1,9 @@
 import React from 'react';
 import ListElement from './list_element.jsx';
 
+import { setListView, setGridView } from '../actions/menu_action';
+import { connect } from 'react-redux';
+
 class Menu extends React.Component {
     constructor(props) {
         super(props);
@@ -18,6 +21,12 @@ class Menu extends React.Component {
                 break;
             case "people":
                 this.props.browserHistory.push('/people');
+                
+                if(this.props.listView=='list') {
+                    this.props.setGridView();
+                } else {
+                    this.props.setListView();
+                }
                 break;
             case 'info':
                 this.props.browserHistory.push('/info');
@@ -26,6 +35,10 @@ class Menu extends React.Component {
     }
 
     render() {
+
+        const { listView } = this.props;
+
+
         return (
             <footer>
                 <nav className="navbar navbar-default navbar-fixed-bottom">
@@ -40,7 +53,8 @@ class Menu extends React.Component {
 
                             <div className="col-sm-3 menu-bottom-cl">
                                 <button className="btn menu-bottom" onClick={(e) => this.handleClick(e)}>
-                                    <i id="people" className="material-icons icons-menu-bottom">people</i>
+                                    {listView=='list' && <i id="people" className="material-icons icons-menu-bottom">view_module</i>} 
+                                    {listView=='grid' && <i id="people" className="material-icons icons-menu-bottom">view_list</i>} 
                                 </button>
                             </div>
 
@@ -51,6 +65,7 @@ class Menu extends React.Component {
                             </div>
 
                             <div className="col-sm-3 menu-bottom-cl">
+                                
                                 <button className="btn menu-botton" onClick={(e) => this.handleClick(e)}>
                                     <i id="info" className="material-icons icons-menu-bottom">info</i>
                                 </button>
@@ -63,4 +78,12 @@ class Menu extends React.Component {
         );
     }
 }
-export default Menu;
+
+
+function mapStateToProps(state) {
+    return {
+        listView: state.menu.listView
+    };
+}
+export default connect(mapStateToProps, { setListView, setGridView })(Menu);
+
