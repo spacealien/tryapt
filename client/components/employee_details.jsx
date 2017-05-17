@@ -99,7 +99,7 @@ class EmployeeDetails extends React.Component {
                     </div>
                     <div className="profile-text-area">
                         <p className="textarea-readonly">
-                            Lorem ipsum dolor sit amet, vitae salutandi maluisset vix eu, cum ut amet vitae volutpat. Sit ei erat mediocrem democritum. Elit fierent voluptatum pro ea. Ut omnium oportere partiendo quo, ut saperet fierent omittantur cum.
+                                <p>{profile.experience}</p>
                             </p>
                     </div>
 
@@ -137,7 +137,7 @@ class EmployeeDetails extends React.Component {
                                 <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_gray-128.png" />
                             </div>
                             <div id="linkedin" className="col-sm-8">
-                                {profile.linkedIn}
+                                {profile.linkedin}
                             </div>
                         </div>
                         <div id="popupContainer"></div>
