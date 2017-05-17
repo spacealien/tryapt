@@ -119,7 +119,7 @@ app.post('/my_page/update', authentication, function (req, res) {
 
 
 // Get method for fetching employees from json file 
-app.get('/people', function (req, res) {
+app.get('/api/people', function (req, res) {
     var body = _.pick(req.body, 'email');
 
     var employees = {

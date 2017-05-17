@@ -111,9 +111,12 @@ class List extends React.Component {
         console.log(this.props.employees.all);
         if (this.state.view === 'list') {
             return (
-                <ul className="list-group list-unstyled">
-                    {this.renderList()}
-                </ul>
+                <div>
+                    <ul className="list-group list-unstyled">
+                        {this.renderList()}
+                    </ul>
+                </div>
+
             );
         } else {
             return (
