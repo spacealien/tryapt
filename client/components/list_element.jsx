@@ -10,7 +10,6 @@ class ListElement extends React.Component {
     render() {
         //var markedClassName = (this.props.mark === true && this.state.selected === true) ? "list-group-item mark" : "list-group-item";
         var markedClassName = this.props.marked === true ? "list-group-item mark btn" : "list-group-item btn";
-        console.log("list element: " + this.props.marked);
 
         return (
             <li className={markedClassName} onClick={() => this.props.onEmployeeClick(this.props.employee)} >

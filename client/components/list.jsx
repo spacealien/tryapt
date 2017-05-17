@@ -46,7 +46,7 @@ class List extends React.Component {
         this.props.setListView();
     }
 
-   componentWillUnmount() {
+    componentWillUnmount() {
         this.props.setGridView();
     }
 
@@ -68,15 +68,18 @@ class List extends React.Component {
         }
     }
 
+
+
+
+
+
     renderList() {
 
         var employees = this.props.employees;
         if (employees.checked.length === 0) {
             var employeeList = employees.all;
-            console.log(employeeList);
         } else {
             var employeeList = employees.checked;
-            console.log(employeeList);
         }
 
         return employeeList.map((employee) => {
@@ -103,32 +106,35 @@ class List extends React.Component {
 
     renderGrid() {
 
-
-
-
-
+        var employees = this.props.employees;
+        if (employees.checked.length === 0) {
+            var employeeList = employees.all;
+        } else {
+            var employeeList = employees.checked;
+        }
 
         return this.props.employees.all.map((employee) => {
-            if ((this.props.searchTerm === null)
-                || employee.name.toLowerCase().includes(this.props.searchTerm.toString().toLowerCase())) {
+            if ((this.props.searchTerm === null) ||
+                employee.name.toLowerCase().includes(this.props.searchTerm.toString().toLowerCase())) {
+
+
+                var marked = false;
+                this.props.employees.marked.indexOf(employee) > -1 ? marked = true : marked = false;
+                console.log("marked: " + marked);
 
                 return (
                     <GridElement
                         onEmployeeSelect={(e) => this.handleClick(e)}
                         key={employee.mobile}
                         employee={employee}
-                        mark={this.props.mark} />
+                        mark={this.props.mark}
+                        marked={marked} />
                 );
             }
         });
     }
 
     render() {
-        console.log(this.props.employees.all);
-        console.log(this.props.view);
-
-
-
         if (this.props.listView === 'list') {
             return (
                 <div>
