@@ -5,45 +5,36 @@ import config from '../../config'
 import crypto from 'crypto-js';
 
 export default (req, res, next) => {
-    
-    var urlParams;
-    window.onpopstate = function () {
-        var match,
-            pl = /\+/g, 
-            search = /([^&=]+)=?([^&]*)/g,
-            decode = function (s) { return decodeURIComponent(s.replace(pl, "+")); },
-            query = window.location.search.substring(1);
 
-        urlParams = {};
-        while (match = search.exec(query))
-            urlParams[decode(match[1])] = decode(match[2]);
-    }();
+    const encodedToken = req.query.token;
+    if (encodedToken) {
 
-    if (urlParams.token) {
-        jwt.verify(urlParams.token, config.jwtSecret, (err, decoded) => {
+        jwt.verify(encodedToken, config.jwtSecret, (err, decoded) => {
             if (err) {
-                
+                console.log(err);
             } else {
-                var stringData = JSON.parse(decoded.token);
+                var decodedToken = JSON.parse(decoded.token);
+                var now = Math.floor(Date.now() / 1000)
+
+                if (decodedToken.exp <= now) {
+                    console.log("reset link expired");
+                }
 
                 db.user.findOne({
                     where: {
-                        id: stringData.id,
-                        email: stringData.email
+                        id: decodedToken.id,
+                        email: decodedToken.email
                     },
                     select: ['email', 'id']
                 }).then(user => {
                     if (!user) {
-                        reject('Invalid reset link');
+                        reject('Invalid  link');
                     }
                     req.currentUser = user;
                     next();
                 });
             }
         })
-    }
-    else {
-        reject({error: 'Invalid Reset Link'});
     }
 }
 

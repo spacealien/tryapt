@@ -47,9 +47,7 @@ export function forgotPassword(userInput) {
     return dispatch => {
         return axios.post("/forgot", {
             email: userInput.email
-        }).then((res) => {
-            console.log(res);
-        });
+        })
     }
 }
 

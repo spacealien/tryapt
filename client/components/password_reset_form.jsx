@@ -45,17 +45,18 @@ class ForgotResetForm extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
+                <h1 className="text-center">Tilbakestill Password</h1>
                 <div>
                     <label htmlFor="email" >Nytt passord:</label>
-                    <input id="newPassword" onChange={(e) => this.setState({ password: e.target.value })} />
+                    <input id="newPassword" className="form-control" onChange={(e) => this.setState({ password: e.target.value })} />
                 </div>
                 <div>
                     <label htmlFor="email" >Bekreft passord:</label>
-                    <input id="confirm" onChange={(e) => this.setState({ passwordConfirm: e.target.value })} />
+                    <input id="confirm" className="form-control" onChange={(e) => this.setState({ passwordConfirm: e.target.value })} />
                 </div>
 
-                <button onClick={(e) => this.onSubmit(e)} value="submit">Bekreft</button>
+                <button className="btn btn-primary btn-huge" onClick={(e) => this.onSubmit(e)} value="submit">Bekreft</button>
             </div>
         );
     }

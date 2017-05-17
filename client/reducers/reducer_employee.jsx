@@ -198,14 +198,13 @@ export default function (state = INITIAL_STATE, action) {
 
             var array = state.marked;
             var index = array.indexOf(action.payload);
-
+            
             if (index !== -1) {
                 array.splice(index, 1);
                 return Object.assign({}, state, {
                     marked: array
                 });
             }
-
             break;
         case MARK_ALL_EMPLOYEES:
             const array = state.all;

@@ -182,7 +182,8 @@ app.post("/reset", authentication, function (req, res) {
 
 app.get('/reset*', mailAuthentication, function (req, res) {
 
-    
+
+
 
 
 
@@ -210,21 +211,21 @@ app.post('/forgot', function (req, res) {
         var mailOptions = {
             to: 's236313@stud.hioa.no',
             from: 'aptemailtester1@gmail.com',
-            subject: 'TILBAKESTILL PASSORD',
-            html: '<a href="https://localhost:3000/reset?token=' +
-            e.token + '<a>Tilbakestill passord</a>'
+            subject: 'APT TILBAKESTILL PASSORD',
+            html: '<a href="https://localhost:3000/reset?token='
+            + e.token + '">Tilbakestill passord</a>'
         }
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
-                res.status(503).json({ errors: 'Epost tjeneste ikke tilgjengelig' });
+                res.status(503).json({ errors: 'En feil har oppståt' });
             } else {
-                res.status(200).json({ message: info.response });
+                res.status(200).json({ message: 'En bekrefelses epost er sendt' });
             };
         });
     }).catch(function (e) {
         console.log(e);
-        res.status(500).json({ errors: 'En feil har oppstått' }).send();
+        res.status(500).json({ errors: 'Ingen bruker med denne epost adressen' });
     });
 });
 
@@ -237,71 +238,67 @@ app.get('/*', function (req, res) {
 
 // Method for creating database
 db_context.sequelize.sync({
-    force: true 
+    force: false
 }).then(function (res) {
 
-    for (var i = 0; i < TryJSON.length; i++) {
-        var user = TryJSON[i];
+    // for (var i = 0; i < TryJSON.length; i++) {
+    //     var user = TryJSON[i];
 
-        // console.log(user);
-        db_context.user.create({
-            email: user.email,
-            password: 'password'
-        }).then(function (result) {
+    //     console.log(user);
+    //         db_context.user.create({
+    //             email: user.email,
+    //             password: 'password'
+    //         }).then(function (result) {
 
-            db_context.profile.create({
-                userId: result.id,
-                linkedin: result.email,
-                experience: result.email
-            });
+    //             db_context.profile.create({
+    //                 userId: result.id,
+    //                 linkedin: result.email,
+    //                 experience: result.email
+    //             });
 
-        });
-    }
+    //         });
+    //     }
 
-    for (var i = 0; i < AptJSON.length; i++) {
-        var user = AptJSON[i];
+    //     for (var i = 0; i < AptJSON.length; i++) {
+    //         var user = AptJSON[i];
 
-        db_context.user.create({
-            email: user.email,
-            password: 'password'
-        }).then(function (result) {
-
-
-            db_context.profile.create({
-                userId: result.id,
-                linkedin: result.email,
-                experience: result.email
-            });
-
-        });
-    }
-
-    db_context.user.create({
-        email: 'try@try.no',
-        password: 'password'
-    });
+    //         db_context.user.create({
+    //             email: user.email,
+    //             password: 'password'
+    //         }).then(function (result) {
 
 
-}).then(function (res) {
-    console.log('syncing finished');
-    /**
-        app.listen(PORT, function () {
+    //             db_context.profile.create({
+    //                 userId: result.id,
+    //                 linkedin: result.email,
+    //                 experience: result.email
+    //             });
+
+    //         });
+    //     }
+
+    //     db_context.user.create({
+    //         email: 'try@try.no',
+    //         password: 'password'
+    //     });
+    // }
+}
+
+).then(function (res) {
+        console.log('syncing finished');
+
+        https.createServer({
+            key: fs.readFileSync('key.pem'),
+            cert: fs.readFileSync('cert.pem'),
+            passphrase: 'hemmelig'
+        }, app).listen(PORT, function () {
             console.log('Express server started!' + '\nPORT:' + PORT);
         });
-    */
 
-    https.createServer({
-        key: fs.readFileSync('key.pem'),
-        cert: fs.readFileSync('cert.pem'),
-        passphrase: 'hemmelig'
-    }, app).listen(PORT, function () {
-        console.log('Express server started!' + '\nPORT:' + PORT);
+
+    }).catch(function (error) {
+        console.log(error);
     });
-
-
-}).catch(function (error) {
-    console.log(error);
-});
 
 
 

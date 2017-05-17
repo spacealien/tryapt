@@ -10,7 +10,6 @@ class ForgotForm extends React.Component {
         super(props);
         this.state = {
             email: '',
-            errors: {},
             message: {},
             isLoading: false
         }
@@ -32,14 +31,16 @@ class ForgotForm extends React.Component {
 
             this.props.forgotPassword(this.state).then(
                 (res) => {
+                    console.log(res);
                     this.setState({
-                        message: res.data.message,
+                        message: res.data,
                         isLoading: false
                     });
                 },
                 (err) => {
+                    console.log(err.response);
                     this.setState({
-                        errors: err.response.data.error,
+                        message: err.response.data,
                         isLoading: false
                     });
                 });
@@ -47,20 +48,25 @@ class ForgotForm extends React.Component {
     }
 
     render() {
-        const { errors, isLoading } = this.state;
+        const {message, isLoading} = this.state;
 
         return (
-            <div className="col-sm-12">
-                <div className="input-group input-group-lg">
-                    {errors.error && <span className="help-block">{errors.error}</span>}
-
+            <div className="container" >
+                 <h1 className="text-center">Tilbakestill Password</h1>
+                <div className="input-group">
+                    {message.errors && <span className="help-block">{message.errors}</span>}
+                    {message.message && <span className="help-block">{message.message}</span>}
 
                     <label htmlFor="email">Email: </label>
-                    <input id="email" className="form-control" onChange={(e) => this.setState({ email: e.target.value })} />
-
-                    {errors.email && <span className="help-block">{errors.email}</span>}
+                    <input id="email" className="form-control" type="email" onChange={(e) => this.setState({ email: e.target.value })} />
                     <br></br>
-                    <button className="btn" onClick={(e) => this.onSubmit(e)} value="submit">Tilbakestill</button>
+
+
+                    <button className="btn primary btn-huge" disabled={isLoading} onClick={(e) => this.onSubmit(e)} value="submit">
+                        Tilbakestill
+                     </button>
+
+
                 </div>
             </div>
         );
