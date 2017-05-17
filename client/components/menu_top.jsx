@@ -142,12 +142,12 @@ class MenuTop extends React.Component {
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
-                    <div className="col-sm-2 menu-mark-cl"> </div>
-                    <div className="col-sm-8">
+                    <div className="col-sm-3 menu-mark-cl"> </div>
+                    <div className="col-sm-6">
                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
                     </div>
-                    <div className="col-sm-2">
-                        <button onClick={(e) => { e.preventDefault(); this.props.logout(); }} >logout</button>
+                    <div className="col-sm-3 menu-mark-cl">
+                        <a onClick={(e) => { e.preventDefault(); this.props.logout(); }} >Logg av</a>
                     </div>
                 </div>
             </div>

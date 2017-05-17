@@ -30,7 +30,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.dev.config';
 
 var app = express();
-var PORT = process.env.PORT || 4000;
+var PORT = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV != 'production') {
     console.log("development");
@@ -310,7 +310,7 @@ db_context.sequelize.sync({
 // forces all every request on http protocol 
 // use to https protocol
 var HTTP_PORT = 8080;
-var HTTPS_PORT = 4000;
+var HTTPS_PORT = 3000;
 
 var http_app = express();
 http_app.set('port', HTTP_PORT);
