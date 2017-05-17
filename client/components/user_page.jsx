@@ -25,7 +25,8 @@ class UserPage extends React.Component {
             edit: false,
             isLoading: false,
             experience: '',
-            linkedin: ''
+            linkedin: '',
+            chars_left: 800
         };
     }
 
@@ -98,21 +99,27 @@ class UserPage extends React.Component {
         console.log("componentWillReceiveProps");
         console.log(nextProps.isAuthenticated);
     }
-
+    handleChange(event) {
+        console.log("handleChange");
+        var input = event.target.value;
+        this.setState({ chars_left: 800 - input.length, experience: input });
+    }
     textAreaClick(e) {
 
         var btnText = document.getElementById(e.target.id).innerHTML;
-        if (btnText === "Utvid") {
-            document.getElementById(e.target.id).innerHTML = "Minimer";
+        if (btnText === "Se og rediger") {
+            document.getElementById(e.target.id).innerHTML="Lagre";
             document.getElementById('bioText').rows = 18;
+            document.getElementById('charCounter').style.display="initial";
         }
         else {
-            document.getElementById(e.target.id).innerHTML = "Utvid";
+            document.getElementById(e.target.id).innerHTML="Se og rediger";
             document.getElementById('bioText').rows = 2;
+            document.getElementById('charCounter').style.display="none"; 
         }
 
         this.setState({
-            term: ''
+            term: '', edit: !this.state.edit
         });
     }
 
@@ -135,7 +142,7 @@ class UserPage extends React.Component {
         var profile = {
             linkedin: this.state.linkedin,
             experience: this.state.experience
-        }
+        };
 
         this.props.submitProfileChanges(profile).then(
             (res) => {
@@ -186,7 +193,7 @@ class UserPage extends React.Component {
                         </div>
 
                         <div className="profile-textarea-header">
-                            <p>Din erfaring:  (Max 100 ord)</p>
+                            <p>Din erfaring:  (Max 800 tegn)</p>
                         </div>
                         <div className="profile-text-area">
                             <form>
@@ -194,18 +201,20 @@ class UserPage extends React.Component {
                                 <textarea
                                     id="bioText"
                                     placeholder="Skriv om deg selv her.."
-                                    onChange={(e) => this.setState({ experience: e.target.value })}
+                                    onChange={this.handleChange.bind(this)}
                                     value={this.state.experience}
                                     disabled={!this.state.edit} >
                                 </textarea>
 
                                 <div className="row">
-                                    <div className="col-sm-8"></div>
+                                <div className="col-sm-8">
+                                <p id="charCounter">Gjenværende tegn: {this.state.chars_left}</p>
+                                </div>
                                     <div className="col-sm-4">
                                         <button
                                             id="toggleTextArea"
                                             className="btn btn-primary btn-expand-textarea"
-                                            type="button" onClick={(e) => this.textAreaClick(e)} >Utvid</button>
+                                            type="button" onClick={(e) => this.textAreaClick(e)} >Se og rediger</button>
                                     </div>
                                 </div>
                             </form>
