@@ -17,15 +17,6 @@ module.exports = function (sequelize, DataTypes) {
             } 
         }
     }, {
-        /** 
-            hooks: {
-                beforeValidate: function (user, options) {
-                    if (typeof user.email === 'string') {
-                        user.email = user.email.toLowerCase();
-                    }
-                }
-            },
-            */
             classMethods: {
                 findByUserId: function (token) {
                     return new Promise(function (resolve, reject) {

@@ -18,7 +18,7 @@ export const FETCH_EMPLOYEE = 'FETCH_EMPLOYEE';
 
 export function fetchEmployees() {
     return dispatch => {
-        return axios.get('/people').then((request) => {
+        return axios.get('/api/people').then((request) => {
             dispatch({
                 type: FETCH_EMPLOYEES,
                 payload: request.data.employees

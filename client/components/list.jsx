@@ -7,6 +7,7 @@ import SearchBar from './search_bar.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
+import { setListView, setGridView } from '../actions/menu_action'
 import {
     fetchEmployees,
     selectEmployee,
@@ -15,6 +16,10 @@ import {
     unmarkAllEmployees,
     updateSorting
 } from '../actions/employee_action';
+
+
+
+
 
 
 class List extends React.Component {
@@ -33,6 +38,16 @@ class List extends React.Component {
                 view={this.state.view}
             />
         );
+    }
+
+    componentWillMount() {
+        this.props.fetchEmployees();
+        this.props.unmarkAllEmployees();
+        this.props.setListView();
+    }
+
+   componentWillUnmount() {
+        this.props.setGridView();
     }
 
     isMarked(employee) {
@@ -87,6 +102,12 @@ class List extends React.Component {
     }
 
     renderGrid() {
+
+
+
+
+
+
         return this.props.employees.all.map((employee) => {
             if ((this.props.searchTerm === null)
                 || employee.name.toLowerCase().includes(this.props.searchTerm.toString().toLowerCase())) {
@@ -104,11 +125,18 @@ class List extends React.Component {
 
     render() {
         console.log(this.props.employees.all);
-        if (this.state.view === 'list') {
+        console.log(this.props.view);
+
+
+
+        if (this.props.listView === 'list') {
             return (
-                <ul className="list-group list-unstyled">
-                    {this.renderList()}
-                </ul>
+                <div>
+                    <ul className="list-group list-unstyled">
+                        {this.renderList()}
+                    </ul>
+                </div>
+
             );
         } else {
             return (
@@ -122,7 +150,8 @@ class List extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        employees: state.employees
+        employees: state.employees,
+        listView: state.menu.listView
     };
 };
 
@@ -133,5 +162,7 @@ export default connect(mapStateToProps,
         markEmployee,
         unmarkEmployee,
         unmarkAllEmployees,
-        updateSorting
+        updateSorting,
+        setListView,
+        setGridView
     })(List);

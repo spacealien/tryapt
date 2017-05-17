@@ -8,11 +8,25 @@ and open the template in the editor.
     Author     : Marthejansonskogen
 */
 body {
+    /*height: 100%;*/
     font-family: "Asap", sans-serif;
     font-size: 40px;
     padding-bottom: 140px;
-    padding-top: 105px;
+    padding-top: 110px;
 }
+
+/*html, body {
+    overflow: hidden;
+}
+
+ul {
+    padding-top: 10px;
+    overflow: auto;
+    height: 1000px;
+    max-height: 100%;
+}*/
+
+
 
 .container-fluid {
     width: 95%;
@@ -95,10 +109,13 @@ body {
     font-size: 80px;
 }
 
+ul {
+
+}
+
 li  {
     margin-top: 10px;
     list-style: none;
-
 }
 
 .menu-mark-cl {
@@ -387,6 +404,7 @@ input::-webkit-input-placeholder {
     margin-top: 25px;
     font-weight: 600;
 }
+
 .textarea-readonly {
     margin: 10px;
     padding: 10px;

@@ -94,6 +94,8 @@ class UserPage extends React.Component {
         } else {
             browserHistory.push("/my_page/login");
         }
+        
+        this.setState({ isLoading: false });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -146,28 +148,30 @@ class UserPage extends React.Component {
     }
 
     submitChanges() {
-        console.log("submitChanges");
         var profile = {
             linkedin: this.state.linkedin,
             experience: this.state.experience
         };
 
+        this.setState({ isLoading: true });
         this.props.submitProfileChanges(profile).then(
             (res) => {
-                console.log(res);
+                this.setState({
+                    edit: false,
+                });
             },
             (error) => {
                 console.log(error);
             }
         );
+        this.setState({ isLoading: false });
     }
     
     
     render() {
 
         // userData is private data, sick days and what not.
-        const userData = this.state.userData;
-        const profile = this.state.profile;
+        const { userData, profile, isLoading } = this.state;
         const employee = this.props.employee;
         if (!userData && !profile && !employee) {
             return (
