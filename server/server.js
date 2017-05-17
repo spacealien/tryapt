@@ -30,7 +30,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.dev.config';
 
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 4000;
 
 if (process.env.NODE_ENV != 'production') {
     console.log("development");
@@ -71,7 +71,11 @@ app.post('/my_page/login', function (req, res) {
         res.json({ token });
     }).catch(function (e) {
         console.log(e);
-        res.status(401).json({ error: 'Ugyldig brukernavn/passord' }).send();
+        res.status(401).json({
+            error: {
+                message: 'Ingen bruker med epost/passord'
+            }
+        });
     });
 });
 
@@ -238,53 +242,53 @@ app.get('/*', function (req, res) {
 
 // Method for creating database
 db_context.sequelize.sync({
-    force: false
+    force: true
 }).then(function (res) {
 
-    // for (var i = 0; i < TryJSON.length; i++) {
-    //     var user = TryJSON[i];
+    for (var i = 0; i < TryJSON.length; i++) {
+        var user = TryJSON[i];
 
-    //     console.log(user);
-    //         db_context.user.create({
-    //             email: user.email,
-    //             password: 'password'
-    //         }).then(function (result) {
+        console.log(user);
+            db_context.user.create({
+                email: user.email,
+                password: 'password'
+            }).then(function (result) {
 
-    //             db_context.profile.create({
-    //                 userId: result.id,
-    //                 linkedin: result.email,
-    //                 experience: result.email
-    //             });
+                db_context.profile.create({
+                    userId: result.id,
+                    linkedin: result.email,
+                    experience: result.email
+                });
 
-    //         });
-    //     }
+            });
+        }
 
-    //     for (var i = 0; i < AptJSON.length; i++) {
-    //         var user = AptJSON[i];
+        for (var i = 0; i < AptJSON.length; i++) {
+            var user = AptJSON[i];
 
-    //         db_context.user.create({
-    //             email: user.email,
-    //             password: 'password'
-    //         }).then(function (result) {
+            db_context.user.create({
+                email: user.email,
+                password: 'password'
+            }).then(function (result) {
 
 
-    //             db_context.profile.create({
-    //                 userId: result.id,
-    //                 linkedin: result.email,
-    //                 experience: result.email
-    //             });
+                db_context.profile.create({
+                    userId: result.id,
+                    linkedin: result.email,
+                    experience: result.email
+                });
 
-    //         });
-    //     }
+            });
+        }
 
-    //     db_context.user.create({
-    //         email: 'try@try.no',
-    //         password: 'password'
-    //     });
-    // }
+        db_context.user.create({
+            email: 'try@try.no',
+            password: 'password'
+        });
+    }
 }
 
-).then(function (res) {
+    ).then(function (res) {
         console.log('syncing finished');
 
         https.createServer({
@@ -305,7 +309,7 @@ db_context.sequelize.sync({
 // forces all every request on http protocol 
 // use to https protocol
 var HTTP_PORT = 8080;
-var HTTPS_PORT = 3000;
+var HTTPS_PORT = 4000;
 
 var http_app = express();
 http_app.set('port', HTTP_PORT);

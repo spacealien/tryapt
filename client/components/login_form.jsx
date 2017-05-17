@@ -50,7 +50,6 @@ class LoginForm extends React.Component {
                     browserHistory.push("/my_page");
                 },
                 (err) => {
-                    console.log(err);
                     this.setState({ errors: err.response.data.error, isLoading: false });
                 });
         } 
@@ -63,8 +62,7 @@ class LoginForm extends React.Component {
 
     render() {
         const { errors, email, password, isLoading } = this.state;
-        console.log(errors);
-        console.log(errors.email);
+
 
         return (
             <div className="container">
@@ -76,7 +74,7 @@ class LoginForm extends React.Component {
                 <form id="loginForm" className="login" onSubmit={(e) => this.onSubmit(e)}>
                     <div className="form-group row">
 
-                         {/*{errors && <span className="help-block">{errors}</span>}*/}
+                         {errors.message && <span className="help-block">{errors.message}</span>}
 
                         <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>
                         <div className="col-sm-10">
@@ -88,7 +86,7 @@ class LoginForm extends React.Component {
                                 placeholder="Email"
                                 autoComplete="on" />
 
-                            {/*{errors.email && <span className="help-block">{errors.email}</span>}*/}
+                            {errors.email && <span className="help-block">{errors.email}</span>}
                         </div>
                     </div>
                     <div className="form-group row">
@@ -103,7 +101,7 @@ class LoginForm extends React.Component {
                                 placeholder="Password"
                                 autoComplete="on" />
 
-                            {/*{errors.password && <span className="help-block">{errors.password}</span>}*/}
+                            {errors.password && <span className="help-block">{errors.password}</span>}
                         </div>
                     </div>
 
@@ -113,7 +111,7 @@ class LoginForm extends React.Component {
 
                     <div className="form-group row login-row">
                         <div className="col-sm-12">
-                            <button className="btn btn-primary login-btn" type="submit" >Logg inn</button>
+                            <button className="btn btn-primary login-btn" type="submit" disabled={isLoading} >Logg inn</button>
                         </div>
                     </div>
                 </form>
