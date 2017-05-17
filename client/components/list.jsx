@@ -35,6 +35,11 @@ class List extends React.Component {
         );
     }
 
+    componentWillMount() {
+        this.props.fetchEmployees();
+        this.props.unmarkAllEmployees();
+    }
+
     isMarked(employee) {
         var marked = false;
         return this.props.employees.marked.indexOf(employee) > -1 ? marked = true : marked = false;

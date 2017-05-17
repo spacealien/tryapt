@@ -131,28 +131,29 @@ class UserPage extends React.Component {
     }
 
     submitChanges() {
-        console.log("submitChanges");
         var profile = {
             linkedin: this.state.linkedin,
             experience: this.state.experience
         }
 
+        this.setState({ isLoading: true });
         this.props.submitProfileChanges(profile).then(
             (res) => {
-                console.log(res);
+                this.setState({
+                    edit: false,
+                });
             },
             (error) => {
                 console.log(error);
             }
         );
-        this.setState({ edit: false });
+        this.setState({ isLoading: false });
     }
 
     render() {
 
         // userData is private data, sick days and what not.
-        const userData = this.state.userData;
-        const profile = this.state.profile;
+        const { userData, profile, isLoading } = this.state;
         const employee = this.props.employee;
 
         if (!userData && !profile && !employee) {
@@ -255,7 +256,7 @@ class UserPage extends React.Component {
                     {!this.state.edit &&
                         <button id="edit" className="btn btn-primary" type="button" onClick={(e) => this.handleClick(e)}>Endre</button>}
                     {this.state.edit &&
-                        <button id="save" className="btn btn-primary" type="button" onClick={(e) => this.handleClick(e)}>Lagre</button>}
+                        <button id="save" className="btn btn-primary" type="button" disabled={isLoading} onClick={(e) => this.handleClick(e)}>Lagre</button>}
 
                 </div>
             );

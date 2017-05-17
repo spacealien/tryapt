@@ -100,6 +100,7 @@ app.post('/my_page/update', authentication, function (req, res) {
         }
     }).then(function (profile) {
         if (profile) {
+
             profile.update(attributes).then(
                 function (profile) {
                     res.json(profile.toJSON());
@@ -286,7 +287,7 @@ db_context.sequelize.sync({
             password: 'password'
         });
     }
-}
+
 
     ).then(function (res) {
         console.log('syncing finished');
