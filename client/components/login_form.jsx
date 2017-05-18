@@ -59,6 +59,10 @@ class LoginForm extends React.Component {
         e.preventDefault();
         browserHistory.push("/forgot");
     }
+    
+    newUser(e) {
+        browserHistory.push("/newuser");
+    }
 
     render() {
         const { errors, email, password, isLoading } = this.state;
@@ -113,6 +117,14 @@ class LoginForm extends React.Component {
                     <div className="row margin-top">
                     <div className="col-sm-12 center">
                         <a id="forgot" onClick={(e) => this.onForget(e)} href="forgot">Tilbakestill passord</a>
+                    </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div className="row margin-top">
+                    <div className="col-sm-12 center new-user-link">
+                        <a id="forgot" onClick={(e) => this.newUser(e)} href="forgot">Nyansatt? Klikk her</a>
                     </div>
                     </div>
 

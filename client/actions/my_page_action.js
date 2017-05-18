@@ -9,20 +9,20 @@ export function setUserData(user) {
     return {
         type: SET_CURRENT_USER,
         user: user
-    }
+    };
 }
 
 export function setProfileData(userInput) {
         return {
         type: SET_CURRENT_USER,
         user: user
-    }
+    };
 };
 
 export function setEmployee() {
         return {
         type: SET_CURRENT_USER,
         user: user
-    }
+    };
 }
 

@@ -393,9 +393,6 @@ input::-webkit-input-placeholder {
     padding: 10px;
     margin-top: 55px;
 }
-.profile-box p{
-    text-transform: capitalize;
-}
 .profile-box .col-sm-8, .my-profile-box .col-sm-4, .my-profile-box .col-sm-6 {
     vertical-align: middle;
     display: inline-block;
@@ -657,4 +654,7 @@ input::-webkit-input-placeholder {
 }
 .help-block.error {
     color: #ad5151;
+}
+.new-user-container {
+    margin-top: 30%;
 }

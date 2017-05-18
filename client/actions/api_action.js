@@ -51,7 +51,16 @@ export function forgotPassword(userInput) {
     }
 }
 
-
+//MÅ GJØRES
+export function newUser(userInput) {
+    console.log(userInput);
+    return dispatch => {
+        return axios.post("/forgot", {
+            email: userInput.email,
+            passord: userInput.password
+        })
+    }
+}
 
 // change user password
 export function changePassword(userInput) {

@@ -79,7 +79,7 @@ class EmployeeDetails extends React.Component {
         return (
             <div>
                 <MenuTop
-                    menu="default"
+                    menu="default-with-back"
                     headline={employee.name}
                 />
 
@@ -89,9 +89,9 @@ class EmployeeDetails extends React.Component {
                             <img className="img-thumbnail" src={employee.image} width="100%" />
                         </div>
                         <div className="col-sm-7">
-                            <div className="profile-name"><p>{employee.name}</p></div>
-                            <div className="profile-position"><p>{employee.jobtitle}</p></div>
-                            <div className="profile-company"><p>{employee.company}</p></div>
+                            <div className="profile-name capitalize"><p>{employee.name}</p></div>
+                            <div className="profile-position capitalize"><p>{employee.jobtitle}</p></div>
+                            <div className="profile-company capitalize"><p>{employee.company}</p></div>
                         </div>
                     </div>
 
@@ -100,7 +100,7 @@ class EmployeeDetails extends React.Component {
                     </div>
                     <div className="profile-text-area">
                         <p className="textarea-readonly">
-                                <p>{profile.experience}</p>
+                                {profile.experience}
                             </p>
                     </div>
 

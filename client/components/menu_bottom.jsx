@@ -9,7 +9,7 @@ class Menu extends React.Component {
         super(props);
         this.state = {
             active: ''
-        }
+        };
     }
 
     handleClick(e) {
@@ -82,10 +82,8 @@ class Menu extends React.Component {
 
                             <div id="listgrid" className="col-sm-3 menu-bottom-cl">
                                 <button className="btn menu-bottom" onClick={(e) => this.handleClick(e)}>
-                                    {listView === 'list' &&
-                                        <i id="people" className="material-icons icons-menu-bottom grid-icon" style={peopleStyle}> view_module</i>}
-                                    {listView === 'grid'
-                                        && <i id="people" className="material-icons icons-menu-bottom" style={peopleStyle}> view_list</i>}
+                                    {listView === 'list' && <i id="people" className="material-icons icons-menu-bottom grid-icon" style={peopleStyle}> view_module</i>}
+                                    {listView === 'grid' && <i id="people" className="material-icons icons-menu-bottom" style={peopleStyle}> view_list</i>}
                                 </button>
                             </div>
 
