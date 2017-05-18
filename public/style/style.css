@@ -222,10 +222,13 @@ li  {
     line-height: 2.4em;
 }
 
-.media-body {
+/*.media-body {
 
     width: auto;
     font-size: 23px;
+}*/
+.firstName {
+    font-size: 20px;
 }
 
 .media {

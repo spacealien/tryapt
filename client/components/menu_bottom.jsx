@@ -31,16 +31,18 @@ class Menu extends React.Component {
                 break;
             case "people":
                 
+                
+                document.getElementById('login').style.color="#333333";
+                document.getElementById('home').style.color="#333333";
+                document.getElementById('info').style.color="#333333";
+                document.getElementById('listgrid').style.color="#D1A25F";
+                
+                this.props.browserHistory.push('/people');
                 if(this.props.listView==='list') {
                     this.props.setGridView();
                 } else {
                     this.props.setListView();
                 }
-                document.getElementById('login').style.color="#333333";
-                document.getElementById('home').style.color="#333333";
-                document.getElementById('info').style.color="#333333";
-                document.getElementById('listgrid').style.color="#D1A25F";
-                this.props.browserHistory.push('/people');
                 break;
             case 'info':
                 document.getElementById(id).style.color="#D1A25F";
