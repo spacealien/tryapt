@@ -616,3 +616,6 @@ input::-webkit-input-placeholder {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+.grid-icon {
+    color: #D1A25F;
+}

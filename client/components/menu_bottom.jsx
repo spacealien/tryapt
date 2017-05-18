@@ -16,7 +16,7 @@ class Menu extends React.Component {
             case 'home':
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('login').style.color="#333333";
-                document.getElementById('listgrid').style.color="#333333";
+                document.getElementById('peopleList').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
                 // this.props.setDefaultPeople();
                 this.props.browserHistory.push('/info');
@@ -25,7 +25,7 @@ class Menu extends React.Component {
             case "login":
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('home').style.color="#333333";
-                document.getElementById('listgrid').style.color="#333333";
+                document.getElementById('peopleList').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
                 this.props.browserHistory.push('/my_page');
                 break;
@@ -35,19 +35,20 @@ class Menu extends React.Component {
                 document.getElementById('login').style.color="#333333";
                 document.getElementById('home').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
-                document.getElementById('listgrid').style.color="#D1A25F";
-                
-                this.props.browserHistory.push('/people');
                 if(this.props.listView==='list') {
                     this.props.setGridView();
                 } else {
                     this.props.setListView();
                 }
+                
+                this.props.browserHistory.push('/people');
+                document.getElementById('people').style.color="#D1A25F";
+                
                 break;
             case 'info':
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('login').style.color="#333333";
-                document.getElementById('listgrid').style.color="#333333";
+                document.getElementById('peopleList').style.color="#333333";
                 document.getElementById('home').style.color="#333333";
                 this.props.browserHistory.push('/info');
                 break;
@@ -73,7 +74,7 @@ class Menu extends React.Component {
 
                             <div id="listgrid" className="col-sm-3 menu-bottom-cl">
                                 <button className="btn menu-bottom" onClick={(e) => this.handleClick(e)}>
-                                    {listView==='list' && <i id="people" className="material-icons icons-menu-bottom">view_module</i>} 
+                                    {listView==='list' && <i id="people" className="material-icons icons-menu-bottom grid-icon">view_module</i>} 
                                     {listView==='grid' && <i id="people" className="material-icons icons-menu-bottom">view_list</i>} 
                                 </button>
                             </div>
