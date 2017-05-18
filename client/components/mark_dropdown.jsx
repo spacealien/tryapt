@@ -12,8 +12,8 @@ class Dropdown extends React.Component {
         this.state = {
             visible: false,
 
-            isAlled: false,
-            AllOptionText: 'er Alle'
+            isAllMarked: false,
+            markAllOptionText: 'Marker Alle'
 
         };
 
@@ -23,46 +23,45 @@ class Dropdown extends React.Component {
 
     toggle() {
         if (!this.state.visible) {
-            document.getElementById('Dropdown').style.display = 'block';
+            document.getElementById('markDropdown').style.display = 'block';
         }
         else {
-            document.getElementById('Dropdown').style.display = 'none';
+            document.getElementById('markDropdown').style.display = 'none';
         }
         this.setState({
             visible: !this.state.visible
         });
     }
 
-    toggleAll() {
-        this.props.onToggleAll(this.state.isAlled);
-        this.setState({ isAlled: !this.state.isAlled });
-        if (this.state.AllOptionText == 'er Alle') {
-            this.setState({ AllOptionText: 'er Ingen' });
+    toggleMarkAll() {
+        this.props.onToggleMarkAll(this.state.isAllMarked);
+        this.setState({ isAllMarked: !this.state.isAllMarked });
+        if (this.state.markAllOptionText == 'Marker Alle') {
+            this.setState({ markAllOptionText: 'Marker Ingen' });
         } else {
-            this.setState({ AllOptionText: 'er Alle' });
+            this.setState({ markAllOptionText: 'Marker Alle' });
         }
     }
 
 
     render() {
-        const { AllOptionText } = this.state;
+        const { markAllOptionText } = this.state;
 
         return (
-            <div className="-dropdown"  >
+            <div className="mark-dropdown"  >
 
                 <img
-                    className='-dropimg'
+                    className='mark-dropimg'
                     src='https://cdn1.iconfinder.com/data/icons/pixel-perfect-at-16px-volume-2/16/5001-128.png'
                     onClick={() => this.toggle()} />
 
-                <div id='Dropdown' className='-dropdown-content'>
+                <div id='markDropdown' className='mark-dropdown-content'>
 
                     <div
-                        className='-dropdown-element'
-                        onClick={() => this.toggleAll()}>{AllOptionText}</div>
+                        className='mark-dropdown-element'
+                        onClick={() => this.toggleMarkAll()}>{markAllOptionText}</div>
 
-                    <div className='-dropdown-element'
-                    onClick={() => this.props.sendToMarked()}>Send til erte<img src='https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-64.png' /> </div>
+                    <div className='mark-dropdown-element'>Send til markerte<img src='https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-64.png' /> </div>
                 </div>
             </div>
         );
