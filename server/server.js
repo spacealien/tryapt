@@ -233,7 +233,7 @@ app.post("/reset_password", authentication, function (req, res) {
             },
         }
     ).then(function (result) {
-        res.status(200).send();
+        res.status(200).json({ message: 'Passord er nå endret'});
     });
 });
 

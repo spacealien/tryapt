@@ -7,7 +7,7 @@ class ForgotResetForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            errors: {},
+            message: {},
             isLoading: false,
             password: '',
             passwordConfirm: ''
@@ -20,7 +20,7 @@ class ForgotResetForm extends React.Component {
             console.log('not valid');
             console.log(errors);
             this.setState({
-                errors: errors
+                message: errors
             });
         }
         return isValid;
@@ -30,7 +30,7 @@ class ForgotResetForm extends React.Component {
         e.preventDefault();
 
         if (this.isValid()) {
-            this.setState({ errors: {}, isLoading: true });
+            this.setState({ message: {}, isLoading: true });
 
             this.props.changePassword({
                 password: this.state.password,
@@ -38,11 +38,17 @@ class ForgotResetForm extends React.Component {
             }).then(
                 (res) => {
                     console.log(res.data);
+                    this.setState({
+                        message: {
+                            message: res.data.message,
+                            isLoading: false
+                        }
+                    });
                 },
                 (err) => {
                     console.log(err.response.data.error);
                     this.setState({
-                        errors: {
+                        message: {
                             message: err.response.data.error
                         }, isLoading: false
                     });
@@ -52,21 +58,22 @@ class ForgotResetForm extends React.Component {
     }
 
     render() {
-        const { errors } = this.state;
+        const { message } = this.state;
         console.log('faen');
-        console.log(errors);
+        console.log(message);
 
         return (
             <div className="container">
                 <h1 className="text-center">Tilbakestill Password</h1>
                 <div>
-                    {errors.message && <span className="help-block">{errors.message}</span>}
-                    {errors.password && <span className="help-block">{errors.password}</span>}
+                    {message.message && <span className="help-block">{message.message}</span>}
+
+                    {message.password && <span className="help-block">{message.password}</span>}
                     <label htmlFor="email" >Nytt passord:</label>
                     <input id="newPassword" className="form-control" type="password" onChange={(e) => this.setState({ password: e.target.value })} />
                 </div>
                 <div>
-                    {errors.passwordConfirm && <span className="help-block">{errors.passwordConfirm}</span>}
+                    {message.passwordConfirm && <span className="help-block">{message.passwordConfirm}</span>}
                     <label htmlFor="email" >Bekreft passord:</label>
                     <input id="confirm" className="form-control" type="password" onChange={(e) => this.setState({ passwordConfirm: e.target.value })} />
                 </div>
