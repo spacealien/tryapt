@@ -47,6 +47,27 @@ class MenuTop extends React.Component {
         }
     }
 
+
+    sentToMarked() {
+        console.log("sendToMarked");
+
+
+        this.props.employees.marked.map()
+
+
+
+
+
+
+
+        var link = "mailto:odd.hoel@hotmail.com"
+            + "?cc=myCCaddress@example.com"
+            + "&subject=" + escape("This is my subject");
+
+        window.location.href = link;
+
+    }
+
     renderMarkMenu() {
         return (
             <div className="navbar navbar-fixed-top ">
@@ -55,7 +76,9 @@ class MenuTop extends React.Component {
                         <img src='https://cdn2.iconfinder.com/data/icons/navigation-set-arrows-part-two/32/Arrow_Back-128.png' width='70%' />
                     </div>
                     <div className="col-sm-2 menu-mark-cl" >
-                        <MarkDropdown onToggleMarkAll={(isAllMarked) => this.onToggleMarkAll(isAllMarked)} />
+                        <MarkDropdown
+                            sendToMarked={() => this.sendToMarked()}
+                            onToggleMarkAll={(isAllMarked) => this.onToggleMarkAll(isAllMarked)} />
                     </div>
                     <div className="col-sm-4"><span className="nav-brand center-block">{this.props.employees.marked.length} Markert</span></div>
 

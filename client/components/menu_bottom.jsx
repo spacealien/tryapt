@@ -18,7 +18,7 @@ class Menu extends React.Component {
                 document.getElementById('login').style.color="#333333";
                 document.getElementById('listgrid').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
-                this.props.setDefaultPeople();
+                // this.props.setDefaultPeople();
                 this.props.browserHistory.push('/info');
                 this.props.browserHistory.push('/');
                 break;

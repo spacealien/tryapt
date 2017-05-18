@@ -17,8 +17,13 @@ class ForgotForm extends React.Component {
 
     isValid(e) {
         const { errors, isValid } = validateInput(this.state);
+
         if (!isValid) {
-            this.setState({ errors: errors });
+            this.setState({
+                message: {
+                    errors: errors
+                }
+            });
         }
         return isValid;
     }
@@ -48,12 +53,16 @@ class ForgotForm extends React.Component {
     }
 
     render() {
-        const {message, isLoading} = this.state;
+        const { message, isLoading } = this.state;
+
+        console.log("FUCK");
+        console.log(message);
 
         return (
             <div className="container" >
-                 <h1 className="text-center">Tilbakestill Password</h1>
+                <h1 className="text-center">Tilbakestill Password</h1>
                 <div className="input-group">
+
                     {message.errors && <span className="help-block">{message.errors}</span>}
                     {message.message && <span className="help-block">{message.message}</span>}
 

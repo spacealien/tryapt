@@ -11,7 +11,7 @@ import helmet from 'helmet';
 import request from 'request';
 import middleware from './middleware/middleware';
 import authentication from './middleware/auth';
-import mailAuthentication from './middleware/mail_auth'
+import mailAuthentication from './middleware/mail_auth';
 
 import validateLogin from './shared/validation/login_validation';
 import mailer from 'nodemailer';
@@ -80,8 +80,104 @@ app.post('/my_page/login', function (req, res) {
 });
 
 
+
+// Get method for fetching employees from json file 
+app.get('/api/people', function (req, res) {
+    var body = _.pick(req.body, 'email');
+
+    var employees = {};
+
+    var count = 0;
+    var handler = function (error, content) {
+        count++;
+        if (error) {
+            console.log(error);
+        }
+        else {
+            var jsonData = JSON.parse(content);
+            if (jsonData[0].company == 'apt') {
+                employees.apt = jsonData;
+            } else if (jsonData[0].company == 'try') {
+                employees.try = jsonData;
+            } else if (jsonData[0].company == 'opt') {
+                employees.opt = jsonData;
+            }
+        }
+
+        if (count == 3) {
+            res.status(200).json({ employees: employees });
+        }
+    }
+    // Uses async handler for reading file.
+    fs.readFile('apt.json', handler),
+    fs.readFile('try.json', handler),
+    fs.readFile('opt.json', handler)
+});
+
+// // Get method for fetching employees from json file 
+// app.get('/api/people/emlpoyee', function (req, res) {
+//     var body = _.pick(req.body, 'email');
+
+//     var employees = {};
+
+//     var count = 0;
+//     var handler = function (error, content) {
+//         count++;
+//         if (error) {
+//             console.log(error);
+//         }
+//         else {
+//             var jsonData = JSON.parse(content);
+//             if (jsonData[0].company == 'apt') {
+//                 employees.apt = jsonData;
+//             } else if (jsonData[0].company == 'try') {
+//                 employees.try = jsonData;
+//             } else if (jsonData[0].company == 'opt') {
+//                 employees.opt = jsonData;
+//             }
+//         }
+
+//         if (count == 3) {
+//             res.status(200).json({ employees: employees });
+//         }
+//     }
+
+//     // Uses async handler for reading file.
+
+//     fs.readFile('apt.json', handler),
+//     fs.readFile('try.json', handler),
+//     fs.readFile('opt.json', handler)
+// });
+
+
+// Finds public profile
+app.post('/api/people/profile', function (req, res) {
+    var body = _.pick(req.body, 'email');
+
+    db_context.user.findOne({
+        where: {
+            email: body.email
+        }
+    }).then(function (user) {
+
+        if (user) {
+            user.getProfile({
+                where: {
+                    userId: user.id
+                }
+            }).then(function (profile) {
+                res.status(200).json({ profile: profile })
+            });
+        } else {
+            res.status().json({ message: '' });
+        }
+    });
+
+});
+
+
 // Updates user profile
-app.post('/my_page/update', authentication, function (req, res) {
+app.post('/my_page/profile/update', authentication, function (req, res) {
     var body = _.pick(req.body, 'user', 'profile');
     var attributes = {};
 
@@ -92,7 +188,6 @@ app.post('/my_page/update', authentication, function (req, res) {
     if (body.profile.experience) {
         attributes.experience = body.profile.experience;
     }
-
 
     db_context.profile.findOne({
         where: {
@@ -118,54 +213,15 @@ app.post('/my_page/update', authentication, function (req, res) {
 }); //end /my_page/update
 
 
-// Get method for fetching employees from json file 
-app.get('/api/people', function (req, res) {
-    var body = _.pick(req.body, 'email');
-
-    var employees = {
-        try: JSON.parse(fs.readFileSync('try.json')),
-        apt: JSON.parse(fs.readFileSync('apt.json')),
-        opt: JSON.parse(fs.readFileSync('opt.json'))
-    };
-
-    res.status(200).json({ employees: employees });
-});
-
-
-// Finds public profile
-app.post('/people/profile', function (req, res) {
-    var body = _.pick(req.body, 'email');
-
-    db_context.user.findOne({
-        where: {
-            email: body.email
-        }
-    }).then(function (user) {
-
-        if (user) {
-            user.getProfile({
-                where: {
-                    userId: user.id
-                }
-            }).then(function (profile) {
-                res.status(200).json({ profile: profile })
-            });
-        } else {
-            res.status().json({ message: '' });
-        }
-    });
-
-});
-
 
 // Get method for fetching private user data
-app.get('/my_page/user_data', authentication, function (req, res) {
+app.post('/my_page/user_data', authentication, function (req, res) {
     var body = _.pick(req.body, 'email');
     res.status(200).json({ userData: 'melding' });
 });
 
 //
-app.post("/reset", authentication, function (req, res) {
+app.post("/reset_password", authentication, function (req, res) {
     var body = _.pick(req.body, 'password');
 
     db_context.user.update({
@@ -177,7 +233,7 @@ app.post("/reset", authentication, function (req, res) {
             },
         }
     ).then(function (result) {
-        res.status(200).send();
+        res.status(200).json({ message: 'Passord er nå endret'});
     });
 });
 
@@ -187,16 +243,11 @@ app.post("/reset", authentication, function (req, res) {
 
 app.get('/reset*', mailAuthentication, function (req, res) {
 
-
-
-
-
-
-
     res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
 
 // Get request for creating password reset link
+// the forgot url has to contain a valid unexpired token
 app.post('/forgot', function (req, res) {
     var body = _.pick(req.body, 'email');
 
@@ -250,43 +301,43 @@ db_context.sequelize.sync({
         var user = TryJSON[i];
 
         console.log(user);
-            db_context.user.create({
-                email: user.email,
-                password: 'password'
-            }).then(function (result) {
-
-                db_context.profile.create({
-                    userId: result.id,
-                    linkedin: result.email,
-                    experience: result.email
-                });
-
-            });
-        }
-
-        for (var i = 0; i < AptJSON.length; i++) {
-            var user = AptJSON[i];
-
-            db_context.user.create({
-                email: user.email,
-                password: 'password'
-            }).then(function (result) {
-
-
-                db_context.profile.create({
-                    userId: result.id,
-                    linkedin: result.email,
-                    experience: result.email
-                });
-
-            });
-        }
-
         db_context.user.create({
-            email: 'try@try.no',
+            email: user.email,
             password: 'password'
+        }).then(function (result) {
+
+            db_context.profile.create({
+                userId: result.id,
+                linkedin: result.email,
+                experience: result.email
+            });
+
         });
     }
+
+    for (var i = 0; i < AptJSON.length; i++) {
+        var user = AptJSON[i];
+
+        db_context.user.create({
+            email: user.email,
+            password: 'password'
+        }).then(function (result) {
+
+
+            db_context.profile.create({
+                userId: result.id,
+                linkedin: result.email,
+                experience: result.email
+            });
+
+        });
+    }
+
+    db_context.user.create({
+        email: 'try@try.no',
+        password: 'password'
+    });
+}
 
 
     ).then(function (res) {
