@@ -21,7 +21,9 @@ class SearchBar extends React.Component {
     render() {
         return (
             <form  onSubmit={(e) => this.onEnterPress(e)} >
-                <input type="search" onChange={event => this.onInputChange(event.target.value)} />  
+                <input
+                type="search"
+                onChange={event => this.onInputChange(event.target.value)}/>  
             </form>
         );
     }
