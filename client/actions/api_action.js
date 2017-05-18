@@ -23,7 +23,7 @@ export function fetchEmployee(email) {
 // linkedn, and experience
 export function fetchProfileData(email) {
     return dispatch => {
-        return axios.post("/people/profile", {
+        return axios.post("/api/people/profile", {
             email: email
         });
     }
@@ -33,7 +33,7 @@ export function fetchProfileData(email) {
 // save changges to profile data in my page view
 export function submitProfileChanges(profile) {
     return dispatch => {
-        return axios.post("/my_page/update", {
+        return axios.post("/my_page/profile/update", {
             profile: profile
         });
     }
@@ -75,11 +75,9 @@ export function changePassword(userInput) {
     }
 
     return dispatch => {
-        return axios.post("/reset", {
+        return axios.post("/reset_password", {
             password: userInput.password
-        }, config).then((res) => {
-            console.log(res);
-        });
+        }, config);
     }
 }
 

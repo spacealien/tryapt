@@ -4,14 +4,6 @@ import _ from 'underscore';
 export default function profileValidator(data) {
     let errors = {};
 
-    if(data.experience) {
-
-    }
-
-    
-
-
-
 
 
 

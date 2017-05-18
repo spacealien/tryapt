@@ -66,8 +66,9 @@ class EmployeeDetails extends React.Component {
     }
 
     openLinkedInProfile() {
+        const profile = this.state.profile;
         console.log("openLinkedInProfile");
-        window.location.href = "https://www.linkedin.com/in/odd-einar-hoel-14b039107/";
+        window.location.href = "https://www.linkedin.com" + profile.linkedin;
     }
 
     render() {
