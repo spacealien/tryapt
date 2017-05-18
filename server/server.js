@@ -108,38 +108,46 @@ app.get('/api/people', function (req, res) {
             res.status(200).json({ employees: employees });
         }
     }
-
     // Uses async handler for reading file.
-
     fs.readFile('apt.json', handler),
     fs.readFile('try.json', handler),
     fs.readFile('opt.json', handler)
-
 });
 
-// Get method for fetching employees from json file 
-app.get('/api/people/emlpoyee', function (req, res) {
-    var body = _.pick(req.body, 'email');
+// // Get method for fetching employees from json file 
+// app.get('/api/people/emlpoyee', function (req, res) {
+//     var body = _.pick(req.body, 'email');
 
-    var employees = {
-        try: JSON.parse(fs.readFileSync('try.json')),
-        apt: JSON.parse(fs.readFileSync('apt.json')),
-        opt: JSON.parse(fs.readFileSync('opt.json'))
-    };
+//     var employees = {};
 
-    fs.readFile("data/wx.hourly.txt", "utf8", function (err, data) {
-        if (err) throw err;
+//     var count = 0;
+//     var handler = function (error, content) {
+//         count++;
+//         if (error) {
+//             console.log(error);
+//         }
+//         else {
+//             var jsonData = JSON.parse(content);
+//             if (jsonData[0].company == 'apt') {
+//                 employees.apt = jsonData;
+//             } else if (jsonData[0].company == 'try') {
+//                 employees.try = jsonData;
+//             } else if (jsonData[0].company == 'opt') {
+//                 employees.opt = jsonData;
+//             }
+//         }
 
-        var resultArray = //do operation on data that generates say resultArray;
+//         if (count == 3) {
+//             res.status(200).json({ employees: employees });
+//         }
+//     }
 
-            res.send(resultArray);
-    });
+//     // Uses async handler for reading file.
 
-
-
-
-    res.status(200).json({ employees: employees });
-});
+//     fs.readFile('apt.json', handler),
+//     fs.readFile('try.json', handler),
+//     fs.readFile('opt.json', handler)
+// });
 
 
 // Finds public profile
