@@ -30,7 +30,7 @@ export const routes = (
                 <Route path="/forgot" component={ForgotForm}/>
                 <Route path="/reset*" component={ForgotResetForm} />
                 <Route path="/info" component={InfoView} />
-                        
+                {/*<Route path="/error" component={Error}*/}
         </Route>
 );
 

@@ -110,45 +110,44 @@ app.get('/api/people', function (req, res) {
     }
     // Uses async handler for reading file.
     fs.readFile('apt.json', handler),
-    fs.readFile('try.json', handler),
-    fs.readFile('opt.json', handler)
+        fs.readFile('try.json', handler),
+        fs.readFile('opt.json', handler)
 });
 
- // Get method for fetching employees from json file 
- app.get('/api/people/emlpoyee', function (req, res) {
-     var body = _.pick(req.body, 'email');
+// Get method for fetching employees from json file 
+app.get('/api/people/emlpoyee', function (req, res) {
+    var body = _.pick(req.body, 'email');
 
-     var employees = {};
+    var employees = {};
 
-     var count = 0;
-     var handler = function (error, content) {
-         count++;
-         if (error) {
-             console.log(error);
-         }
-         else {
-             var jsonData = JSON.parse(content);
-             if (jsonData[0].company == 'apt') {
-                 employees.apt = jsonData;
-             } else if (jsonData[0].company == 'try') {
-                 employees.try = jsonData;
-             } else if (jsonData[0].company == 'opt') {
-                 employees.opt = jsonData;
-             }
-         }
+    var count = 0;
+    var handler = function (error, content) {
+        count++;
+        if (error) {
+            console.log(error);
+        }
+        else {
+            var jsonData = JSON.parse(content);
+            if (jsonData[0].company == 'apt') {
+                employees.apt = jsonData;
+            } else if (jsonData[0].company == 'try') {
+                employees.try = jsonData;
+            } else if (jsonData[0].company == 'opt') {
+                employees.opt = jsonData;
+            }
+        }
 
-         if (count == 3) {
-             res.status(200).json({ employees: employees });
-         }
-     }
+        if (count == 3) {
+            res.status(200).json({ employees: employees });
+        }
+    }
 
-     // Uses async handler for reading file.
+    // Uses async handler for reading file.
 
-     fs.readFile('apt.json', handler),
-     fs.readFile('try.json', handler),
-     fs.readFile('opt.json', handler)
- });
-
+    fs.readFile('apt.json', handler),
+        fs.readFile('try.json', handler),
+        fs.readFile('opt.json', handler)
+});
 
 // Finds public profile
 app.post('/api/people/profile', function (req, res) {
@@ -212,174 +211,239 @@ app.post('/my_page/profile/update', authentication, function (req, res) {
 
 }); //end /my_page/update
 
-
-
-// Get method for fetching private user data
-app.post('/my_page/user_data', authentication, function (req, res) {
-    var body = _.pick(req.body, 'email');
-    res.status(200).json({ userData: 'melding' });
-});
-
-//
-app.post("/reset_password", authentication, function (req, res) {
-    var body = _.pick(req.body, 'password');
-
-    db_context.user.update({
-        password: body.password
-    }, {
-            where: {
-                id: req.currentUser.id,
-                email: req.currentUser.email
-            },
-        }
-    ).then(function (result) {
-        res.status(200).json({ message: 'Passord er nå endret'});
-    });
-});
-
-// Get request for navigating to password reset page 
-// after clicking email link.
-// Must check if reset token is still valid
-
-app.get('/reset*', mailAuthentication, function (req, res) {
-
-    res.sendFile(path.join(__dirname + '/../public/index.html'));
-});
-
-// Get request for creating password reset link
-// the forgot url has to contain a valid unexpired token
-app.post('/forgot', function (req, res) {
+app.post('api/user/register', function (req, res) {
     var body = _.pick(req.body, 'email');
 
-    console.log(body);
+    console.log(body.email);
 
-    db_context.user.findByEmail(body).then(function (user) {
-        var token = user.generateToken('email_token');
+    var list = {};
+    var count = 1;
+    var isEmployee = false;
 
-        return {
-            user: user,
-            token: token
-        };
-    }).then(function (e) {
-        var transporter = mailer.createTransport(config.mailer.transport);
+    var handler = function (error, content) {
+        count++;
+        if (error) {
+            console.log(error);
+        }
+        else {
+            var jsonData = JSON.parse(content);
 
-
-        var mailOptions = {
-            to: 's236313@stud.hioa.no',
-            from: 'aptemailtester1@gmail.com',
-            subject: 'APT TILBAKESTILL PASSORD',
-            html: '<a href="https://localhost:3000/reset?token='
-            + e.token + '">Tilbakestill passord</a>'
+            if (jsonData[0].company == 'apt') {
+                list = jsonData;
+            } else if (jsonData[0].company == 'try') {
+                list = jsonData;
+            } else if (jsonData[0].company == 'opt') {
+                list = jsonData;
+            }
         }
 
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                res.status(503).json({ errors: 'En feil har oppståt' });
-            } else {
-                res.status(200).json({ message: 'En bekrefelses epost er sendt' });
-            };
-        });
-    }).catch(function (e) {
-        console.log(e);
-        res.status(500).json({ errors: 'Ingen bruker med denne epost adressen' });
-    });
-});
+        if (count == 1) {
+            list.map(function (employee) {
+                if (emoloyee.email == body.email) {
+                    isEmployee = true;
+                }
+
+                db_context.user.create({
+                    email: user.email,
+                    password: 'password'
+                }).then(function (result) {
+
+                    db_context.profile.create({
+                        userId: result.id,
+                        linkedin: result.email,
+                        experience: result.email
+                    });
+
+                }).catch(function (e) {
+                    res.status(500).json({ errors: 'En feil har oppstått' });
+                });
 
 
-// Get method for redirecting all traffic 
-// that does not match any url.
-app.get('/*', function (req, res) {
-    res.redirect('/');
-});
+            } // end map
+        }
 
-// Method for creating database
-db_context.sequelize.sync({
-    force: true
-}).then(function (res) {
-
-    for (var i = 0; i < TryJSON.length; i++) {
-        var user = TryJSON[i];
-
-        console.log(user);
-        db_context.user.create({
-            email: user.email,
-            password: 'password'
-        }).then(function (result) {
-
-            db_context.profile.create({
-                userId: result.id,
-                linkedin: result.email,
-                experience: result.email
-            });
-
-        });
-    }
-
-    for (var i = 0; i < AptJSON.length; i++) {
-        var user = AptJSON[i];
-
-        db_context.user.create({
-            email: user.email,
-            password: 'password'
-        }).then(function (result) {
-
-
-            db_context.profile.create({
-                userId: result.id,
-                linkedin: result.email,
-                experience: result.email
-            });
-
-        });
-    }
-
-    db_context.user.create({
-        email: 'try@try.no',
-        password: 'password'
-    });
-}
-
-
-    ).then(function (res) {
-        console.log('syncing finished');
-
-        https.createServer({
-            key: fs.readFileSync('key.pem'),
-            cert: fs.readFileSync('cert.pem'),
-            passphrase: 'hemmelig'
-        }, app).listen(PORT, function () {
-            console.log('Express server started!' + '\nPORT:' + PORT);
-        });
-
-
-    }).catch(function (error) {
-        console.log(error);
-    });
-
-
-
-// forces all every request on http protocol 
-// use to https protocol
-var HTTP_PORT = 8080;
-var HTTPS_PORT = 3000;
-
-var http_app = express();
-http_app.set('port', HTTP_PORT);
-
-http_app.get('/*', function (req, res, next) {
-    if (/^http$/.test(req.protocol)) {
-        var host = req.headers.host.replace(/:[0-9]+$/g, ""); // strip the port # if any
-
-        if ((HTTPS_PORT != null) && HTTPS_PORT !== 443) {
-            return res.redirect("https://" + host + ":" + HTTPS_PORT + req.url, 301);
+        if (body.email.contains('apt')) {
+            fs.readFile('apt.json', handler);
+        } else if (body.email.conatins('try')) {
+            fs.readFile('try.json', handler);
         } else {
-            return res.redirect("https://" + host + req.url, 301);
+            fs.readFile('opt.json', handler)
         }
-    } else {
-        return next();
+
     }
 });
+    
 
-http.createServer(http_app).listen(HTTP_PORT).on('listening', function () {
-    return console.log("HTTP to HTTPS redirect app launched.");
-});
+
+
+    // Get method for fetching private user data
+    app.post('/my_page/user_data', authentication, function (req, res) {
+        var body = _.pick(req.body, 'email');
+        res.status(200).json({ userData: 'melding' });
+    });
+
+    //
+    app.post("/reset_password", authentication, function (req, res) {
+        var body = _.pick(req.body, 'password');
+
+        db_context.user.update({
+            password: body.password
+        }, {
+                where: {
+                    id: req.currentUser.id,
+                    email: req.currentUser.email
+                },
+            }
+        ).then(function (result) {
+            res.status(200).json({ message: 'Passord er nå endret' });
+        });
+    });
+
+    // Get request for navigating to password reset page 
+    // after clicking email link.
+    // Must check if reset token is still valid
+
+    app.get('/reset*', mailAuthentication, function (req, res) {
+
+        res.sendFile(path.join(__dirname + '/../public/index.html'));
+    });
+
+    // Get request for creating password reset link
+    // the forgot url has to contain a valid unexpired token
+    app.post('/forgot', function (req, res) {
+        var body = _.pick(req.body, 'email');
+
+        console.log(body);
+
+        db_context.user.findByEmail(body).then(function (user) {
+            var token = user.generateToken('email_token');
+
+            return {
+                user: user,
+                token: token
+            };
+        }).then(function (e) {
+            var transporter = mailer.createTransport(config.mailer.transport);
+
+
+            var mailOptions = {
+                to: 's236313@stud.hioa.no',
+                from: 'aptemailtester1@gmail.com',
+                subject: 'APT TILBAKESTILL PASSORD',
+                html: '<a href="https://localhost:3000/reset?token='
+                + e.token + '">Tilbakestill passord</a>'
+            }
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    res.status(503).json({ errors: 'En feil har oppståt' });
+                } else {
+                    res.status(200).json({ message: 'En bekrefelses epost er sendt' });
+                };
+            });
+        }).catch(function (e) {
+            console.log(e);
+            res.status(500).json({ errors: 'Ingen bruker med denne epost adressen' });
+        });
+    });
+
+
+
+    // Get method for redirecting all traffic 
+    // that does not match any url.
+    app.get('/*', function (req, res) {
+        res.redirect('/');
+    });
+
+
+
+
+
+    // Method for creating database
+    db_context.sequelize.sync({
+        force: true
+    }).then(function (res) {
+
+        for (var i = 0; i < TryJSON.length; i++) {
+            var user = TryJSON[i];
+
+            console.log(user);
+            db_context.user.create({
+                email: user.email,
+                password: 'password'
+            }).then(function (result) {
+
+                db_context.profile.create({
+                    userId: result.id,
+                    linkedin: result.email,
+                    experience: result.email
+                });
+
+            });
+        }
+
+        for (var i = 0; i < AptJSON.length; i++) {
+            var user = AptJSON[i];
+
+            db_context.user.create({
+                email: user.email,
+                password: 'password'
+            }).then(function (result) {
+                db_context.profile.create({
+                    userId: result.id,
+                    linkedin: result.email,
+                    experience: result.email
+                });
+            });
+        }
+
+        db_context.user.create({
+            email: 'try@try.no',
+            password: 'password'
+        });
+    }
+
+
+        ).then(function (res) {
+            console.log('syncing finished');
+
+            https.createServer({
+                key: fs.readFileSync('key.pem'),
+                cert: fs.readFileSync('cert.pem'),
+                passphrase: 'hemmelig'
+            }, app).listen(PORT, function () {
+                console.log('Express server started!' + '\nPORT:' + PORT);
+            });
+
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+
+
+    // forces all every request on http protocol 
+    // use to https protocol
+    var HTTP_PORT = 8080;
+    var HTTPS_PORT = 3000;
+
+    var http_app = express();
+    http_app.set('port', HTTP_PORT);
+
+    http_app.get('/*', function (req, res, next) {
+        if (/^http$/.test(req.protocol)) {
+            var host = req.headers.host.replace(/:[0-9]+$/g, ""); // strip the port # if any
+
+            if ((HTTPS_PORT != null) && HTTPS_PORT !== 443) {
+                return res.redirect("https://" + host + ":" + HTTPS_PORT + req.url, 301);
+            } else {
+                return res.redirect("https://" + host + req.url, 301);
+            }
+        } else {
+            return next();
+        }
+    });
+
+    http.createServer(http_app).listen(HTTP_PORT).on('listening', function () {
+        return console.log("HTTP to HTTPS redirect app launched.");
+    });
