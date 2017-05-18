@@ -97,7 +97,7 @@ class Positions extends React.Component {
                             <div className="col-sm-6">
                                 <div className="nav-brand center-block"><p>Filtrer stillinger</p></div>
                             </div>
-                            <div className="col-sm-3 menu-mark-cl">
+                            <div className="col-sm-3 menu-txt"> 
                                 <a onClick={() => this.resetPositions()}>Tilbakestill</a>
                             </div>
                 

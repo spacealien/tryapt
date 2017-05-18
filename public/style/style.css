@@ -14,7 +14,10 @@ body {
     padding-bottom: 140px;
     padding-top: 110px;
 }
-
+h1 {
+    font-size:
+        45px;
+}
 /*html, body {
     overflow: hidden;
 }
@@ -118,11 +121,13 @@ li  {
     list-style: none;
 }
 
-.menu-mark-cl {
+.menu-txt {
     line-height: 3em;
     text-align: center;
 }
-
+.menu-txt a {
+    color: #D1A25F;
+}
 .cl-sm-4 {
     text-align: center;
 }
@@ -259,7 +264,9 @@ li  {
     height: 100px;
     font-size: 50px;        
 }
-
+.center {
+    text-align: center;
+}
 ::-webkit-input-placeholder {
     /*font-size: 25px;*/
 
@@ -280,15 +287,14 @@ input[type=search] {
 }
 
 input[type=search]::-webkit-search-cancel-button {
-    /*display: none; */
+    
+    /*-webkit-appearance: searchfield-cancel-button;*/
+    height: 40px;
+    width: 40px;
+    background-image: url("https://cdn2.iconfinder.com/data/icons/simple-microphone-icon/512/Cancel_Icon-48.png");
+    display: inline-block;
+    z-index: 300;
     position: relative;
-    margin-right: 20px;
-
-    /*-webkit-appearance: none;
-height: 40px;
-width: 40px;
-border-radius:10px;
-background: red;*/
 }
 
 input[type=search] {
@@ -434,12 +440,15 @@ input::-webkit-input-placeholder {
 .login-icons {
     line-height: 2.5em;
 }
-.login-btn {
+.main-btn {
     width: 300px;
     height: 80px;
     font-size: 40px;
 }
-
+.full-btn {
+    width: 100%;
+    height: 100px;
+}
 .login-row {
     text-align: center;
     margin-top: 100px;
@@ -506,6 +515,12 @@ input::-webkit-input-placeholder {
     text-align: center;
     font-weight: bold;
 }
+.btn-group {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
 .btn-group-lg>.btn {
     padding: 20px 32px;
     font-size: 40px;
@@ -531,7 +546,23 @@ input::-webkit-input-placeholder {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
-
+.btn-group-lg>.btn-long {
+    width: 400px;
+}
+.btnPrimary {
+    color: #fff;
+    background-image: -webkit-linear-gradient(top,#D1A25F 0,#a57c41 100%);
+    background-image: -o-linear-gradient(top,#D1A25F 0,#a57c41 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#D1A25F),to(#a57c41));
+    background-image: linear-gradient(to bottom,#D1A25F 0,#a57c41 100%);
+    border-color: #b18545;
+}
+.btnPrimary:hover, .btnPrimary:focus, .btnPrimary:active {
+    color: #fff;
+    background-color: #D1A25F;
+    border-color: #b18545;
+    background-position: 0 0px;
+}
 .filter-box .selected {
     color: #D0A164;
     border: 1px solid #D0A164;
@@ -561,14 +592,12 @@ input::-webkit-input-placeholder {
     font-size: 40px;
     line-height: 3em;
 }
-.menu-mark-cl a:hover, a:focus {
+.menu-txt a:hover, a:focus {
     text-decoration: none;
 }
-/*.sort-option {
-    line-height: 5em;
-    text-align: center;
-    font-size: 40px;
-}*/
+.menu-mark {
+    margin-right: -10px;
+}
 .linkedInTextField {
     display: inline;
     border: 1px solid #eee;
@@ -618,4 +647,14 @@ input::-webkit-input-placeholder {
 }
 .grid-icon {
     color: #D1A25F;
+}
+
+.reset-container {
+    margin-top: 60%;
+}
+.reset-btn {
+    width: 400px;
+}
+.help-block.error {
+    color: #ad5151;
 }

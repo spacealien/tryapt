@@ -11,7 +11,7 @@ class ForgotResetForm extends React.Component {
             isLoading: false,
             password: '',
             passwordConfirm: ''
-        }
+        };
     }
 
     isValid() {
@@ -59,12 +59,11 @@ class ForgotResetForm extends React.Component {
 
     render() {
         const { message } = this.state;
-        console.log('faen');
         console.log(message);
 
         return (
             <div className="container">
-                <h1 className="text-center">Tilbakestill Password</h1>
+                <h1 className="text-center">Tilbakestill passord</h1>
                 <div>
                     {message.message && <span className="help-block">{message.message}</span>}
 
@@ -78,7 +77,7 @@ class ForgotResetForm extends React.Component {
                     <input id="confirm" className="form-control" type="password" onChange={(e) => this.setState({ passwordConfirm: e.target.value })} />
                 </div>
 
-                <button className="btn btn-primary btn-huge" onClick={(e) => this.onSubmit(e)} value="submit">Bekreft</button>
+                <button className="btn btnPrimary" onClick={(e) => this.onSubmit(e)} value="submit">Bekreft</button>
             </div>
         );
     }

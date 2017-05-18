@@ -3,7 +3,7 @@ import React from 'react';
 
 const GridElement = ({ employee, onEmployeeSelect, marked }) => {
 
-    var markedClassName = marked === true ? "col-xs-4 thumb mark-grid-element btn " : "col-xs-4 thumb btn";
+    var markedClassName = marked === true ? "col-xs-4 thumb mark-grid-element btn" : "col-xs-4 thumb btn";
 
     return (
 

@@ -72,10 +72,10 @@ class MenuTop extends React.Component {
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
-                    <div className="col-sm-2 menu-mark-cl" onClick={() => this.enableEmployeeMarking()} >
+                    <div className="col-sm-2 menu-txt" onClick={() => this.enableEmployeeMarking()} >
                         <img src='https://cdn2.iconfinder.com/data/icons/navigation-set-arrows-part-two/32/Arrow_Back-128.png' width='70%' />
                     </div>
-                    <div className="col-sm-2 menu-mark-cl" >
+                    <div className="col-sm-2 menu-txt" >
                         <MarkDropdown
                             sendToMarked={() => this.sendToMarked()}
                             onToggleMarkAll={(isAllMarked) => this.onToggleMarkAll(isAllMarked)} />
@@ -98,8 +98,8 @@ class MenuTop extends React.Component {
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
-                    <div className="col-sm-2 menu-mark-cl" onClick={() => this.enableEmployeeMarking()}  >
-                        <img src='https://cdn0.iconfinder.com/data/icons/logistic-2/450/list-512.png' width='70%' />
+                    <div className="col-sm-2 menu-txt menu-mark" onClick={() => this.enableEmployeeMarking()}  >
+                    <a>Marker</a>
                     </div>
                     <div className="col-sm-8">
                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
@@ -142,11 +142,11 @@ class MenuTop extends React.Component {
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
-                    <div className="col-sm-3 menu-mark-cl"> </div>
+                    <div className="col-sm-3 menu-txt"> </div>
                     <div className="col-sm-6">
                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
                     </div>
-                    <div className="col-sm-3 menu-mark-cl">
+                    <div className="col-sm-3 menu-txt">
                         <a onClick={(e) => { e.preventDefault(); this.props.logout(); }} >Logg av</a>
                     </div>
                 </div>

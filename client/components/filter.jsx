@@ -168,7 +168,7 @@ class Filter extends React.Component {
                         <div className="col-sm-6">
                             <div className="nav-brand center-block"><p>Filtrering</p></div>
                         </div>
-                        <div className="col-sm-3 menu-mark-cl">
+                        <div className="col-sm-3 menu-txt">
                             <a onClick={() => this.resetFilter()}>Tilbakestill</a>
                         </div>
 
@@ -272,6 +272,9 @@ class Filter extends React.Component {
                                     <div className="col-sm-1"><img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-48.png" /></div></div></li>
                         </ul>
                         <br />
+                        <br />
+                        <br />
+                        
                         <div className="row">
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6 margin-top">
@@ -279,24 +282,28 @@ class Filter extends React.Component {
                             </div>
                             <div className="col-sm-3"></div>
                         </div>
-                        <div className="btn-group btn-group-lg">
+                        <div className="margin-top btn-group btn-group-lg">
                             <button id='firstname' type="button" className={this.state.sort === 'firstname' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleSort.bind(this, 'firstname')}>Fornavn</button>
                             <button id='secondname' type="button" className={this.state.sort === 'secondname' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleSort.bind(this, 'secondname')}>Etternavn</button>
                             <button id='position' type="button" className={this.state.sort === 'position' ? "btn sort-option selected" : "btn sort-option"} onClick={this.handleSort.bind(this, 'position')} >Stilling</button>
 
                         </div>
-                        <div className="row">
+                        <br />
+                        <br />
+                        <div className="row margin-top">
                             <div className="col-sm-12">
-                                Velg visning:
+                            <p className="filter-title">Velg visning:</p>
                                 </div>
                         </div>
-                        <div className="btn-group btn-group-lg">
-                            <button id='department' type="button" className={this.state.show === 'department' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleShow.bind(this, 'department')}>Etter avdeling</button>
-                            <button id='all' type="button" className={this.state.show === 'all' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleShow.bind(this, 'all')}>Alle</button>
+                        <div className="margin-top btn-group btn-group-lg">
+                            <button id='department' type="button" className={this.state.show === 'department' ? "btn sort-option btn-sort btn-long selected" : "btn sort-option btn-sort btn-long"} onClick={this.handleShow.bind(this, 'department')}>Etter avdeling</button>
+                            <button id='all' type="button" className={this.state.show === 'all' ? "btn sort-option btn-long selected" : "btn sort-option btn-long"} onClick={this.handleShow.bind(this, 'all')}>Alle</button>
                         </div>
+                        <br/>
+                        <br/>
                         <div className="row">
                             <div className="col-sm-12 margin-top">
-                                <div onClick={() => this.filter()} className="filter-submit">Vis ansatte</div>
+                                <button onClick={() => this.filter()} className="btn btnPrimary main-btn full-btn">Vis ansatte</button>
                             </div>
                         </div>
 

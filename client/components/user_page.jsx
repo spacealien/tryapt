@@ -225,7 +225,7 @@ class UserPage extends React.Component {
                                     <div className="col-sm-4">
                                         <button
                                             id="toggleTextArea"
-                                            className="btn btn-primary btn-expand-textarea"
+                                            className="btn btnPrimary btn-expand-textarea"
                                             type="button" onClick={(e) => this.handleClick(e)} >Se og rediger</button>
                                     </div>
                                 </div>
@@ -274,9 +274,9 @@ class UserPage extends React.Component {
                             <div className="col-sm-8"></div>
                             <div className="col-sm-4">
                     {!this.state.edit &&
-                        <button id="edit" className="btn btn-primary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Endre</button>}
+                        <button id="edit" className="btn btnPrimary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Endre</button>}
                     {this.state.edit &&
-                        <button id="save" className="btn btn-primary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Lagre</button>}
+                        <button id="save" className="btn btnPrimary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Lagre</button>}
                         </div>
                 </div>
                         </div>

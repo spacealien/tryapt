@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
 
                 <MenuTop
                     menu="default"
-                    headline="Login" />
+                    headline="Logg inn" />
 
                 <form id="loginForm" className="login" onSubmit={(e) => this.onSubmit(e)}>
                     <div className="form-group row">
@@ -104,16 +104,19 @@ class LoginForm extends React.Component {
                             {errors.password && <span className="help-block">{errors.password}</span>}
                         </div>
                     </div>
-
-                    <div>
-                        <a id="forgot" onClick={(e) => this.onForget(e)} href="forgot">Tilbakestill password</a>
-                    </div>
-
                     <div className="form-group row login-row">
                         <div className="col-sm-12">
-                            <button className="btn btn-primary login-btn" type="submit" disabled={isLoading} >Logg inn</button>
+                            <button className="btn btnPrimary main-btn" type="submit" disabled={isLoading} >Logg inn</button>
                         </div>
                     </div>
+                    <br/>
+                    <div className="row margin-top">
+                    <div className="col-sm-12 center">
+                        <a id="forgot" onClick={(e) => this.onForget(e)} href="forgot">Tilbakestill passord</a>
+                    </div>
+                    </div>
+
+                    
                 </form>
             </div>
         );

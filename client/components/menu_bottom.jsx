@@ -16,16 +16,15 @@ class Menu extends React.Component {
             case 'home':
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('login').style.color="#333333";
-                document.getElementById('peopleList').style.color="#333333";
+                document.getElementById('people').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
                 // this.props.setDefaultPeople();
-                this.props.browserHistory.push('/info');
                 this.props.browserHistory.push('/');
                 break;
             case "login":
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('home').style.color="#333333";
-                document.getElementById('peopleList').style.color="#333333";
+                document.getElementById('people').style.color="#333333";
                 document.getElementById('info').style.color="#333333";
                 this.props.browserHistory.push('/my_page');
                 break;
@@ -48,7 +47,7 @@ class Menu extends React.Component {
             case 'info':
                 document.getElementById(id).style.color="#D1A25F";
                 document.getElementById('login').style.color="#333333";
-                document.getElementById('peopleList').style.color="#333333";
+                document.getElementById('people').style.color="#333333";
                 document.getElementById('home').style.color="#333333";
                 this.props.browserHistory.push('/info');
                 break;
