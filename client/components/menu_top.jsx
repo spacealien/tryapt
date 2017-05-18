@@ -153,7 +153,7 @@ class MenuTop extends React.Component {
             </div>
         );
     }
-    renderEmployeeMenu() {
+   /* renderEmployeeMenu() {
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
@@ -171,31 +171,33 @@ class MenuTop extends React.Component {
                 </div>
             </div>
         );
-    }
-    
-    renderFilterMenu() {
-        return (
-                <div className="navbar navbar-fixed-top ">
-                    <div className="row">
-                        <div className="col-sm-3" >
-                            <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-left-c-128.png" />
-                        </div>
-                        <div className="col-sm-6">
-                            <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
-                        </div>
-                        <div className="col-sm-3 menu-txt">
-                            <a onClick={() => resetFilter()}>Tilbakestill</a>
-                        </div>
-
+    }*/
+  renderDefaultBackMenu() {
+      return (
+            <div className="navbar navbar-fixed-top ">
+                <div className="row">
+                    <div className="col-sm-2 menu-txt">
+                    <img onClick={
+                        () =>
+                            browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" />
+                            
+                    </div>
+                    <div className="col-sm-8">
+                        <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
+                    </div>
+                    <div className="col-sm-2 menu-txt">
                     </div>
                 </div>
-                );
-    }
+            </div>
+        );
+  }
 
     render() {
         switch (this.props.menu) {
             case "default":
                 return this.renderDefaultMenu();
+            case "default-with-back":
+                return this.renderDefaultBackMenu();
             case "list":
                 if (this.state.markMode === 'on')
                     return this.renderMarkMenu();
@@ -203,8 +205,6 @@ class MenuTop extends React.Component {
                     return this.renderPeopleMenu();
             case "myPage":
                 return this.renderMyPageMenu();
-            case "profile":
-                return this.renderEmployeeMenu();
 
         }
     }

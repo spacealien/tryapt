@@ -79,7 +79,7 @@ class EmployeeDetails extends React.Component {
         return (
             <div>
                 <MenuTop
-                    menu="profile"
+                    menu="default-with-back"
                     headline={employee.name}
                 />
 

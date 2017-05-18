@@ -655,3 +655,6 @@ input::-webkit-input-placeholder {
 .help-block.error {
     color: #ad5151;
 }
+.new-user-container {
+    margin-top: 30%;
+}

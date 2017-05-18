@@ -65,27 +65,27 @@ class NewPasswordForm extends React.Component {
         return (
                 <div className="container" >
         <MenuTop
-            menu="default"
+            menu="default-with-back"
             headline="Ny bruker"
             />
-        <div className="reset-container">
-                    <h1>Skriv inn din e-postadresse som er tilknyttet jobb</h1>
+        <div className="new-user-container"> 
+                    <h1>Er du nyansatt? Skriv inn din e-postadresse som er tilknyttet jobb og ønsket passord, for å opprette ny bruker.</h1>
                     <br/>
                     <br/>
                     <div className="input-group margin-top">
                 
                         {message.errors && <span className="help-block error">{message.errors}</span>}
                         {message.message && <span className="help-block">{message.message}</span>}
-                
+                        <br/>
                         <label htmlFor="email">E-postadresse: </label>
                         <input id="email" className="form-control" type="email" onChange={(e) => this.setState({email: e.target.value })} />
-                            
-                        <h1>Skriv inn ønsket passord:</h1>
-                        <label htmlFor="email">Passord: </label>
+                         <br/>   
+                         <br/>   
+                        <label htmlFor="email">Bekreft passord: </label>
                         <input id="email" className="form-control" type="password" onChange={(e) => this.setState({password: e.target.value })} />
                         <br/>
-                        <h1>Skriv inn passord på nytt:</h1>
-                        <label htmlFor="email">Passord: </label>
+                        <br/>   
+                        <label htmlFor="email">Bekreft passord: </label>
                         <input id="email" className="form-control" type="password" onChange={(e) => this.setState({password2: e.target.value })} />
                         <br/>
                         <br/>
