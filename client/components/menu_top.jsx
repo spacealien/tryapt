@@ -47,8 +47,19 @@ class MenuTop extends React.Component {
         }
     }
 
+    sendToMarked(e) {
+        var id = e.target.id;
+        switch (id) {
+            case 'email':
+                this.sendEmailToMarked();
+                break;
+            case 'sms':
+                this.sendSmsToMarked();
+                break;
+        }
+    }
 
-    sendEmailToMarked() {
+    sendSmsToMarked() {
         console.log("sendToMarked");
         var sendString = '';
         this.props.employees.marked.map((employee) => {
@@ -56,12 +67,12 @@ class MenuTop extends React.Component {
         });
 
         if (sendString.length > 0) {
-            var link = "sms:" + sendString; 
+            var link = "sms:" + sendString;
             window.location.href = link;
         }
     }
 
-    sendSmsToMarked() {
+    sendEmailToMarked() {
         console.log("sendToMarked");
         var sendString = '';
         this.props.employees.marked.map((employee) => {
@@ -84,16 +95,16 @@ class MenuTop extends React.Component {
                 <div className="row">
                     <div className="col-sm-2 menu-txt" >
                         <MarkDropdown
-                            sendToMarked={() => this.sendToMarked()}
+                            sendToMarked={(e) => this.sendToMarked(e)}
                             onToggleMarkAll={(isAllMarked) => this.onToggleMarkAll(isAllMarked)}
-                            onBack={() => this.enableEmployeeMarking()}/>
+                            onBack={() => this.enableEmployeeMarking()} />
                     </div>
                     <div className="col-sm-8">
-                    <div className="nav-brand center-block"><p>{this.props.employees.marked.length} markert</p></div>
-                    <div> <SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
+                        <div className="nav-brand center-block"><p>{this.props.employees.marked.length} markert</p></div>
+                        <div> <SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
-                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" width="80%"/>
+                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" width="80%" />
                         </div>
                     </div>
                 </div>
@@ -106,7 +117,7 @@ class MenuTop extends React.Component {
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
                     <div className="col-sm-2 menu-txt" onClick={() => this.enableEmployeeMarking()}  >
-                    <a>Marker</a>
+                        <a>Marker</a>
                     </div>
                     <div className="col-sm-8">
                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>

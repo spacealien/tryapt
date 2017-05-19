@@ -64,11 +64,12 @@ class Dropdown extends React.Component {
                         className='mark-dropdown-element'
                         onClick={() => this.toggleMarkAll()}>{markAllOptionText}</div>
 
-                    <div onClick={() => this.props.SendToAll()}
+                    <div id="email" onClick={(e) => this.props.sendToMarked(e)}
                     className='mark-dropdown-element'>
                     Send e-post til markerte<img src='https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-64.png' /> 
                     </div>
-                    <div onClick={() => this.props.SendToAll()}
+                    
+                    <div id="sms" onClick={(e) => this.props.sendToMarked(e)}
                     className='mark-dropdown-element'>
                     Send SMS til markerte<img src='https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-64.png' /> 
                     </div>
