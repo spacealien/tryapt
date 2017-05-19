@@ -47,7 +47,9 @@ class Filter extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    filter() {
+    filter(e) {
+        //e.preventDefault();
+
         if (this.props.employees.checked.length === 0) {
             this.props.employees.all.forEach(function (employee) {
                 var s = "company" + employee.company.toString().toLowerCase();
@@ -155,7 +157,7 @@ class Filter extends React.Component {
             show: e
         });
     }
-    
+
     render() {
         var chosenPositions = this.props.employees.positions.length > 1 ? this.props.employees.positions.length + " stillinger valgt" : (this.props.employees.positions.length > 0 ? this.props.employees.positions.length + " stilling valgt" : "");
         return (
@@ -274,7 +276,7 @@ class Filter extends React.Component {
                         <br />
                         <br />
                         <br />
-                        
+
                         <div className="row">
                             <div className="col-sm-3"></div>
                             <div className="col-sm-6 margin-top">
@@ -292,18 +294,18 @@ class Filter extends React.Component {
                         <br />
                         <div className="row margin-top">
                             <div className="col-sm-12">
-                            <p className="filter-title">Velg visning:</p>
-                                </div>
+                                <p className="filter-title">Velg visning:</p>
+                            </div>
                         </div>
                         <div className="margin-top btn-group btn-group-lg">
                             <button id='department' type="button" className={this.state.show === 'department' ? "btn sort-option btn-sort btn-long selected" : "btn sort-option btn-sort btn-long"} onClick={this.handleShow.bind(this, 'department')}>Etter avdeling</button>
                             <button id='all' type="button" className={this.state.show === 'all' ? "btn sort-option btn-long selected" : "btn sort-option btn-long"} onClick={this.handleShow.bind(this, 'all')}>Alle</button>
                         </div>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <div className="row">
                             <div className="col-sm-12 margin-top">
-                                <button onClick={() => this.filter()} className="btn btnPrimary main-btn full-btn">Vis ansatte</button>
+                                <button onClick={(e) => this.filter(e)} className="btn btnPrimary main-btn full-btn">Vis ansatte</button>
                             </div>
                         </div>
 

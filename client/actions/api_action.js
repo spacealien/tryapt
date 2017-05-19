@@ -53,11 +53,19 @@ export function forgotPassword(userInput) {
 
 //MÅ GJØRES
 export function newUser(userInput) {
-    console.log(userInput);
+    console.log(userInput.password);
     return dispatch => {
-        return axios.post("/forgot", {
+        return axios.post("/api/user/register", {
             email: userInput.email,
-            passord: userInput.password
+            password: userInput.password
+        })
+    }
+}
+
+export function sendNewConfirmationEmail(userInput) {
+    return dispatch => {
+        return axios.post("/resend_confirmation", {
+            email: userInput.email,
         })
     }
 }

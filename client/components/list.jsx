@@ -19,9 +19,6 @@ import {
 
 
 
-
-
-
 class List extends React.Component {
 
     constructor(props) {
