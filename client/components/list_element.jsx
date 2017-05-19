@@ -10,13 +10,14 @@ class ListElement extends React.Component {
     render() {
         //var markedClassName = (this.props.mark === true && this.state.selected === true) ? "list-group-item mark" : "list-group-item";
         var markedClassName = this.props.marked === true ? "list-group-item mark btn" : "list-group-item btn";
+        const parsedUrl = this.props.employee.image.replace('http','https');
 
         return (
             <li className={markedClassName} onClick={() => this.props.onEmployeeClick(this.props.employee)} >
                 <div className="row" >
                     <div className="col-sm-3">
                         <div className="image-container">
-                            <img className="img-thumbnail" src={this.props.employee.image} width="200" height="200" />
+                            <img className="img-thumbnail" src={parsedUrl} alt="employee profile picture" width="200" height="200" />
                         </div>
                     </div>
                     <div className="col-sm-9">

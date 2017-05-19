@@ -74,6 +74,7 @@ class EmployeeDetails extends React.Component {
     render() {
         const employee = this.props.selectedEmployee;
         const profile = this.state.profile;
+        const parsedUrl = this.props.selectedEmployee.image.replace('http','https');
         console.log(profile);
 
         return (
@@ -86,7 +87,7 @@ class EmployeeDetails extends React.Component {
                 <div className="profile-box">
                     <div className="profile-info row">
                         <div className="col-sm-5 profile-img-container">
-                            <img className="img-thumbnail" src={employee.image} width="100%" />
+                            <img className="img-thumbnail" src={parsedUrl} width="100%" />
                         </div>
                         <div className="col-sm-7">
                             <div className="profile-name capitalize"><p>{employee.name}</p></div>

@@ -3,6 +3,7 @@ import fs from 'fs';
 import https from 'https';
 import http from 'http'
 
+
 import bodyParser from 'body-parser';
 import _ from 'underscore';
 import db_context from './database/db_context';
@@ -16,6 +17,7 @@ import mailAuthentication from './middleware/mail_auth';
 import validateLogin from './shared/validation/login_validation';
 import mailer from 'nodemailer';
 import path from 'path';
+import jwt from 'jsonwebtoken';
 
 import config from '../config';
 
@@ -32,7 +34,7 @@ import webpackConfig from '../webpack.dev.config';
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-if (process.env.NODE_ENV != 'production') {
+if (process.env.NODE_ENV != "production") {
     console.log("development");
 
     const compiler = webpack(webpackConfig);
@@ -110,45 +112,50 @@ app.get('/api/people', function (req, res) {
     }
     // Uses async handler for reading file.
     fs.readFile('apt.json', handler),
-    fs.readFile('try.json', handler),
-    fs.readFile('opt.json', handler)
+        fs.readFile('try.json', handler),
+        fs.readFile('opt.json', handler)
 });
 
- // Get method for fetching employees from json file 
-/* app.get('/api/people/emlpoyee', function (req, res) {
-     var body = _.pick(req.body, 'email');
 
-     var employees = {};
+// Get method for fetching employees from json file 
+app.get('/api/people/emlpoyee', function (req, res) {
+    var body = _.pick(req.body, 'email');
 
-     var count = 0;
-     var handler = function (error, content) {
-         count++;
-         if (error) {
-             console.log(error);
-         }
-         else {
-             var jsonData = JSON.parse(content);
-             if (jsonData[0].company == 'apt') {
-                 employees.apt = jsonData;
-             } else if (jsonData[0].company == 'try') {
-                 employees.try = jsonData;
-             } else if (jsonData[0].company == 'opt') {
-                 employees.opt = jsonData;
-             }
-         }
+    var employees = {};
 
-         if (count == 3) {
-             res.status(200).json({ employees: employees });
-         }
-     }
+    var count = 0;
+    var handler = function (error, content) {
+        count++;
+        if (error) {
+            console.log(error);
+        }
+        else {
+            var jsonData = JSON.parse(content);
+            if (jsonData[0].company == 'apt') {
+                employees.apt = jsonData;
+            } else if (jsonData[0].company == 'try') {
+                employees.try = jsonData;
+            } else if (jsonData[0].company == 'opt') {
+                employees.opt = jsonData;
+            }
+        }
 
-     // Uses async handler for reading file.
+        if (count == 3) {
+            res.status(200).json({ employees: employees });
+        }
+    }
 
-     fs.readFile('apt.json', handler),
-     fs.readFile('try.json', handler),
-     fs.readFile('opt.json', handler)
- });
-*/
+    //metoden starter egetnlig her
+    if (body.email.includes('@apt.no')) {
+        fs.readFile('apt.json', handler);
+    } else if (body.email.includes('@try.no')) {
+        fs.readFile('try.json', handler);
+    } else {
+        fs.readFile('opt.json', handler)
+    }
+});
+
+
 
 // Finds public profile
 app.post('/api/people/profile', function (req, res) {
@@ -169,10 +176,11 @@ app.post('/api/people/profile', function (req, res) {
                 res.status(200).json({ profile: profile })
             });
         } else {
-            res.status().json({ message: '' });
+            res.status().json({ message: 'bruker med epost ekisterer ikke' });
         }
+    }).catch(function (error) {
+        console.log(error);
     });
-
 });
 
 
@@ -213,6 +221,177 @@ app.post('/my_page/profile/update', authentication, function (req, res) {
 }); //end /my_page/update
 
 
+app.post('/api/user/register', function (req, res) {
+    console.log(req.body);
+    var body = _.pick(req.body, 'email', 'password');
+    console.log(body);
+
+    var list = {};
+    var count = 0;
+    var isEmployee = false;
+
+    // creates handler for register employee
+    var handler = function (error, content) {
+        count++;
+        if (error) {
+            console.log(error);
+        }
+        else {
+            var jsonData = JSON.parse(content);
+
+            if (jsonData[0].company == 'apt') {
+                list = jsonData;
+            } else if (jsonData[0].company == 'try') {
+                list = jsonData;
+            } else if (jsonData[0].company == 'opt') {
+                list = jsonData;
+            }
+        }
+
+        if (count == 1) {
+            var employee = {}
+
+            list.map(function (emp) {
+                if (emp.email === body.email) {
+                    isEmployee = true;
+                    employee.email = emp.email;
+                }
+            }); // end map
+
+            if (isEmployee) {
+                console.log('isEmployee');
+
+                db_context.user.create({
+                    email: body.email,
+                    password: body.password,
+                }).then(function (result) {
+                    console.log(result);
+                    db_context.profile.create({
+                        userId: result.id,
+                        linkedin: null,
+                        experience: null,
+                    });
+                }).catch(function (e) {
+                    res.status(500).json({ errors: 'En feil har oppstått' });
+                });
+
+                var emailPromise = new Promise((resolve, reject) => {
+
+                    // BØR EGENTLIG HA ID OGSÅ
+                    console.log("empID=" + employee.id);
+
+                    var stringData = JSON.stringify({
+                        iss: 'try.apt.opt',
+                        exp: Math.floor(Date.now() / 1000) + (60 * 60), // expires in halv hour
+                        id: employee.id,
+                        email: employee.email,
+                        type: 'vertify'
+                    });
+
+                    console.log(stringData);
+                    var token = jwt.sign({
+                        token: stringData
+                    }, config.jwtSecret);
+
+                    var transporter = mailer.createTransport({
+                        host: 'smtp.gmail.com',
+                        port: 465,
+                        secure: true, // use SSL
+                        auth: {
+                            user: 'apttester8531@gmail.com',
+                            pass: 'asdfasdfasdf'
+                        }
+                    });
+
+                    var mailOptions = {
+                        to: 's236313@stud.hioa.no',
+                        from: 'aptemailtester1@gmail.com',
+                        subject: 'APT TILBAKESTILL PASSORD',
+                        html: '<a href="https://localhost:3000/confirm?token='
+                        + token + '">bekreft</a>'
+                    }
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                            reject();
+                        } else {
+                            res.status(200).json({ message: 'En bekrefelses epost er sendt' });
+                            next();
+                        };
+                    });
+                });
+
+                emailPromise.then(function () {
+                    console.log("emailPromiseDone");
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    }
+
+    //metoden starter egetnlig her
+    if (body.email.includes('@apt.no')) {
+        fs.readFile('apt.json', handler);
+    } else if (body.email.includes('@try.no')) {
+        fs.readFile('try.json', handler);
+    } else {
+        fs.readFile('opt.json', handler)
+    }
+});
+
+
+app.post('/resend_confirmation', function (req, res) {
+    var body = _.pick(req.body, 'email');
+
+    db_context.user.findByEmail(body).then(function (user) {
+        var token = user.generateToken('email_token');
+
+        return {
+            user: user,
+            token: token
+        };
+    }).then(function (e) {
+        var transporter = mailer.createTransport(config.mailer.transport);
+
+        var mailOptions = {
+            to: 's236313@stud.hioa.no',
+            from: 'aptemailtester1@gmail.com',
+            subject: 'APT TILBAKESTILL PASSORD',
+            html: '<a href="https://localhost:3000/confirm?token='
+            + e.token + '">Tilbakestill passord</a>'
+        }
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                res.status(503).json({ errors: 'En feil har oppståt' });
+            } else {
+                res.status(200).json({ message: 'En bekrefelses epost er sendt' });
+            };
+        });
+    }).catch(function (e) {
+        console.log(e);
+        res.status(500).json({ errors: 'Ingen bruker med denne epost adressen' });
+    });
+});
+
+
+app.get('/confirm*', mailAuthentication, function (req, res) {
+    console.log('/HELLO?!?!?!');
+
+    db_context.user.update({
+        vertified: true
+    }, {
+            where: {
+                //id: req.currentUser.id,
+                email: req.currentUser.email
+            },
+        }
+    ).then(function (result) {
+        res.status(200).json({ message: 'Bruker opprettet' });
+    });
+});
 
 // Get method for fetching private user data
 app.post('/my_page/user_data', authentication, function (req, res) {
@@ -233,14 +412,14 @@ app.post("/reset_password", authentication, function (req, res) {
             },
         }
     ).then(function (result) {
-        res.status(200).json({ message: 'Passord er nå endret'});
+        res.status(200).json({ message: 'Passord er nå endret' });
     });
 });
+
 
 // Get request for navigating to password reset page 
 // after clicking email link.
 // Must check if reset token is still valid
-
 app.get('/reset*', mailAuthentication, function (req, res) {
 
     res.sendFile(path.join(__dirname + '/../public/index.html'));
@@ -288,9 +467,11 @@ app.post('/forgot', function (req, res) {
 
 // Get method for redirecting all traffic 
 // that does not match any url.
-app.get('/*', function (req, res) {
-    res.redirect('/');
-});
+
+// app.get('/*', function (req, res) {
+//     res.redirect('/');
+// });
+
 
 // Method for creating database
 db_context.sequelize.sync({
@@ -300,7 +481,7 @@ db_context.sequelize.sync({
     for (var i = 0; i < TryJSON.length; i++) {
         var user = TryJSON[i];
 
-        console.log(user);
+        //console.log(user);
         db_context.user.create({
             email: user.email,
             password: 'password'
@@ -322,14 +503,11 @@ db_context.sequelize.sync({
             email: user.email,
             password: 'password'
         }).then(function (result) {
-
-
             db_context.profile.create({
                 userId: result.id,
                 linkedin: result.email,
                 experience: result.email
             });
-
         });
     }
 
@@ -337,8 +515,8 @@ db_context.sequelize.sync({
         email: 'try@try.no',
         password: 'password'
     });
-}
 
+}
 
     ).then(function (res) {
         console.log('syncing finished');

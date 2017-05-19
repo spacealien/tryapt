@@ -11,7 +11,7 @@ import List from '../components/list.jsx';
 import LoginForm from '../components/login_form.jsx';
 import UserPage from '../components/user_page.jsx';
 import ForgotForm from '../components/forgot_form.jsx';
-import NewUserForm from '../components/new_user.jsx';
+import RegisterForm from '../components/register_form.jsx';
 import ForgotResetForm from '../components/password_reset_form.jsx';
 import requireAuth from '../utils/requireAuth.js';
 
@@ -30,9 +30,8 @@ export const routes = (
                 </Route>
                 <Route path="/forgot" component={ForgotForm}/>
                 <Route path="/reset*" component={ForgotResetForm} />
-                <Route path="/newuser" component={NewUserForm}/>
+                <Route path="/newuser" component={RegisterForm}/>
                 <Route path="/info" component={InfoView} />
-                        
         </Route>
 );
 

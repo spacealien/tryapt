@@ -33,6 +33,11 @@ module.exports = function (sequelize, DataTypes) {
                 this.setDataValue('salt', salt);
                 this.setDataValue('password_hash', hashedPassword);
             }
+        },
+        vertified: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+
         }
     }, {
             hooks: {
@@ -51,18 +56,22 @@ module.exports = function (sequelize, DataTypes) {
 
                         user.findOne({
                             where: {
-                                email: body.email
+                                email: body.email,
                             }
                         }).then(function (user) { // resolve 
                             if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
                                 return reject();
+                            }
+                            
+                            if (user.vertified == false) {
+                                reject('Bruker må bekreftes via epost');
                             }
                             resolve(user);
                         }, function (e) { // reject
                             reject();
                         });
                     });
-                }, 
+                },
                 findByEmail: function (body) {
                     return new Promise(function (resolve, reject) {
                         if (typeof body.email !== 'string') {
@@ -93,7 +102,7 @@ module.exports = function (sequelize, DataTypes) {
                     }
                     try {
                         var stringData = JSON.stringify({
-                            iss: 'try.apt',
+                            iss: 'try.apt.opt',
                             exp: Math.floor(Date.now() / 1000) + (60 * 30), // expires in halv hour
                             id: this.get('id'),
                             email: this.get('email'),
@@ -103,7 +112,7 @@ module.exports = function (sequelize, DataTypes) {
                         var token = jwt.sign({
                             token: stringData
                         }, config.jwtSecret);
-                        
+
                         return token;
                     } catch (e) {
                         return undefined;

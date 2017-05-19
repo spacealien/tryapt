@@ -66,8 +66,7 @@ class LoginForm extends React.Component {
 
     render() {
         const { errors, email, password, isLoading } = this.state;
-
-
+        
         return (
             <div className="container">
 
@@ -124,7 +123,7 @@ class LoginForm extends React.Component {
                     <br/>
                     <div className="row margin-top">
                     <div className="col-sm-12 center new-user-link">
-                        <a id="forgot" onClick={(e) => this.newUser(e)} href="forgot">Nyansatt? Klikk her</a>
+                        <a id="register" onClick={(e) => this.newUser(e)} >Nyansatt? Klikk her</a>
                     </div>
                     </div>
 
