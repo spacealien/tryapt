@@ -60,7 +60,7 @@ class MenuTop extends React.Component {
     }
 
     sendSmsToMarked() {
-        console.log("sendToMarked");
+
         var sendString = '';
         this.props.employees.marked.map((employee) => {
             sendString += employee.mobile + ",";
@@ -73,10 +73,10 @@ class MenuTop extends React.Component {
     }
 
     sendEmailToMarked() {
-        console.log("sendToMarked");
+
         var sendString = '';
         this.props.employees.marked.map((employee) => {
-            sendString += employee.email
+            sendString += employee.email + ";";
         });
 
         if (sendString.length > 0) {
