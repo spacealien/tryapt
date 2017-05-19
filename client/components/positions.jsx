@@ -43,7 +43,6 @@ class Positions extends React.Component {
     handleClick(position) {
         this.props.togglePosition(position);
         this.props.employees.all.forEach(function (employee) {
-            //console.log(employee.jobtitle);
             if (employee.jobtitle === position)
                 this.props.showEmployee(employee, employee.mobile);
         }, this);
@@ -52,7 +51,6 @@ class Positions extends React.Component {
     }
 
     render() {
-        console.log("render");
         var rows = [];
         var lastPosition = null;
 
