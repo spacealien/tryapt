@@ -16,7 +16,6 @@ import {
 class MenuTop extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             markMode: 'off'
         };
@@ -90,6 +89,7 @@ class MenuTop extends React.Component {
     }
 
     renderMarkMenu() {
+        console.log(this.props.searchTerm);
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
@@ -101,7 +101,10 @@ class MenuTop extends React.Component {
                     </div>
                     <div className="col-sm-8">
                         <div className="nav-brand center-block"><p>{this.props.employees.marked.length} markert</p></div>
-                        <div> <SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
+                        <div> 
+                            <SearchBar
+                            searchTerm={this.props.searchTerm}
+                            onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
                         <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" width="80%" />
@@ -113,6 +116,7 @@ class MenuTop extends React.Component {
     }
 
     renderPeopleMenu() {
+        console.log(this.props.searchTerm);
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
@@ -122,7 +126,9 @@ class MenuTop extends React.Component {
                     <div className="col-sm-8">
                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
 
-                        <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
+                        <div><SearchBar 
+                        searchTerm={this.props.searchTerm}
+                        onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
                         <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" />

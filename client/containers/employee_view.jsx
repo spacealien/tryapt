@@ -16,7 +16,7 @@ class EmployeeView extends React.Component {
         super(props);
 
         this.state = {
-            searchTerm: null,
+            searchTerm: '',
             view: 'list',
             mark: false,
             viewTab: 'visible'
@@ -30,12 +30,14 @@ class EmployeeView extends React.Component {
     }
 
     render() {
+        console.log(this.state.searchTerm);
         return (
             <div>
                 <MenuTop
                     menu="list"
                     headline="Mennesker"
                     onSearchTermChange={(searchTerm) => this.setState({ searchTerm })}
+                    searchTerm={this.state.searchTerm}
                     mark={this.state.mark}
                     onMenuClick={(e) => this.onMenuClick(e)}
                 />
