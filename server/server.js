@@ -465,12 +465,28 @@ app.post('/forgot', function (req, res) {
 });
 
 
+app.get('/people', function (req, res) {
+    res.sendFile(path.join(__dirname + '/../public/index.html'));
+});
+
+
+app.get('/people/*', function (req, res) {
+    res.redirect('/people');
+});
+
+
+app.get('/my_page', function (req, res) {
+    res.sendFile(path.join(__dirname + '/../public/index.html'));
+});
+
+
+
 // Get method for redirecting all traffic 
 // that does not match any url.
 
-// app.get('/*', function (req, res) {
-//     res.redirect('/');
-// });
+app.get('/*', function (req, res) {
+    res.redirect('/');
+});
 
 
 // Method for creating database
