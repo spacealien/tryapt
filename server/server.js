@@ -464,9 +464,10 @@ app.post('/forgot', function (req, res) {
 
 // Get method for redirecting all traffic 
 // that does not match any url.
-app.get('/*', function (req, res) {
-    res.redirect('/');
-});
+
+// app.get('/*', function (req, res) {
+//     res.redirect('/');
+// });
 
 
 
