@@ -63,12 +63,12 @@ class MenuTop extends React.Component {
 
         var sendString = '';
         this.props.employees.marked.map((employee) => {
-            sendString += employee.mobile + ",";
+            sendString += employee.mobile.split(" ").join("") + ",";
         });
 
         if (sendString.length > 0) {
             var link = "sms:" + sendString;
-            window.location.href = link;
+            // window.location.href = link;
         }
     }
 
