@@ -115,7 +115,7 @@ app.get('/api/people', function (req, res) {
 });
 
  // Get method for fetching employees from json file 
- app.get('/api/people/emlpoyee', function (req, res) {
+/* app.get('/api/people/emlpoyee', function (req, res) {
      var body = _.pick(req.body, 'email');
 
      var employees = {};
@@ -148,7 +148,7 @@ app.get('/api/people', function (req, res) {
      fs.readFile('try.json', handler),
      fs.readFile('opt.json', handler)
  });
-
+*/
 
 // Finds public profile
 app.post('/api/people/profile', function (req, res) {

@@ -31,14 +31,6 @@ class List extends React.Component {
         };
     }
 
-    getGridListTab() {
-        return (
-            <GridListTab
-                onChangeView={(view) => this.setState({ view: view })}
-                view={this.state.view}
-            />
-        );
-    }
 
     componentWillMount() {
         this.props.fetchEmployees();
@@ -76,12 +68,13 @@ class List extends React.Component {
     renderList() {
 
         var employees = this.props.employees;
+        console.log(employees.all);
         if (employees.checked.length === 0) {
             var employeeList = employees.all;
         } else {
             var employeeList = employees.checked;
+            console.log(employeeList);
         }
-
         return employeeList.map((employee) => {
             if ((this.props.searchTerm === null) ||
                 employee.name.toLowerCase().includes(this.props.searchTerm.toString().toLowerCase())) {
@@ -89,7 +82,6 @@ class List extends React.Component {
                 var marked = false;
                 this.props.employees.marked.indexOf(employee) > -1 ? marked = true : marked = false;
                 console.log("marked: " + marked);
-
                 return (
                     <ListElement
                         onEmployeeClick={(e) => this.handleClick(e)}

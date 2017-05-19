@@ -6,7 +6,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
-import { fetchEmployees, togglePositionEmployee, uncheckPositions, togglePosition} from '../actions/employee_action';
+import { fetchEmployees, showEmployee, uncheckPositions, togglePosition} from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PositionListElement from './position_list_element.jsx';
@@ -45,9 +45,8 @@ class Positions extends React.Component {
         this.props.employees.all.forEach(function (employee) {
             //console.log(employee.jobtitle);
             if (employee.jobtitle === position)
-                this.props.togglePositionEmployee(employee);
+                this.props.showEmployee(employee, employee.mobile);
         }, this);
-        console.log(this.props.employees.checked);
         this.setState({refresh: !this.state.refresh});
 
     }
@@ -71,10 +70,7 @@ class Positions extends React.Component {
         employeeList.map((employee) => {
             if (employee.jobtitle !== lastPosition) {
                 var checked = false;
-                console.log("Positions før indexOf:");
-                console.log(this.props.employees.checked);
                 this.props.employees.positions.indexOf(employee.jobtitle) > -1 ? checked = true : checked = false;
-                console.log(employee.jobtitle + ": " + checked);
                 rows.push(
                         <PositionListElement
                             onPositionClick={(e) => this.handleClick(e)}
@@ -89,7 +85,7 @@ class Positions extends React.Component {
                     <div>
                     <div className="navbar navbar-fixed-top ">
                         <div className="row">
-                            <div className="col-sm-3" >
+                            <div className="col-sm-3 menu-txt" >
                                 <img onClick={
                         () =>
                             browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" />
@@ -119,4 +115,4 @@ const mapStateToProps = (state) => {
     };
 };
 export default connect(mapStateToProps,
-        {fetchEmployees, togglePositionEmployee, uncheckPositions, togglePosition})(Positions);
+        {fetchEmployees, showEmployee, uncheckPositions, togglePosition})(Positions);

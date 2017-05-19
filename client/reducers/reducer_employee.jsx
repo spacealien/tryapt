@@ -4,7 +4,7 @@ import {
     SEARCH_EMPLOYEE,
     FILTER_EMPLOYEE,
     TOGGLE_POSITION,
-    TOGGLE_EMPLOYEE,
+    UNCHECK_ALL_EMPLOYEES,
     REMOVE_EMPLOYEE,
     ADD_EMPLOYEE,
     UNCHECK_ALL_POSITIONS,
@@ -62,7 +62,6 @@ export default function (state = INITIAL_STATE, action) {
             for (var i = 0; i < state.all.length; i++) {
 
                 if (state.all[i].email == action.payload.email) {
-                    console.log("MATCH");
                     emp = state.all[i];
                     return Object.assign({}, state, {
                         authenticatedEmployee: emp
@@ -90,25 +89,14 @@ export default function (state = INITIAL_STATE, action) {
                 });
             }
 
-        case TOGGLE_EMPLOYEE:
-            var filteredList = state.checked;
-            var index = filteredList.indexOf(action.payload);
-
-            if (index !== -1) {
-                filteredList.splice(index, 1);
-                return Object.assign({}, state, {
-                    checked: filteredList
-                });
-            } else {
-                return Object.assign({}, state, {
-                    checked: filteredList.concat(action.payload)
-                });
-            }
+        case UNCHECK_ALL_EMPLOYEES:
+            return Object.assign({}, state, {
+                checked: []
+            });
 
         case REMOVE_EMPLOYEE:
             var list1 = state.checked;
-            var index = list1.indexOf(action.payload);
-
+            var index = list1.findIndex((employee) => employee.mobile === action.mobile);
             if (index !== -1) {
                 list1.splice(index, 1);
                 return Object.assign({}, state, {
@@ -121,7 +109,7 @@ export default function (state = INITIAL_STATE, action) {
             }
         case ADD_EMPLOYEE:
             var list2 = state.checked;
-            var index = list2.indexOf(action.payload);
+            var index = list2.findIndex((employee) => employee.mobile === action.mobile);
             if (index === -1) {
                 return Object.assign({}, state, {
                     checked: list2.concat(action.payload)
@@ -193,8 +181,6 @@ export default function (state = INITIAL_STATE, action) {
             });
 
         case UNMARK_EMPLOYEE:
-            console.log("UNMARK_EMPLOYEE");
-            console.log(state.marked);
 
             var array = state.marked;
             var index = array.indexOf(action.payload);

@@ -6,7 +6,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
-import { filterEmployees, hideEmployee, showEmployee, updateSorting, togglePositionEmployee } from '../actions/employee_action';
+import { filterEmployees, hideEmployee, showEmployee, updateSorting, emptyFilterList, uncheckPositions } from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 //import Popup from 'react-popup';
@@ -18,8 +18,6 @@ class Filter extends React.Component {
             companytry: true,
             companyapt: true,
             companyopt: true,
-            men: true,
-            women: true,
             /*controller: true,
              manager: true,
              designer: true,
@@ -47,7 +45,8 @@ class Filter extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    filter() {
+    filter(e) {
+        e.preventDefault();
         if (this.props.employees.checked.length === 0) {
             this.props.employees.all.forEach(function (employee) {
                 var s = "company" + employee.company.toString().toLowerCase();
@@ -59,16 +58,20 @@ class Filter extends React.Component {
                 this.props.employees.all.forEach(function (employee) {
                     var s = "company" + employee.company.toString().toLowerCase();
                     if (document.getElementById(s).checked) {
-                        this.props.showEmployee(employee);
+                        this.props.showEmployee(employee, employee.mobile);
                     } else {
-                        this.props.hideEmployee(employee);
+                        this.props.hideEmployee(employee, employee.mobile);
                     }
                 }, this);
             } else {
-                this.props.employees.checked.map((employee) => {
+                this.props.emptyFilterList();
+                this.props.employees.all.map((employee) => {
                     var s = "company" + employee.company.toString().toLowerCase();
-                    if (!document.getElementById(s).checked) {
-                        this.props.hideEmployee(employee);
+                    if (document.getElementById(s).checked) {
+                        this.props.employees.positions.forEach(function (position) {
+                            if (employee.jobtitle === position)
+                                this.props.showEmployee(employee, employee.mobile);
+                        }, this);
                     }
                 });
             }
@@ -102,7 +105,6 @@ class Filter extends React.Component {
                     });
                 } else {
 
-                    console.log("HEY");
                     this.props.employees.checked.sort(function (a, b) {
                         if (a.name > b.name) {
                             return 1;
@@ -133,13 +135,13 @@ class Filter extends React.Component {
     }
 
     resetFilter() {
-        this.props.employees.checked = [];
-        this.setState({ companytry: true, companyapt: true, companyopt: true, women: true, men: true, sort: 'firstname' });
+        this.props.emptyFilterList();
+        this.props.uncheckPositions();
+        this.setState({companytry: true, companyapt: true, companyopt: true, sort: 'firstname', show: 'department'});
     }
 
     showPositions() {
         browserHistory.push('/people/filter/positions');
-        console.log(browserHistory);
     }
 
     handleSort(e) {
@@ -155,162 +157,131 @@ class Filter extends React.Component {
             show: e
         });
     }
-    
+
     render() {
         var chosenPositions = this.props.employees.positions.length > 1 ? this.props.employees.positions.length + " stillinger valgt" : (this.props.employees.positions.length > 0 ? this.props.employees.positions.length + " stilling valgt" : "");
         return (
-            <div>
-                <div className="navbar navbar-fixed-top ">
-                    <div className="row">
-                        <div className="col-sm-3" >
-                            <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-left-c-128.png" />
+                <div>
+                    <div className="navbar navbar-fixed-top ">
+                        <div className="row">
+                            <div className="col-sm-3" >
+                            </div>
+                            <div className="col-sm-6">
+                                <div className="nav-brand center-block"><p>Filtrering</p></div>
+                            </div>
+                            <div className="col-sm-3 menu-txt">
+                                <a onClick={() => this.resetFilter()}>Tilbakestill</a>
+                            </div>
+                
                         </div>
-                        <div className="col-sm-6">
-                            <div className="nav-brand center-block"><p>Filtrering</p></div>
-                        </div>
-                        <div className="col-sm-3 menu-txt">
-                            <a onClick={() => this.resetFilter()}>Tilbakestill</a>
-                        </div>
-
+                    </div>
+                    <div className="filter-box">
+                        <form>
+                            <div className="row margin-top">
+                                <div className="col-sm-6 filter-title">
+                                    Velg selskap:
+                                </div>
+                                <div className="col-sm-2 filter-title">
+                                    Try
+                                </div>
+                
+                                <div className="col-sm-2 filter-title">
+                                    Apt
+                                </div>
+                
+                                <div className="col-sm-2 filter-title">
+                                    Opt
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-6">
+                
+                                </div>
+                                <div className="col-sm-2 filter-title">
+                                    <label>
+                                        <input
+                                            id="companytry"
+                                            name="companytry"
+                                            type="checkbox"
+                                            checked={this.state.companytry}
+                                            onChange={this.handleInputChange} />
+                                    </label>
+                                </div>
+                
+                                <div className="col-sm-2 filter-title">
+                                    <label>
+                                        <input
+                                            id="companyapt"
+                                            name="companyapt"
+                                            type="checkbox"
+                                            checked={this.state.companyapt}
+                                            onChange={this.handleInputChange} />
+                                    </label>
+                                </div>
+                
+                                <div className="col-sm-2 filter-title">
+                
+                                    <div><label>
+                                            <input
+                                                id="companyopt"
+                                                name="companyopt"
+                                                type="checkbox"
+                                                checked={this.state.companyopt}
+                                                onChange={this.handleInputChange} />
+                                        </label></div></div>
+                            </div>
+                
+                
+                            
+                           
+                            <ul className="list-group margin-top">
+                                <li className="list-group-item filterposition">
+                                    <div className="row" onClick={
+                    () => this.showPositions()}>
+                                        <div className="col-sm-6">Velg stillinger</div>
+                                        <div className="col-sm-5">{chosenPositions}</div>
+                                        <div className="col-sm-1"><img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-48.png" /></div></div></li>
+                            </ul>
+                            <br />
+                            <br />
+                            <br />
+                
+                            <div className="row">
+                                <div className="col-sm-3"></div>
+                                <div className="col-sm-6 margin-top">
+                                    <p className="filter-title">Tilpass sortering</p>
+                                </div>
+                                <div className="col-sm-3"></div>
+                            </div>
+                            <div className="margin-top btn-group btn-group-lg">
+                                <button id='firstname' type="button" className={this.state.sort === 'firstname' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleSort.bind(this, 'firstname')}>Fornavn</button>
+                                <button id='secondname' type="button" className={this.state.sort === 'secondname' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleSort.bind(this, 'secondname')}>Etternavn</button>
+                                <button id='position' type="button" className={this.state.sort === 'position' ? "btn sort-option selected" : "btn sort-option"} onClick={this.handleSort.bind(this, 'position')} >Stilling</button>
+                
+                            </div>
+                            <br />
+                            <br />
+                            <div className="row margin-top">
+                                <div className="col-sm-12">
+                                    <p className="filter-title">Velg visning:</p>
+                                </div>
+                            </div>
+                            <div className="margin-top btn-group btn-group-lg">
+                                <button id='department' type="button" className={this.state.show === 'department' ? "btn sort-option btn-sort btn-long selected" : "btn sort-option btn-sort btn-long"} onClick={this.handleShow.bind(this, 'department')}>Etter avdeling</button>
+                                <button id='all' type="button" className={this.state.show === 'all' ? "btn sort-option btn-long selected" : "btn sort-option btn-long"} onClick={this.handleShow.bind(this, 'all')}>Alle</button>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div className="row">
+                                <div className="col-sm-12 margin-top">
+                                    <button onClick={(e) => this.filter(e)} className="btn btnPrimary main-btn full-btn">Vis ansatte</button>
+                                </div>
+                            </div>
+                
+                        </form>
                     </div>
                 </div>
-                <div className="filter-box">
-                    <form>
-                        <div className="row margin-top">
-                            <div className="col-sm-6 filter-title">
-                                Velg selskap:
-                                </div>
-                            <div className="col-sm-2 filter-title">
-                                Try
-                                </div>
-
-                            <div className="col-sm-2 filter-title">
-                                Apt
-                                </div>
-
-                            <div className="col-sm-2 filter-title">
-                                Opt
-                                </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-6">
-
-                            </div>
-                            <div className="col-sm-2 filter-title">
-                                <label>
-                                    <input
-                                        id="companytry"
-                                        name="companytry"
-                                        type="checkbox"
-                                        checked={this.state.companytry}
-                                        onChange={this.handleInputChange} />
-                                </label>
-                            </div>
-
-                            <div className="col-sm-2 filter-title">
-                                <label>
-                                    <input
-                                        id="companyapt"
-                                        name="companyapt"
-                                        type="checkbox"
-                                        checked={this.state.companyapt}
-                                        onChange={this.handleInputChange} />
-                                </label>
-                            </div>
-
-                            <div className="col-sm-2 filter-title">
-
-                                <div><label>
-                                    <input
-                                        id="companyopt"
-                                        name="companyopt"
-                                        type="checkbox"
-                                        checked={this.state.companyopt}
-                                        onChange={this.handleInputChange} />
-                                </label></div></div>
-                        </div>
-
-
-                        <div className="row margin-top">
-                            <div className="col-sm-6 filter-title">
-                                Velg kjønn:
-                                </div>
-
-                            <div className="col-sm-3 filter-title">
-                                Kvinner
-                                </div>
-                            <div className="col-sm-3 filter-title">
-                                Menn
-                                </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-6"></div>
-                            <div className="col-sm-3 filter-title">
-
-                                <div><label>
-                                    <input
-                                        name="women"
-                                        type="checkbox"
-                                        checked={this.state.women}
-                                        onChange={this.handleInputChange} />
-                                </label></div></div>
-                            <div className="col-sm-3 filter-title">
-                                <div><label>
-                                    <input
-                                        name="men"
-                                        type="checkbox"
-                                        checked={this.state.men}
-                                        onChange={this.handleInputChange} />
-                                </label></div></div>
-                        </div>
-                        <ul className="list-group margin-top">
-                            <li className="list-group-item filterposition">
-                                <div className="row" onClick={
-                                    () => this.showPositions()}>
-                                    <div className="col-sm-6">Velg stillinger</div>
-                                    <div className="col-sm-5">{chosenPositions}</div>
-                                    <div className="col-sm-1"><img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-48.png" /></div></div></li>
-                        </ul>
-                        <br />
-                        <br />
-                        <br />
-                        
-                        <div className="row">
-                            <div className="col-sm-3"></div>
-                            <div className="col-sm-6 margin-top">
-                                <p className="filter-title">Tilpass sortering</p>
-                            </div>
-                            <div className="col-sm-3"></div>
-                        </div>
-                        <div className="margin-top btn-group btn-group-lg">
-                            <button id='firstname' type="button" className={this.state.sort === 'firstname' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleSort.bind(this, 'firstname')}>Fornavn</button>
-                            <button id='secondname' type="button" className={this.state.sort === 'secondname' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleSort.bind(this, 'secondname')}>Etternavn</button>
-                            <button id='position' type="button" className={this.state.sort === 'position' ? "btn sort-option selected" : "btn sort-option"} onClick={this.handleSort.bind(this, 'position')} >Stilling</button>
-
-                        </div>
-                        <br />
-                        <br />
-                        <div className="row margin-top">
-                            <div className="col-sm-12">
-                            <p className="filter-title">Velg visning:</p>
-                                </div>
-                        </div>
-                        <div className="margin-top btn-group btn-group-lg">
-                            <button id='department' type="button" className={this.state.show === 'department' ? "btn sort-option btn-sort btn-long selected" : "btn sort-option btn-sort btn-long"} onClick={this.handleShow.bind(this, 'department')}>Etter avdeling</button>
-                            <button id='all' type="button" className={this.state.show === 'all' ? "btn sort-option btn-long selected" : "btn sort-option btn-long"} onClick={this.handleShow.bind(this, 'all')}>Alle</button>
-                        </div>
-                        <br/>
-                        <br/>
-                        <div className="row">
-                            <div className="col-sm-12 margin-top">
-                                <button onClick={() => this.filter()} className="btn btnPrimary main-btn full-btn">Vis ansatte</button>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        );
+                );
     }
 }
 const mapStateToProps = (state) => {
@@ -319,4 +290,4 @@ const mapStateToProps = (state) => {
     };
 };
 export default connect(mapStateToProps,
-    { hideEmployee, showEmployee, togglePositionEmployee, updateSorting })(Filter);
+        {hideEmployee, showEmployee, emptyFilterList, updateSorting, uncheckPositions})(Filter);
