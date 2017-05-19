@@ -17,7 +17,7 @@ class SearchBar extends React.Component {
         this.props.onSearchTermChange(term);
     }
     onBlur(e) {
-        e.target.value="";
+        e.target.value='';
     }
     onFocus(e) {
         e.target.value = this.state.term;
