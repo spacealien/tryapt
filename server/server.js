@@ -116,40 +116,7 @@ app.get('/api/people', function (req, res) {
         fs.readFile('opt.json', handler)
 });
 
-<<<<<<< HEAD
-// Get method for fetching employees from json file 
-app.get('/api/people/emlpoyee', function (req, res) {
-    var body = _.pick(req.body, 'email');
 
-    var employees = {};
-
-    var count = 0;
-    var handler = function (error, content) {
-        count++;
-        if (error) {
-            console.log(error);
-        }
-        else {
-            var jsonData = JSON.parse(content);
-            if (jsonData[0].company == 'apt') {
-                employees.apt = jsonData;
-            } else if (jsonData[0].company == 'try') {
-                employees.try = jsonData;
-            } else if (jsonData[0].company == 'opt') {
-                employees.opt = jsonData;
-            }
-        }
-
-        if (count == 3) {
-            res.status(200).json({ employees: employees });
-        }
-    }
-    // Uses async handler for reading file.
-    fs.readFile('apt.json', handler),
-        fs.readFile('try.json', handler),
-        fs.readFile('opt.json', handler)
-});
-=======
  // Get method for fetching employees from json file 
 /* app.get('/api/people/emlpoyee', function (req, res) {
      var body = _.pick(req.body, 'email');
@@ -185,7 +152,7 @@ app.get('/api/people/emlpoyee', function (req, res) {
      fs.readFile('opt.json', handler)
  });
 */
->>>>>>> 1a55dbd9791c0a371bdbeb1e4988645f0a7c3bc5
+
 
 // Finds public profile
 app.post('/api/people/profile', function (req, res) {
