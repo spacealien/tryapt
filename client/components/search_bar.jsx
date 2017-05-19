@@ -16,14 +16,22 @@ class SearchBar extends React.Component {
         this.setState({ term: term });
         this.props.onSearchTermChange(term);
     }
-
+    onBlur(e) {
+        e.target.value="";
+    }
+    onFocus(e) {
+        e.target.value = this.state.term;
+    }
 
     render() {
         return (
             <form  onSubmit={(e) => this.onEnterPress(e)} >
                 <input
                 type="search"
-                onChange={event => this.onInputChange(event.target.value)}/>  
+                onChange={event => this.onInputChange(event.target.value)}
+                onBlur={e => this.onBlur(e)}
+                onFocus={e => this.onFocus(e)}
+                />  
             </form>
         );
     }

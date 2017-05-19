@@ -279,11 +279,7 @@ input {
 
 }
 input[type=search] {
-    -webkit-appearance: textfield;
-    text-indent: 15%;
-    -webkit-box-sizing: content-box;
-    font-family: inherit;
-    font-size: 100%;
+    
 }
 
 input[type=search]::-webkit-search-cancel-button {
@@ -298,10 +294,16 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 input[type=search] {
+    -webkit-appearance: textfield;
+    text-indent: 15%;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
     float: right;
     background: #E6E6E6 url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-128.png) no-repeat -12px center;
+    background-size: 85px 85px;
     border: solid 1px #E6E6E6;
-    padding: 25px 25px 25px 25px;
+    padding: 25px 25px 25px 0px;
     width: 45px;
 
     /*-webkit-border-radius: 10em;
@@ -369,7 +371,9 @@ input::-webkit-input-placeholder {
     margin-right: 28px;
     font-size: 80px;
 }
-
+.filter-menu {
+    line-height: 8em;
+}
 .filter-menu img {
     -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
