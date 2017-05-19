@@ -66,8 +66,7 @@ class LoginForm extends React.Component {
 
     render() {
         const { errors, email, password, isLoading } = this.state;
-
-
+        
         return (
             <div className="container">
 

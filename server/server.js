@@ -34,7 +34,7 @@ import webpackConfig from '../webpack.dev.config';
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-if (process.env.NODE_ENV != 'production') {
+if (process.env.NODE_ENV != "production") {
     console.log("development");
 
     const compiler = webpack(webpackConfig);
@@ -117,41 +117,44 @@ app.get('/api/people', function (req, res) {
 });
 
 
- // Get method for fetching employees from json file 
-/* app.get('/api/people/emlpoyee', function (req, res) {
-     var body = _.pick(req.body, 'email');
+// Get method for fetching employees from json file 
+app.get('/api/people/emlpoyee', function (req, res) {
+    var body = _.pick(req.body, 'email');
 
-     var employees = {};
+    var employees = {};
 
-     var count = 0;
-     var handler = function (error, content) {
-         count++;
-         if (error) {
-             console.log(error);
-         }
-         else {
-             var jsonData = JSON.parse(content);
-             if (jsonData[0].company == 'apt') {
-                 employees.apt = jsonData;
-             } else if (jsonData[0].company == 'try') {
-                 employees.try = jsonData;
-             } else if (jsonData[0].company == 'opt') {
-                 employees.opt = jsonData;
-             }
-         }
+    var count = 0;
+    var handler = function (error, content) {
+        count++;
+        if (error) {
+            console.log(error);
+        }
+        else {
+            var jsonData = JSON.parse(content);
+            if (jsonData[0].company == 'apt') {
+                employees.apt = jsonData;
+            } else if (jsonData[0].company == 'try') {
+                employees.try = jsonData;
+            } else if (jsonData[0].company == 'opt') {
+                employees.opt = jsonData;
+            }
+        }
 
-         if (count == 3) {
-             res.status(200).json({ employees: employees });
-         }
-     }
+        if (count == 3) {
+            res.status(200).json({ employees: employees });
+        }
+    }
 
-     // Uses async handler for reading file.
+    //metoden starter egetnlig her
+    if (body.email.includes('@apt.no')) {
+        fs.readFile('apt.json', handler);
+    } else if (body.email.includes('@try.no')) {
+        fs.readFile('try.json', handler);
+    } else {
+        fs.readFile('opt.json', handler)
+    }
+});
 
-     fs.readFile('apt.json', handler),
-     fs.readFile('try.json', handler),
-     fs.readFile('opt.json', handler)
- });
-*/
 
 
 // Finds public profile
@@ -175,6 +178,8 @@ app.post('/api/people/profile', function (req, res) {
         } else {
             res.status().json({ message: 'bruker med epost ekisterer ikke' });
         }
+    }).catch(function (error) {
+        console.log(error);
     });
 });
 
@@ -460,17 +465,12 @@ app.post('/forgot', function (req, res) {
 });
 
 
-
-
 // Get method for redirecting all traffic 
 // that does not match any url.
 
 // app.get('/*', function (req, res) {
 //     res.redirect('/');
 // });
-
-
-
 
 
 // Method for creating database

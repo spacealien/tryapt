@@ -17,7 +17,6 @@ class Dropdown extends React.Component {
 
         };
 
-
         this.toggle = this.toggle.bind(this);
     }
 

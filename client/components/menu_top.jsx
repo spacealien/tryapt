@@ -48,24 +48,34 @@ class MenuTop extends React.Component {
     }
 
 
-    sentToMarked() {
+    sendEmailToMarked() {
         console.log("sendToMarked");
+        var sendString = '';
+        this.props.employees.marked.map((employee) => {
+            sendString += employee.mobile + ",";
+        });
 
+        if (sendString.length > 0) {
+            var link = "sms:" + sendString; 
+            window.location.href = link;
+        }
+    }
 
-        this.props.employees.marked.map()
+    sendSmsToMarked() {
+        console.log("sendToMarked");
+        var sendString = '';
+        this.props.employees.marked.map((employee) => {
+            sendString += employee.mobile
+        });
 
+        if (sendString.length > 0) {
 
+            var link = "mailto:" + sendString
+                + "?cc=myCCaddress@example.com"
+                + "&subject=" + escape("Hei");
 
-
-
-
-
-        var link = "mailto:odd.hoel@hotmail.com"
-            + "?cc=myCCaddress@example.com"
-            + "&subject=" + escape("This is my subject");
-
-        window.location.href = link;
-
+            window.location.href = link;
+        }
     }
 
     renderMarkMenu() {
@@ -77,7 +87,7 @@ class MenuTop extends React.Component {
                     </div>
                     <div className="col-sm-2 menu-txt" >
                         <MarkDropdown
-                            sendToMarked={() => this.sendToMarked()}
+                            sendToMarked={() => this.sendToEmailToMarked()}
                             onToggleMarkAll={(isAllMarked) => this.onToggleMarkAll(isAllMarked)} />
                     </div>
                     <div className="col-sm-4"><span className="nav-brand center-block">{this.props.employees.marked.length} Markert</span></div>
@@ -86,7 +96,8 @@ class MenuTop extends React.Component {
                         <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
-                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-64.png" />
+                        <div className="filter-menu btn" onClick={() => this.showFilter()}>
+                            <img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-64.png" alt="filter menu icon" />
                         </div>
                     </div>
                 </div>
@@ -99,7 +110,7 @@ class MenuTop extends React.Component {
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
                     <div className="col-sm-2 menu-txt menu-mark" onClick={() => this.enableEmployeeMarking()}  >
-                    <a>Marker</a>
+                        <a>Marker</a>
                     </div>
                     <div className="col-sm-8">
                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
@@ -107,7 +118,7 @@ class MenuTop extends React.Component {
                         <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
-                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" width="80%" />
+                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" />
                         </div>
                     </div>
                 </div>
@@ -153,15 +164,34 @@ class MenuTop extends React.Component {
             </div>
         );
     }
-   /* renderEmployeeMenu() {
+    /* renderEmployeeMenu() {
+         return (
+             <div className="navbar navbar-fixed-top ">
+                 <div className="row">
+                     <div className="col-sm-2 menu-txt">
+                     <img onClick={
+                         () =>
+                             browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" />
+                             
+                     </div>
+                     <div className="col-sm-8">
+                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
+                     </div>
+                     <div className="col-sm-2 menu-txt">
+                     </div>
+                 </div>
+             </div>
+         );
+     }*/
+    renderDefaultBackMenu() {
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
                     <div className="col-sm-2 menu-txt">
-                    <img onClick={
-                        () =>
-                            browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" />
-                            
+                        <img onClick={
+                            () =>
+                                browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" />
+
                     </div>
                     <div className="col-sm-8">
                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
@@ -171,26 +201,7 @@ class MenuTop extends React.Component {
                 </div>
             </div>
         );
-    }*/
-  renderDefaultBackMenu() {
-      return (
-            <div className="navbar navbar-fixed-top ">
-                <div className="row">
-                    <div className="col-sm-2 menu-txt">
-                    <img onClick={
-                        () =>
-                            browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" />
-                            
-                    </div>
-                    <div className="col-sm-8">
-                        <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
-                    </div>
-                    <div className="col-sm-2 menu-txt">
-                    </div>
-                </div>
-            </div>
-        );
-  }
+    }
 
     render() {
         switch (this.props.menu) {

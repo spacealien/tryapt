@@ -59,12 +59,12 @@ module.exports = function (sequelize, DataTypes) {
                                 email: body.email,
                             }
                         }).then(function (user) { // resolve 
-                            if (user.vertified == false) {
-                                reject('Bruker må bekreftes via epost');
-                            }
-
                             if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
                                 return reject();
+                            }
+                            
+                            if (user.vertified == false) {
+                                reject('Bruker må bekreftes via epost');
                             }
                             resolve(user);
                         }, function (e) { // reject
