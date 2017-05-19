@@ -478,43 +478,43 @@ db_context.sequelize.sync({
     force: true
 }).then(function (res) {
 
-    // for (var i = 0; i < TryJSON.length; i++) {
-    //     var user = TryJSON[i];
+    for (var i = 0; i < TryJSON.length; i++) {
+        var user = TryJSON[i];
 
-    //     //console.log(user);
-    //     db_context.user.create({
-    //         email: user.email,
-    //         password: 'password'
-    //     }).then(function (result) {
+        //console.log(user);
+        db_context.user.create({
+            email: user.email,
+            password: 'password'
+        }).then(function (result) {
 
-    //         db_context.profile.create({
-    //             userId: result.id,
-    //             linkedin: result.email,
-    //             experience: result.email
-    //         });
+            db_context.profile.create({
+                userId: result.id,
+                linkedin: result.email,
+                experience: result.email
+            });
 
-    //     });
-    // }
+        });
+    }
 
-    // for (var i = 0; i < AptJSON.length; i++) {
-    //     var user = AptJSON[i];
+    for (var i = 0; i < AptJSON.length; i++) {
+        var user = AptJSON[i];
 
-    //     db_context.user.create({
-    //         email: user.email,
-    //         password: 'password'
-    //     }).then(function (result) {
-    //         db_context.profile.create({
-    //             userId: result.id,
-    //             linkedin: result.email,
-    //             experience: result.email
-    //         });
-    //     });
-    // }
+        db_context.user.create({
+            email: user.email,
+            password: 'password'
+        }).then(function (result) {
+            db_context.profile.create({
+                userId: result.id,
+                linkedin: result.email,
+                experience: result.email
+            });
+        });
+    }
 
-    // db_context.user.create({
-    //     email: 'try@try.no',
-    //     password: 'password'
-    // });
+    db_context.user.create({
+        email: 'try@try.no',
+        password: 'password'
+    });
 
 }
 
