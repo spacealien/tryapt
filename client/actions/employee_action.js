@@ -6,7 +6,7 @@ export const SEARCH_EMPLOYEE = 'SEARCH_EMPLOYEE';
 export const FILTER_EMPLOYEE = 'FILTER_EMPLOYEE';
 export const TOGGLE_POSITION = 'TOGGLE_POSITION';
 export const UNCHECK_ALL_POSITIONS = 'UNCHECK_ALL_POSITIONS';
-export const TOGGLE_EMPLOYEE = 'TOGGLE_EMPLOYEE';
+export const UNCHECK_ALL_EMPLOYEES = 'UNCHECK_ALL_EMPLOYEES';
 export const REMOVE_EMPLOYEE = 'REMOVE_EMPLOYEE';
 export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
 export const UPDATE_CHECKED = 'UPDATE_CHECKED';
@@ -61,9 +61,10 @@ export function filterEmployees(filter) {
     };
 }
 
-export function togglePositionEmployee(employee) {
+export function togglePositionEmployee(employee, mobile) {
     return {
         type: TOGGLE_EMPLOYEE,
+        mobile: mobile,
         payload: employee
     };
 }
@@ -80,18 +81,26 @@ export function uncheckPositions() {
         type: UNCHECK_ALL_POSITIONS
     };
 }
+export function emptyFilterList() {
+    return {
+        type: UNCHECK_ALL_EMPLOYEES
+    };
+}
 
 
-export function hideEmployee(employee) {
+
+export function hideEmployee(employee, mobile) {
     return {
         type: REMOVE_EMPLOYEE,
+        mobile: mobile,
         payload: employee
     };
 }
 
-export function showEmployee(employee) {
+export function showEmployee(employee, mobile) {
     return {
         type: ADD_EMPLOYEE,
+        mobile: mobile,
         payload: employee
     };
 }
