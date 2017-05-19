@@ -76,7 +76,7 @@ class MenuTop extends React.Component {
         console.log("sendToMarked");
         var sendString = '';
         this.props.employees.marked.map((employee) => {
-            sendString += employee.mobile
+            sendString += employee.email
         });
 
         if (sendString.length > 0) {
