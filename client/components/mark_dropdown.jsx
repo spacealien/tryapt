@@ -61,7 +61,7 @@ class Dropdown extends React.Component {
                         className='mark-dropdown-element'
                         onClick={() => this.toggleMarkAll()}>{markAllOptionText}</div>
 
-                    <div className='mark-dropdown-element'>Send til markerte<img src='https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-64.png' /> </div>
+                    <div onClick={() => this.SendToAll()} className='mark-dropdown-element'>Send til markerte<img src='https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_right_48px-64.png' /> </div>
                 </div>
             </div>
         );

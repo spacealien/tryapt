@@ -103,6 +103,6 @@ class NewPasswordForm extends React.Component {
                 </div>
                     );
         }
-    }
-    ;
+    };
+    
     export default connect(null, {newUser})(NewPasswordForm);

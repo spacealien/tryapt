@@ -73,7 +73,7 @@ class MenuTop extends React.Component {
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
                     <div className="col-sm-2 menu-txt" onClick={() => this.enableEmployeeMarking()} >
-                        <img src='https://cdn2.iconfinder.com/data/icons/navigation-set-arrows-part-two/32/Arrow_Back-128.png' width='70%' />
+                        <img src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-64.png" />
                     </div>
                     <div className="col-sm-2 menu-txt" >
                         <MarkDropdown
@@ -86,7 +86,7 @@ class MenuTop extends React.Component {
                         <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
-                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" />
+                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-64.png" />
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ class MenuTop extends React.Component {
                         <div><SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
-                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" />
+                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" width="80%" />
                         </div>
                     </div>
                 </div>
