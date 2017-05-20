@@ -13,7 +13,7 @@ class Dropdown extends React.Component {
             visible: false,
 
             isAllMarked: false,
-            markAllOptionText: 'Marker Alle'
+            markAllOptionText: 'Marker alle'
 
         };
 

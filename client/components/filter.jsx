@@ -183,15 +183,15 @@ class Filter extends React.Component {
                                 Velg selskap:
                                 </div>
                             <div className="col-sm-2 filter-title">
-                                Try
+                                TRY
                                 </div>
 
                             <div className="col-sm-2 filter-title">
-                                Apt
+                                APT
                                 </div>
 
                             <div className="col-sm-2 filter-title">
-                                Opt
+                                OPT
                                 </div>
                         </div>
                         <div className="row">
