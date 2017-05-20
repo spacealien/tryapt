@@ -404,7 +404,7 @@ input::-webkit-input-placeholder {
     padding: 10px;
     margin-top: 55px;
 }
-.profile-box .col-sm-9, .my-profile-box .col-sm-3, .my-profile-box .col-sm-6 {
+.profile-box .col-sm-9, .my-profile-box .col-sm-10, .my-profile-box .col-sm-6, .my-profile-box .col-sm-4 {
     vertical-align: middle;
     display: inline-block;
     /* height: 100px; */

@@ -42,7 +42,7 @@ class EmployeeView extends React.Component {
                     onMenuClick={(e) => this.onMenuClick(e)}
                 />
 
-                <List
+                <List 
                     mark={this.state.mark}
                     searchTerm={this.state.searchTerm} />
 

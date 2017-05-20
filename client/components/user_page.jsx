@@ -147,10 +147,11 @@ class UserPage extends React.Component {
         }
     }
 
-    submitChanges() {
+    submitChanges() { 
+        const limitLength = (str, length) => str.substring(0, length);
         var profile = {
             linkedin: this.state.linkedin,
-            experience: this.state.experience
+            experience: limitLength(this.state.experience, 800)
         };
 
         this.setState({ isLoading: true });
