@@ -11,7 +11,11 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
         },
         experience: {
+<<<<<<< HEAD
             type: DataTypes.STRING(800), //FEILEN HER YO
+=======
+            type: DataTypes.STRING(800), // filen her yo
+>>>>>>> 15f40c69d7b5f09d8597cb5553d8a13752240a3c
             validate: {
                 len: [0,800]
             } 
