@@ -16,16 +16,15 @@ import {
     updateSorting
 } from '../actions/employee_action';
 
-
-
 class List extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            view: 'list'
+            view: 'list',
         };
     }
+
 
 
     componentWillMount() {
@@ -57,27 +56,25 @@ class List extends React.Component {
     }
 
 
-
-
-
-
     renderList() {
-
         var employees = this.props.employees;
-        console.log(employees.all);
+        var { searchTerm } = this.props;
+
         if (employees.checked.length === 0) {
             var employeeList = employees.all;
         } else {
             var employeeList = employees.checked;
-            console.log(employeeList);
         }
         return employeeList.map((employee) => {
-            if ((this.props.searchTerm === null) ||
-                employee.name.toLowerCase().includes(this.props.searchTerm.toString().toLowerCase())) {
+            if ((searchTerm === null) ||
+                employee.name.toLowerCase().includes(searchTerm.toString().toLowerCase() ) ||
+                employee.mobile.split(" ").join("").includes(searchTerm) || 
+                employee.email.includes(searchTerm))
+                 {
 
                 var marked = false;
                 this.props.employees.marked.indexOf(employee) > -1 ? marked = true : marked = false;
-                console.log("marked: " + marked);
+
                 return (
                     <ListElement
                         onEmployeeClick={(e) => this.handleClick(e)}
@@ -93,6 +90,8 @@ class List extends React.Component {
     }
 
     renderGrid() {
+                var employees = this.props.employees;
+               var { searchTerm } = this.props;
 
         var employees = this.props.employees;
         if (employees.checked.length === 0) {
@@ -101,9 +100,11 @@ class List extends React.Component {
             var employeeList = employees.checked;
         }
 
-        return this.props.employees.all.map((employee) => {
-            if ((this.props.searchTerm === null) ||
-                employee.name.toLowerCase().includes(this.props.searchTerm.toString().toLowerCase())) {
+        return employees.all.map((employee) => {
+            if ((searchTerm === null) ||
+                employee.name.toLowerCase().includes(searchTerm.toString().toLowerCase()) ||
+                employee.mobile.split(" ").join("").includes(searchTerm) || 
+                employee.email.includes(searchTerm) ) {
 
 
                 var marked = false;

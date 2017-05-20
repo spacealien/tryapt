@@ -15,15 +15,13 @@ export const UNMARK_EMPLOYEE = 'UNMARK_EMPLOYEE';
 export const MARK_ALL_EMPLOYEES = 'MARK_ALL_EMPLOYEES';
 export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 export const FETCH_EMPLOYEE = 'FETCH_EMPLOYEE';
+export const SET_AUTHENTICATED_EMPLOYEE = 'SET_AUTHENTICATED_EMPLOYEE';
+
 
 export function fetchEmployees() {
     return dispatch => {
         return axios.get('/api/people').then((request) => {
-
             console.log(request);
-
-
-
 
             dispatch({
                 type: FETCH_EMPLOYEES,
@@ -45,6 +43,13 @@ export function selectEmployee(employee) {
         type: SELECT_EMPLOYEE,
         payload: employee
     };
+}
+
+export function setAuthenticatedEmployee(employee) {
+    return {
+        type: SET_AUTHENTICATED_EMPLOYEE,
+        payload: employee
+    }
 }
 
 export function searchEmployees(term) {
@@ -86,7 +91,6 @@ export function emptyFilterList() {
         type: UNCHECK_ALL_EMPLOYEES
     };
 }
-
 
 
 export function hideEmployee(employee, mobile) {

@@ -118,11 +118,11 @@ app.get('/api/people', function (req, res) {
 
 
 // Get method for fetching employees from json file 
-app.get('/api/people/emlpoyee', function (req, res) {
+app.post('/api/people/employee', function (req, res) {
     var body = _.pick(req.body, 'email');
 
-    var employees = {};
-
+    var list;
+    var employee;
     var count = 0;
     var handler = function (error, content) {
         count++;
@@ -132,16 +132,22 @@ app.get('/api/people/emlpoyee', function (req, res) {
         else {
             var jsonData = JSON.parse(content);
             if (jsonData[0].company == 'apt') {
-                employees.apt = jsonData;
+                list = jsonData;
             } else if (jsonData[0].company == 'try') {
-                employees.try = jsonData;
+                list = jsonData;
             } else if (jsonData[0].company == 'opt') {
-                employees.opt = jsonData;
+                list = jsonData;
             }
         }
+        if (count == 1) {
 
-        if (count == 3) {
-            res.status(200).json({ employees: employees });
+            list.map( function (emp) {
+                if (emp.email === body.email) {
+                    employee = emp;
+                }
+            }); // end map
+
+            res.status(200).json({ employee: employee });
         }
     }
 
@@ -465,12 +471,28 @@ app.post('/forgot', function (req, res) {
 });
 
 
+app.get('/people', function (req, res) {
+    res.sendFile(path.join(__dirname + '/../public/index.html'));
+});
+
+
+app.get('/people/*', function (req, res) {
+    res.redirect('/people');
+});
+
+
+app.get('/my_page', function (req, res) {
+    res.sendFile(path.join(__dirname + '/../public/index.html'));
+});
+
+
+
 // Get method for redirecting all traffic 
 // that does not match any url.
 
-// app.get('/*', function (req, res) {
-//     res.redirect('/');
-// });
+app.get('/*', function (req, res) {
+    res.redirect('/');
+});
 
 
 // Method for creating database
@@ -484,7 +506,8 @@ db_context.sequelize.sync({
         //console.log(user);
         db_context.user.create({
             email: user.email,
-            password: 'password'
+            password: 'password',
+            vertified: true
         }).then(function (result) {
 
             db_context.profile.create({
@@ -501,7 +524,8 @@ db_context.sequelize.sync({
 
         db_context.user.create({
             email: user.email,
-            password: 'password'
+            password: 'password',
+            vertified: true
         }).then(function (result) {
             db_context.profile.create({
                 userId: result.id,
@@ -510,12 +534,6 @@ db_context.sequelize.sync({
             });
         });
     }
-
-    db_context.user.create({
-        email: 'try@try.no',
-        password: 'password'
-    });
-
 }
 
     ).then(function (res) {
