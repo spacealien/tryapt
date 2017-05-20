@@ -104,7 +104,7 @@ class LoginForm extends React.Component {
                                 placeholder="Password"
                                 autoComplete="on" />
 
-                            {errors.password && <span className="help-block">{errors.password}</span>}
+                            {errors.password && <span className="help-block error">{errors.password}</span>}
                         </div>
                     </div>
                     <div className="form-group row login-row">

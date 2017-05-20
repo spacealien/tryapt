@@ -75,7 +75,7 @@ app.post('/my_page/login', function (req, res) {
         console.log(e);
         res.status(401).json({
             error: {
-                message: 'Ingen bruker med epost/passord'
+                message: 'Ingen bruker med gitt e-post/passord'
             }
         });
     });
@@ -450,12 +450,12 @@ app.post('/forgot', function (req, res) {
 
 
         var mailOptions = {
-            to: 's236313@stud.hioa.no',
+            to: 's236357@stud.hioa.no',
             from: 'aptemailtester1@gmail.com',
             subject: 'APT TILBAKESTILL PASSORD',
             html: '<a href="https://localhost:3000/reset?token='
             + e.token + '">Tilbakestill passord</a>'
-        }
+        };
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {

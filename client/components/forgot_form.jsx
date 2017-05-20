@@ -60,7 +60,7 @@ class ForgotForm extends React.Component {
         return (
                 <div className="container" >
         <MenuTop
-            menu="default"
+            menu="default-with-back"
             headline="Tilbakestill passord"
             />
         <div className="reset-container">

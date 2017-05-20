@@ -1,7 +1,6 @@
 import React from 'react';
 import ListElement from './list_element.jsx';
 import GridElement from './grid_element.jsx';
-import GridListTab from './grid_list_tab.jsx';
 import SearchBar from './search_bar.jsx';
 
 import { connect } from 'react-redux';
