@@ -13,7 +13,8 @@ import {
     UNMARK_EMPLOYEE,
     MARK_ALL_EMPLOYEES,
     UNMARK_ALL_EMPLOYEES,
-    FETCH_EMPLOYEE
+    FETCH_EMPLOYEE,
+    SET_AUTHENTICATED_EMPLOYEE
 } from '../actions/employee_action';
 
 const INITIAL_STATE = {
@@ -73,7 +74,10 @@ export default function (state = INITIAL_STATE, action) {
                 authenticatedEmployee: null
             });
 
-
+        case SET_AUTHENTICATED_EMPLOYEE:
+            return Object.assign({}, state, {
+                authenticatedEmployee: action.payload
+            });
         case TOGGLE_POSITION:
             var positionList = state.positions;
             var index = positionList.indexOf(action.payload);
@@ -184,7 +188,7 @@ export default function (state = INITIAL_STATE, action) {
 
             var array = state.marked;
             var index = array.indexOf(action.payload);
-            
+
             if (index !== -1) {
                 array.splice(index, 1);
                 return Object.assign({}, state, {

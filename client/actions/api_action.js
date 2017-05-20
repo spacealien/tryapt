@@ -13,7 +13,7 @@ export function fetchUserData() {
 // fetches a employee from json file with matching
 export function fetchEmployee(email) {
     return dispatch => {
-        return axios.post("/people/employee", {
+        return axios.post("/api/people/employee", {
             email: email
         });
     }

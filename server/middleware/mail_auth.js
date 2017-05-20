@@ -13,9 +13,6 @@ export default (req, res, next) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log("decoded=" + decoded);
-                console.log(decoded);
-
 
                 var decodedToken = JSON.parse(decoded.token);
                 var now = Math.floor(Date.now() / 1000)
@@ -24,12 +21,8 @@ export default (req, res, next) => {
                     //reject();
                 }
 
-
-                console.log('decodedToken=')
-                console.log(decodedToken);
                 db.user.findOne({
                     where: {
-                        //id: decodedToken.id,
                         email: decodedToken.email
                     },
                     select: ['email', 'id']

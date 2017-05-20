@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { findEmployeeByUser } from '../actions/employee_action';
+import { findEmployeeByUser, setAuthenticatedEmployee } from '../actions/employee_action';
 import { logout } from '../actions/auth_action';
 import {
     fetchUserData,
@@ -35,9 +35,9 @@ class UserPage extends React.Component {
         // checks of all profile data is allready fetched
         if (this.props.employees.length == 0) {
 
-            this.props.fetchEmployee().then(
+            this.props.fetchEmployee(userToken.email).then(
                 (res) => {
-                    this.props.setEmployee(res.data.employee);
+                    this.props.setAuthenticatedEmployee(res.data.employee);
                     this.setState({ employee: res.data.employee });
                 },
                 (error) => {
@@ -302,6 +302,7 @@ export default connect(mapStateToProps, {
     fetchEmployee,
     findEmployeeByUser,
     submitProfileChanges,
-    logout
+    logout,
+    setAuthenticatedEmployee
 
 })(UserPage);
