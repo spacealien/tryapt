@@ -32,6 +32,7 @@ export function fetchProfileData(email) {
 
 // save changges to profile data in my page view
 export function submitProfileChanges(profile) {
+    console.log(profile);
     return dispatch => {
         return axios.post("/my_page/profile/update", {
             profile: profile

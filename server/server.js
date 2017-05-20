@@ -141,7 +141,7 @@ app.post('/api/people/employee', function (req, res) {
         }
         if (count == 1) {
 
-            list.map( function (emp) {
+            list.map(function (emp) {
                 if (emp.email === body.email) {
                     employee = emp;
                 }
@@ -195,13 +195,15 @@ app.post('/my_page/profile/update', authentication, function (req, res) {
     var body = _.pick(req.body, 'user', 'profile');
     var attributes = {};
 
-    if (body.profile.linkedin) {
+    if (body.profile.linkedin.length >= 0) {
         attributes.linkedin = body.profile.linkedin;
     }
 
-    if (body.profile.experience) {
+    if (body.profile.experience.length >= 0) {
         attributes.experience = body.profile.experience;
     }
+
+    console.log(attributes.linkedin);
 
     db_context.profile.findOne({
         where: {
