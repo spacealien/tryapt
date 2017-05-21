@@ -85,9 +85,8 @@ class LoginForm extends React.Component {
                                 className="form-control"
                                 id="user"
                                 onInput={(e) => this.setState({ email: e.target.value })}
-                                type="user"
-                                placeholder="Email"
-                                autoComplete="on" />
+                                type="email"
+                                placeholder="Email" />
 
                             {errors.email && <span className="help-block">{errors.email}</span>}
                         </div>

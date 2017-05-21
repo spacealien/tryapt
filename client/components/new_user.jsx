@@ -82,11 +82,11 @@ class NewPasswordForm extends React.Component {
                          <br/>   
                          <br/>   
                         <label htmlFor="email">Bekreft passord: </label>
-                        <input id="email" className="form-control" type="password" onChange={(e) => this.setState({password: e.target.value })} />
+                        <input id="password" className="form-control" type="password" onChange={(e) => this.setState({password: e.target.value })} />
                         <br/>
                         <br/>   
                         <label htmlFor="email">Bekreft passord: </label>
-                        <input id="email" className="form-control" type="password" onChange={(e) => this.setState({password2: e.target.value })} />
+                        <input id="passwordConfirm" className="form-control" type="password" onChange={(e) => this.setState({password2: e.target.value })} />
                         <br/>
                         <br/>
                         <br/>

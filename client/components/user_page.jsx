@@ -102,10 +102,12 @@ class UserPage extends React.Component {
         console.log("componentWillReceiveProps");
         console.log(nextProps.isAuthenticated);
     }
+
     handleChange(event) {
         var input = event.target.value;
         this.setState({ chars_left: 800 - input.length, experience: input });
     }
+
     textAreaClick(e) {
 
         var btnText = document.getElementById(e.target.id).innerHTML;
@@ -194,7 +196,7 @@ class UserPage extends React.Component {
                     <div className="my-profile-box">
                         <div className="profile-info row">
                             <div className="col-sm-5 profile-img-container">
-                                <img className="img-thumbnail" src={employee.image} width="100%" />
+                                <img className="img-thumbnail" src={employee.image} />
                             </div>
                             <div className="col-sm-7">
                                 <div className="profile-name"><p>{employee.name}</p></div>
@@ -234,33 +236,33 @@ class UserPage extends React.Component {
 
                         <div className="profile-contact-info">
 
-                            <div id="email" className="row" onClick={(e) => this.handleClick(e)} >
+                            <div id="email" className="row" >
                                 <div className="col-sm-2">
-                                    <img src="https://cdn4.iconfinder.com/data/icons/black-white-social-media/32/email_mail_envelope_send_message-128.png" />
+                                    <img src="https://cdn4.iconfinder.com/data/icons/black-white-social-media/32/email_mail_envelope_send_message-128.png" alt="email-icon" />
                                 </div>
-                                <div id="email" className="col-sm-10" >
+                                <div className="col-sm-10" >
                                     {employee.email}
                                 </div>
                             </div>
 
-                            <div id="mobile" className="row" onClick={(e) => this.handleClick(e)}>
+                            <div id="mobile" className="row" >
                                 <div className="col-sm-2">
-                                    <img src="https://cdn3.iconfinder.com/data/icons/black-white-social-media/32/phone_logo_social_media-2-128.png" onClick={(e) => this.handleClick(e)} />
+                                    <img src="https://cdn3.iconfinder.com/data/icons/black-white-social-media/32/phone_logo_social_media-2-128.png" alt="mobile-icon" />
                                 </div>
-                                <div id="mobile" className="col-sm-10">
+                                <div className="col-sm-10">
                                     {employee.mobile}
                                 </div>
                             </div>
 
 
-                            <div id="linkedin" className="row" onClick={(e) => this.handleClick(e)}>
+                            <div id="linkedin" className="row"  >
                                 <div className="col-sm-2">
-                                    <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_gray-128.png" />
+                                    <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_gray-128.png" alt="linkedin icon" />
                                 </div>
-                                <div id="linkedin" className="col-sm-4">
+                                <div className="col-sm-4">
                                     <p>linkedin.com/</p>
                                 </div>
-                                <div id="linkedin" className="col-sm-6">
+                                <div className="col-sm-6">
                                     <form>
                                         <input id="linkedInTxt" className="linkedInTextField" type="text" name="linkedInUserName"
                                             onChange={(e) => { this.setState({ linkedin: e.target.value })}}

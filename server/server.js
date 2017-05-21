@@ -162,7 +162,6 @@ app.post('/api/people/employee', function (req, res) {
 });
 
 
-
 // Finds public profile
 app.post('/api/people/profile', function (req, res) {
     var body = _.pick(req.body, 'email');
@@ -229,6 +228,7 @@ app.post('/my_page/profile/update', authentication, function (req, res) {
 }); //end /my_page/update
 
 
+
 app.post('/api/user/register', function (req, res) {
     console.log(req.body);
     var body = _.pick(req.body, 'email', 'password');
@@ -280,7 +280,7 @@ app.post('/api/user/register', function (req, res) {
                         experience: null,
                     });
                 }).catch(function (e) {
-                    res.status(500).json({ errors: 'En feil har oppstått' });
+                    res.status(500).json({ errors: 'Denne brukeren ekisterer allerede' });
                 });
 
                 var emailPromise = new Promise((resolve, reject) => {
@@ -407,6 +407,7 @@ app.post('/my_page/user_data', authentication, function (req, res) {
     res.status(200).json({ userData: 'melding' });
 });
 
+
 //
 app.post("/reset_password", authentication, function (req, res) {
     var body = _.pick(req.body, 'password');
@@ -488,10 +489,8 @@ app.get('/my_page', function (req, res) {
 });
 
 
-
 // Get method for redirecting all traffic 
 // that does not match any url.
-
 app.get('/*', function (req, res) {
     res.redirect('/');
 });

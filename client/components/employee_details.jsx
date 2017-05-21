@@ -42,37 +42,17 @@ class EmployeeDetails extends React.Component {
         this.setState({ textArea: !this.state.textArea });
     }
 
-    handleClick(e) {
-        console.log("handleClick");
-        var id = e.target.id;
-        console.log(id);
-        switch (id) {
-            case "email":
-                this.sendEmail();
-                break;
-            case "mobile":
-                this.openMobileNumber();
-                break;
-            case "sms":
-                this.sendSms();
-                break;
-            case "addContact":
-                this.addContact();
-                break;
-            case "linkedin":
-                this.openLinkedInProfile();
-                break;
-        }
-    }
 
     sendEmail() {
-        var link = "mailto:odd.hoel@hotmail.com"
+        const employee = this.props.selectedEmployee;
+        var link = "mailto:" + employee.email
             + "?cc=myCCaddress@example.com"
             + "&subject=" + escape("This is my subject");
         window.location.href = link;
     }
 
     openMobileNumber() {
+        const employee = this.props.selectedEmployee;
         window.location.href = "tel://" + employee.mobile.split(" ").join("");
     }
 
@@ -138,39 +118,39 @@ class EmployeeDetails extends React.Component {
 
                     <div className="profile-contact-info">
 
-                        <div id="email" className="row" onClick={(e) => this.handleClick(e)} >
+                        <div id="email" className="row" onClick={(e) => this.sendEmail() } >
                             <div className="col-sm-3">
-                                <img src="https://cdn4.iconfinder.com/data/icons/black-white-social-media/32/email_mail_envelope_send_message-128.png" />
+                                <img src="https://cdn4.iconfinder.com/data/icons/black-white-social-media/32/email_mail_envelope_send_message-128.png" alt="email-icon" />
                             </div>
-                            <div id="email" className="col-sm-9" >
+                            <div className="col-sm-9" >i
                                 {employee.email}
                             </div>
                         </div>
 
-                        <div id="mobile" className="row" onClick={(e) => this.handleClick(e)}>
+                        <div id="mobile" className="row" onClick={(e) => this.openMobileNumber() } >
                             <div className="col-sm-3">
-                                <img src="https://cdn3.iconfinder.com/data/icons/black-white-social-media/32/phone_logo_social_media-2-128.png" />
+                                <img src="https://cdn3.iconfinder.com/data/icons/black-white-social-media/32/phone_logo_social_media-2-128.png" alt="mobile-icon" />
                             </div>
-                            <div id="mobile" className="col-sm-9">
+                            <div className="col-sm-9">
                                 {employee.mobile}
                             </div>
                         </div>
 
-                        <div id="sms" className="row" onClick={(e) => this.handleClick(e)}>
+                        <div id="sms" className="row" onClick={(e) => this.sendSms() }>
                             <div className="col-sm-3">
-                                <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/speech_bubble-128.png" />
+                                <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/speech_bubble-128.png" alt="sms-icon"/>
                             </div>
 
-                            <div id="sms" className="col-sm-9">
+                            <div className="col-sm-9">
                                 Send SMS
                             </div>
                         </div>
 
-                        <div id="linkedin" className="row" onClick={(e) => this.handleClick(e)}>
+                        <div id="linkedin" className="row" onClick={(e) => this.openLinkedInProfile(e)}>
                             <div className="col-sm-3">
-                                <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_gray-128.png" />
+                                <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_gray-128.png" alt="linkedin-icon" />
                             </div>
-                            <div id="linkedin" className="col-sm-9">
+                            <div className="col-sm-9">
                                 {profile.linkedin}
                             </div>
                         </div>

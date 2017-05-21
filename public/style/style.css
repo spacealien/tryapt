@@ -656,6 +656,11 @@ input::-webkit-input-placeholder {
     color: #D1A25F;
 }
 
+.grid-img {
+    width: 137px;
+    height: 137px;
+}
+
 .reset-container {
     margin-top: 60%;
 }
