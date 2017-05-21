@@ -85,19 +85,6 @@ ul {
     margin-left: -28px;
     margin-right: -20px;
 }
-.glyphicon{
-    /*position: relative;
-    top: 7px;
-    //bottom: 6px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-    float: right;
-    margin-right: 28px;
-    font-size: 80px;*/
-}
 
 .glyph-menu {
     position: relative;
@@ -112,9 +99,6 @@ ul {
     font-size: 80px;
 }
 
-ul {
-
-}
 
 li  {
     margin-top: 10px;
@@ -127,6 +111,9 @@ li  {
 }
 .menu-txt a {
     color: #D1A25F;
+}
+.menu-txt a:active {
+    font-weight: bold;
 }
 .cl-sm-4 {
     text-align: center;
@@ -271,12 +258,6 @@ li  {
 .center {
     text-align: center;
 }
-::-webkit-input-placeholder {
-    /*font-size: 25px;*/
-
-}
-
-
 
 input {
     outline: none;

@@ -36,7 +36,7 @@ class Filter extends React.Component {
              accountant: true,
              developer: true,
              accountant_manager: true,*/
-            sort: 'firstname',
+            sort: 'name',
             show: 'department',
             refresh: true
 
@@ -97,7 +97,7 @@ class Filter extends React.Component {
                 }
                 break;
 
-            case 'firstname':
+            case 'name':
                 this.props.updateSorting('department');
                 if (this.state.show === 'department') {
                     this.props.employees.checked.sort(function (a, b) {
@@ -115,7 +115,6 @@ class Filter extends React.Component {
                         }
                         return 0;
                     });
-                    console.log(this.props.employees.checked);
                 }
                 break;
             default:
@@ -138,7 +137,7 @@ class Filter extends React.Component {
     resetFilter() {
         this.props.emptyFilterList();
         this.props.uncheckPositions();
-        this.setState({ companytry: true, companyapt: true, companyopt: true, sort: 'firstname', show: 'department' });
+        this.setState({ companytry: true, companyapt: true, companyopt: true, sort: 'name', show: 'department' });
     }
 
     showPositions() {
@@ -255,9 +254,8 @@ class Filter extends React.Component {
 
                         </div>
                         <div className="margin-top btn-group btn-group-lg">
-                            <button id='firstname' type="button" className={this.state.sort === 'firstname' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleSort.bind(this, 'firstname')}>Fornavn</button>
-                            <button id='secondname' type="button" className={this.state.sort === 'secondname' ? "btn sort-option btn-sort selected" : "btn sort-option btn-sort"} onClick={this.handleSort.bind(this, 'secondname')}>Etternavn</button>
-                            <button id='position' type="button" className={this.state.sort === 'position' ? "btn sort-option selected" : "btn sort-option"} onClick={this.handleSort.bind(this, 'position')} >Stilling</button>
+                            <button id='name' type="button" className={this.state.sort === 'name' ? "btn sort-option btn-sort btn-long selected" : "btn sort-option btn-long btn-sort"} onClick={this.handleSort.bind(this, 'name')}>Navn</button>
+                            <button id='position' type="button" className={this.state.sort === 'position' ? "btn sort-option btn-long selected" : "btn sort-option btn-long"} onClick={this.handleSort.bind(this, 'position')} >Stilling</button>
 
                         </div>
                         <br />

@@ -83,11 +83,12 @@ class Positions extends React.Component {
                     <div>
                     <div className="navbar navbar-fixed-top ">
                         <div className="row">
-                            <div className="col-sm-3 menu-txt" >
+                            <div className="col-sm-2 menu-txt" >
                                 <img onClick={
                         () =>
                             browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" />
                             </div>
+                            <div className="col-sm-1"></div>
                             <div className="col-sm-6">
                                 <div className="nav-brand center-block"><p>Filtrer stillinger</p></div>
                             </div>

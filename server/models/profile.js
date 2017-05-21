@@ -8,14 +8,10 @@ module.exports = function (sequelize, DataTypes) {
     var profile = sequelize.define('profile', {
         linkedin: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: true
         },
         experience: {
-<<<<<<< HEAD
-            type: DataTypes.STRING(800), //FEILEN HER YO
-=======
-            type: DataTypes.STRING(800), // filen her yo
->>>>>>> 15f40c69d7b5f09d8597cb5553d8a13752240a3c
+            type: DataTypes.STRING(800),
             validate: {
                 len: [0,800]
             } 

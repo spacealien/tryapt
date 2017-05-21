@@ -149,8 +149,14 @@ class UserPage extends React.Component {
 
     submitChanges() { 
         const limitLength = (str, length) => str.substring(0, length);
+        var linkedIn;
+        if(this.state.linkedin === '') {
+              linkedIn = '';
+        }
+        else
+            linkedIn = this.state.linkedIn;
         var profile = {
-            linkedin: this.state.linkedin,
+            linkedin: linkedIn,
             experience: limitLength(this.state.experience, 800)
         };
 
@@ -158,7 +164,7 @@ class UserPage extends React.Component {
         this.props.submitProfileChanges(profile).then(
             (res) => {
                 this.setState({
-                    edit: false,
+                    edit: false
                 });
             },
             (error) => {
@@ -259,12 +265,13 @@ class UserPage extends React.Component {
                                     <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_gray-128.png" />
                                 </div>
                                 <div id="linkedin" className="col-sm-4">
-                                    <p>linkedin.com/</p>
+                                    <p>linkedin.com/in/</p>
                                 </div>
                                 <div id="linkedin" className="col-sm-6">
                                     <form>
                                         <input id="linkedInTxt" className="linkedInTextField" type="text" name="linkedInUserName"
                                             onChange={(e) => { this.setState({ linkedin: e.target.value })}}
+                                            placeholder="Skriv ditt brukernavn"
                                             value={this.state.linkedin}
                                             ref='txtField'
                                             disabled='true'/>

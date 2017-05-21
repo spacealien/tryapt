@@ -80,9 +80,9 @@ console.log("addContact");
 openLinkedInProfile() {
 const profile = this.state.profile;
         console.log("openLinkedInProfile");
-        window.location.href = "https://www.linkedin.com" + profile.linkedin;
+        window.location.href = "https://www.linkedin.com/in/" + profile.linkedin;
 }
-
+ 
 render() {
 const employee = this.props.selectedEmployee;
         const profile = this.state.profile;
@@ -170,7 +170,7 @@ const employee = this.props.selectedEmployee;
                     <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_gray-128.png" />
                 </div>
                 <div id="linkedin" className="col-sm-9">
-                    {profile.linkedin}
+                    www.linkedin.com/in/{profile.linkedin}
                 </div>
             </div>
             <div id="popupContainer"></div>

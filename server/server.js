@@ -512,8 +512,8 @@ db_context.sequelize.sync({
 
             db_context.profile.create({
                 userId: result.id,
-                linkedin: result.email,
-                experience: result.email
+                linkedin: '',
+                experience: ''
             });
 
         });
@@ -529,8 +529,8 @@ db_context.sequelize.sync({
         }).then(function (result) {
             db_context.profile.create({
                 userId: result.id,
-                linkedin: result.email,
-                experience: result.email
+                linkedin: '',
+                experience: ''
             });
         });
     }
