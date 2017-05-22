@@ -111,7 +111,7 @@ app.get('/api/people', function (req, res) {
         }
     }
     // Uses async handler for reading file.
-    fs.readFile('apt.json', handler),
+        fs.readFile('apt.json', handler),
         fs.readFile('try.json', handler),
         fs.readFile('opt.json', handler)
 });
@@ -146,7 +146,6 @@ app.post('/api/people/employee', function (req, res) {
                     employee = emp;
                 }
             }); // end map
-
             res.status(200).json({ employee: employee });
         }
     }
@@ -160,7 +159,6 @@ app.post('/api/people/employee', function (req, res) {
         fs.readFile('opt.json', handler)
     }
 });
-
 
 
 // Finds public profile
@@ -229,6 +227,7 @@ app.post('/my_page/profile/update', authentication, function (req, res) {
 }); //end /my_page/update
 
 
+
 app.post('/api/user/register', function (req, res) {
     console.log(req.body);
     var body = _.pick(req.body, 'email', 'password');
@@ -280,7 +279,7 @@ app.post('/api/user/register', function (req, res) {
                         experience: null,
                     });
                 }).catch(function (e) {
-                    res.status(500).json({ errors: 'En feil har oppstått' });
+                    res.status(500).json({ errors: 'Denne brukeren ekisterer allerede' });
                 });
 
                 var emailPromise = new Promise((resolve, reject) => {
@@ -405,6 +404,7 @@ app.post('/my_page/user_data', authentication, function (req, res) {
     var body = _.pick(req.body, 'email');
     res.status(200).json({ userData: 'melding' });
 });
+
 
 //
 app.post("/reset_password", authentication, function (req, res) {

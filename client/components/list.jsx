@@ -69,7 +69,8 @@ class List extends React.Component {
             if ((searchTerm === null) ||
                 employee.name.toLowerCase().includes(searchTerm.toString().toLowerCase() ) ||
                 employee.mobile.split(" ").join("").includes(searchTerm) || 
-                employee.email.includes(searchTerm))
+                employee.email.includes(searchTerm) || 
+                employee.jobtitle.toLowerCase().includes(searchTerm.toLowerCase()))
                  {
 
                 var marked = false;

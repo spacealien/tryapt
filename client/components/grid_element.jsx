@@ -10,7 +10,7 @@ const GridElement = ({ employee, onEmployeeSelect, marked }) => {
 
         <div className={markedClassName} onClick={() => onEmployeeSelect(employee)}>
             <div className="media">
-                <img className="img-thumbnail" src={parsedUrl} alt="employee profile picture" width="200" height="200" />
+                <img className="img-thumbnail grid-img" src={parsedUrl} alt="employee profile picture" width="200" height="200" />
                 <div className="firstName">{employee.name.substring(0, employee.name.indexOf(' '))}</div>
             </div>
         </div>
