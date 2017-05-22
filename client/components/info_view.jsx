@@ -5,11 +5,9 @@ import { connect } from 'react-redux';
 import { fetchEmployees, selectEmployee } from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
 
-import MenuTop from '../components/menu_top.jsx';
+import MenuTop from '../containers/menu_top.jsx';
 
-
-// TODO
-class UserView extends React.Component {
+class InfoView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -18,9 +16,12 @@ class UserView extends React.Component {
     render() {
         return (
             <div>
-                {this.props.children}
+                <MenuTop
+                    menu="default"
+                    headline="Info" />
+                <p> Info </p>
             </div>
         );
     }
 }
-export default UserView;
+export default InfoView;

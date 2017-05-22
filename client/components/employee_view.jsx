@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 
-import MenuBottom from '../components/menu_bottom.jsx';
-import MenuTop from '../components/menu_top.jsx';
+import MenuBottom from '../containers/menu_bottom.jsx';
+import MenuTop from '../containers/menu_top.jsx';
 import SearchBar from '../components/search_bar.jsx';
-import List from '../components/list.jsx';
-import LoginForm from '../components/login_form.jsx';
-import EmployeeDetails from '../components/employee_details.jsx';
+import List from '../containers/list.jsx';
+import LoginForm from '../containers/login_form.jsx';
+import EmployeeDetails from '../containers/employee_details.jsx';
 
 
 class EmployeeView extends React.Component {

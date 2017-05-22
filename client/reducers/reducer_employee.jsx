@@ -46,11 +46,6 @@ export default function (state = INITIAL_STATE, action) {
                 selectedEmployee: action.payload
             });
 
-        case SEARCH_EMPLOYEE:
-            return Object.assign({}, state, {
-                visible: action.payload
-            });
-
         case FILTER_EMPLOYEE:
             // filtrere data her her
             return Object.assign({}, state, {
@@ -59,7 +54,6 @@ export default function (state = INITIAL_STATE, action) {
 
         case FETCH_EMPLOYEE:
             var emp = null;
-
             for (var i = 0; i < state.all.length; i++) {
 
                 if (state.all[i].email == action.payload.email) {
@@ -69,7 +63,6 @@ export default function (state = INITIAL_STATE, action) {
                     });
                 }
             }
-
             return Object.assign({}, state, {
                 authenticatedEmployee: null
             });

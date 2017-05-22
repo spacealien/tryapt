@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchBar from './search_bar.jsx';
-import MarkDropdown from './mark_dropdown.jsx';
+import SearchBar from '../components/search_bar.jsx';
+import MarkDropdown from '../components/mark_dropdown.jsx';
 
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth_action';

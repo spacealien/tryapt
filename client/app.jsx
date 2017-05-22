@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 
-import MenuBottom from './components/menu_bottom.jsx';
+import MenuBottom from './containers/menu_bottom.jsx';
 import { routes } from './routes/routes.jsx';
 
 

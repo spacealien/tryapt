@@ -11,8 +11,8 @@ import {
 
 
 import { browserHistory } from 'react-router';
-import MenuTop from '../components/menu_top.jsx';
-import LoadingScreen from './loading_screen.jsx';
+import MenuTop from './menu_top.jsx';
+import LoadingScreen from '../components/loading_screen.jsx';
 
 class UserPage extends React.Component {
 
@@ -33,6 +33,7 @@ class UserPage extends React.Component {
 
     getEmployee(userToken) {
         // checks of all profile data is allready fetched
+        // before calling API
         if (this.props.employees.length == 0) {
 
             this.props.fetchEmployee(userToken.email).then(

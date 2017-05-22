@@ -1,18 +1,18 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
-import EmployeeView from '../containers/employee_view.jsx';
-import MyPage from '../containers/my_page_view.jsx';
-import HomeView from '../containers/home_view.jsx';
-import InfoView from '../containers/info_view.jsx';
-import EmployeeFilter from '../containers/filter_view.jsx';
-import FilterPositions from '../containers/filter_positions_view.jsx';
-import EmployeeDetails from '../components/employee_details.jsx';
-import List from '../components/list.jsx';
-import LoginForm from '../components/login_form.jsx';
-import UserPage from '../components/user_page.jsx';
-import ForgotForm from '../components/forgot_form.jsx';
-import RegisterForm from '../components/register_form.jsx';
-import ForgotResetForm from '../components/password_reset_form.jsx';
+import EmployeeView from '../components/employee_view.jsx';
+import MyPage from '../components/my_page_view.jsx';
+import HomeView from '../components/home_view.jsx';
+import InfoView from '../components/info_view.jsx';
+import EmployeeFilter from '../components/filter_view.jsx';
+import FilterPositions from '../components/filter_positions_view.jsx';
+import EmployeeDetails from '../containers/employee_details.jsx';
+import List from '../containers/list.jsx';
+import LoginForm from '../containers/login_form.jsx';
+import UserPage from '../containers/user_page.jsx';
+import ForgotForm from '../containers/forgot_form.jsx';
+import RegisterForm from '../containers/register_form.jsx';
+import ForgotResetForm from '../containers/password_reset_form.jsx';
 import requireAuth from '../utils/requireAuth.js';
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import ListElement from './list_element.jsx';
+import ListElement from '../components/list_element.jsx';
 
 import { setListView, setGridView } from '../actions/menu_action';
 import { connect } from 'react-redux';

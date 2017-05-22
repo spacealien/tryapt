@@ -3,7 +3,7 @@ import { attemptLogin } from '../actions/auth_action';
 import { connect } from 'react-redux';
 import validateInput from '../../server/shared/validation/login_validation';
 import { browserHistory } from 'react-router';
-import MenuTop from '../components/menu_top.jsx';
+import MenuTop from './menu_top.jsx';
 
 class LoginForm extends React.Component {
 

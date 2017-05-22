@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-import MenuTop from '../components/menu_top.jsx';
+import MenuTop from '../containers/menu_top.jsx';
 
 
 class HomeView extends React.Component {

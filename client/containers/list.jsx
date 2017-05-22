@@ -1,7 +1,7 @@
 import React from 'react';
-import ListElement from './list_element.jsx';
-import GridElement from './grid_element.jsx';
-import SearchBar from './search_bar.jsx';
+import ListElement from '../components/list_element.jsx';
+import GridElement from '../components/grid_element.jsx';
+import SearchBar from '../components/search_bar.jsx';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

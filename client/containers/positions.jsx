@@ -9,7 +9,7 @@ import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 import { fetchEmployees, showEmployee, uncheckPositions, togglePosition} from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import PositionListElement from './position_list_element.jsx';
+import PositionListElement from '../components/position_list_element.jsx';
 //import Popup from 'react-popup';
 
 class Positions extends React.Component {

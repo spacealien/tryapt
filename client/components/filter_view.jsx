@@ -17,9 +17,7 @@ class FilterView extends React.Component {
 
     render() {
         return (
-                <Filter 
-                
-                /> 
+                <Filter /> 
         );
     }
 }

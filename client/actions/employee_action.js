@@ -20,9 +20,8 @@ export const SET_AUTHENTICATED_EMPLOYEE = 'SET_AUTHENTICATED_EMPLOYEE';
 
 export function fetchEmployees() {
     return dispatch => {
-        return axios.get('/api/people').then((request) => {
-            console.log(request);
-
+        return axios.get('/api/people')
+        .then((request) => {
             dispatch({
                 type: FETCH_EMPLOYEES,
                 payload: request.data.employees

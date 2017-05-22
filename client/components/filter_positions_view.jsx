@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Positions from '../components/positions.jsx';
+import Positions from '../containers/positions.jsx';
 import { connect } from 'react-redux';
 import { addPosition } from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
