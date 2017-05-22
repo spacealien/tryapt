@@ -33,8 +33,8 @@ export default function (state = INITIAL_STATE, action) {
 
         case FETCH_EMPLOYEES:
             const data = action.payload.apt
-                .concat(action.payload.try)
                 .concat(action.payload.opt)
+                .concat(action.payload.try)
 
             return Object.assign({}, state, {
                 all: data,

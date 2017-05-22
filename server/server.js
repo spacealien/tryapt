@@ -111,7 +111,7 @@ app.get('/api/people', function (req, res) {
         }
     }
     // Uses async handler for reading file.
-    fs.readFile('apt.json', handler),
+        fs.readFile('apt.json', handler),
         fs.readFile('try.json', handler),
         fs.readFile('opt.json', handler)
 });
@@ -146,7 +146,6 @@ app.post('/api/people/employee', function (req, res) {
                     employee = emp;
                 }
             }); // end map
-
             res.status(200).json({ employee: employee });
         }
     }
@@ -489,8 +488,10 @@ app.get('/my_page', function (req, res) {
 });
 
 
+
 // Get method for redirecting all traffic 
 // that does not match any url.
+
 app.get('/*', function (req, res) {
     res.redirect('/');
 });
