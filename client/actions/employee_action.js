@@ -66,13 +66,6 @@ export function filterEmployees(filter) {
     };
 }
 
-export function togglePositionEmployee(employee, mobile) {
-    return {
-        type: TOGGLE_EMPLOYEE,
-        mobile: mobile,
-        payload: employee
-    };
-}
 
 export function togglePosition(position) {
     return {

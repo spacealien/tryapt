@@ -67,8 +67,8 @@ class MenuTop extends React.Component {
 
         if (sendString.length > 0) {
             var link = "sms:" + sendString;
-            // window.location.href = link;
         }
+        window.location.href = link;
     }
 
     sendEmailToMarked() {
@@ -131,7 +131,7 @@ class MenuTop extends React.Component {
                         onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
-                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" width="80%" />
+                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" />
                         </div>
                     </div>
                 </div>

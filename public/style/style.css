@@ -124,7 +124,9 @@ li  {
     height: 100%;
     display: inline-block;
 }
-
+.menu-bottom #home {
+    color: #D1A25F;
+}
 
 .menu-bottom-cl > .btn {
     background-color: Transparent;
@@ -358,6 +360,7 @@ input::-webkit-input-placeholder {
 }
 .filter-menu {
     line-height: 8em;
+    max-width: 80%;
 }
 .bigger-img img{
     width: 150%;
@@ -366,6 +369,7 @@ input::-webkit-input-placeholder {
     -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
+    width: 80%;
 }
 
 .search-icon img {
@@ -647,3 +651,17 @@ input::-webkit-input-placeholder {
 .new-user-container {
     margin-top: 30%;
 }
+
+
+@media (min-width:1000px)  { 
+    body {
+        -moz-transform: scale(0.5, 0.5); /* Moz-browsers */
+        zoom: 0.5; /* Other non-webkit browsers */
+        zoom: 50%; /* Webkit browsers */
+    }
+
+    .container-fluid {
+        width: 70%;
+    }
+ }
+

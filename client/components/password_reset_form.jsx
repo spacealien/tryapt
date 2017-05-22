@@ -59,11 +59,16 @@ class ForgotResetForm extends React.Component {
 
     render() {
         const { message } = this.state;
-        console.log(message);
 
         return (
+                
             <div className="container">
-                <h1 className="text-center">Tilbakestill passord</h1>
+                <MenuTop
+                menu="default"
+                headline="Tilbakestill passord"
+                />
+                <div>
+                <h1 className="text-center">Skriv inn et nytt passord for å endre passord.</h1>
                 <div>
                     {message.message && <span className="help-block">{message.message}</span>}
 
@@ -76,8 +81,15 @@ class ForgotResetForm extends React.Component {
                     <label htmlFor="email" >Bekreft passord:</label>
                     <input id="confirm" className="form-control" type="password" onChange={(e) => this.setState({ passwordConfirm: e.target.value })} />
                 </div>
-
-                <button className="btn btnPrimary" onClick={(e) => this.onSubmit(e)} value="submit">Bekreft</button>
+                <br/>
+                <div className="row margin-top">
+                <div className="col-sm-2"></div>
+                <div className="col-sm-8">
+                <button className="btn btnPrimary btn-my-page" onClick={(e) => this.onSubmit(e)} value="submit">Bekreft</button>
+                </div>
+                <div className="col-sm-2"></div>
+                </div>
+            </div>
             </div>
         );
     }

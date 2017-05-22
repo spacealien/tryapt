@@ -90,17 +90,15 @@ class List extends React.Component {
     }
 
     renderGrid() {
-                var employees = this.props.employees;
+                var employeeList = this.props.employees;
                var { searchTerm } = this.props;
-
-        var employees = this.props.employees;
-        if (employees.checked.length === 0) {
-            var employeeList = employees.all;
+        if (this.props.employees.checked.length === 0) {
+            employeeList = this.props.employees.all;
         } else {
-            var employeeList = employees.checked;
+            employeeList = this.props.employees.checked;
         }
 
-        return employees.all.map((employee) => {
+        return employeeList.map((employee) => {
             if ((searchTerm === null) ||
                 employee.name.toLowerCase().includes(searchTerm.toString().toLowerCase()) ||
                 employee.mobile.split(" ").join("").includes(searchTerm) || 
@@ -109,7 +107,6 @@ class List extends React.Component {
 
                 var marked = false;
                 this.props.employees.marked.indexOf(employee) > -1 ? marked = true : marked = false;
-                console.log("marked: " + marked);
 
                 return (
                     <GridElement

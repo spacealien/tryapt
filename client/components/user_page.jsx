@@ -196,7 +196,7 @@ class UserPage extends React.Component {
                 <div>
                     <MenuTop
                         menu="myPage"
-                        headline="Min Side" />
+                        headline="Min side" />
 
                     <div className="my-profile-box">
                         <div className="profile-info row">

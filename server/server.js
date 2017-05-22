@@ -141,7 +141,7 @@ app.post('/api/people/employee', function (req, res) {
         }
         if (count == 1) {
 
-            list.map( function (emp) {
+            list.map(function (emp) {
                 if (emp.email === body.email) {
                     employee = emp;
                 }
@@ -195,13 +195,15 @@ app.post('/my_page/profile/update', authentication, function (req, res) {
     var body = _.pick(req.body, 'user', 'profile');
     var attributes = {};
 
-    if (body.profile.linkedin) {
+    if (body.profile.linkedin.length >= 0) {
         attributes.linkedin = body.profile.linkedin;
     }
 
-    if (body.profile.experience) {
+    if (body.profile.experience.length >= 0) {
         attributes.experience = body.profile.experience;
     }
+
+    console.log(attributes.linkedin);
 
     db_context.profile.findOne({
         where: {
@@ -310,7 +312,7 @@ app.post('/api/user/register', function (req, res) {
                     });
 
                     var mailOptions = {
-                        to: 's236313@stud.hioa.no',
+                        to: 's236357@stud.hioa.no',
                         from: 'aptemailtester1@gmail.com',
                         subject: 'APT TILBAKESTILL PASSORD',
                         html: '<a href="https://localhost:3000/confirm?token='
@@ -362,7 +364,7 @@ app.post('/resend_confirmation', function (req, res) {
         var transporter = mailer.createTransport(config.mailer.transport);
 
         var mailOptions = {
-            to: 's236313@stud.hioa.no',
+            to: 's236357@stud.hioa.no',
             from: 'aptemailtester1@gmail.com',
             subject: 'APT TILBAKESTILL PASSORD',
             html: '<a href="https://localhost:3000/confirm?token='
@@ -371,20 +373,19 @@ app.post('/resend_confirmation', function (req, res) {
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
-                res.status(503).json({ errors: 'En feil har oppståt' });
+                res.status(503).json({ errors: 'En feil har oppstått' });
             } else {
-                res.status(200).json({ message: 'En bekrefelses epost er sendt' });
+                res.status(200).json({ message: 'En e-post er sendt til deg, med en link til å endre passordet ditt' });
             };
         });
     }).catch(function (e) {
         console.log(e);
-        res.status(500).json({ errors: 'Ingen bruker med denne epost adressen' });
+        res.status(500).json({ errors: 'Ingen bruker med denne e-postadressen' });
     });
 });
 
 
 app.get('/confirm*', mailAuthentication, function (req, res) {
-    console.log('/HELLO?!?!?!');
 
     db_context.user.update({
         vertified: true
@@ -392,7 +393,7 @@ app.get('/confirm*', mailAuthentication, function (req, res) {
             where: {
                 //id: req.currentUser.id,
                 email: req.currentUser.email
-            },
+            }
         }
     ).then(function (result) {
         res.status(200).json({ message: 'Bruker opprettet' });
@@ -418,7 +419,7 @@ app.post("/reset_password", authentication, function (req, res) {
             },
         }
     ).then(function (result) {
-        res.status(200).json({ message: 'Passord er nå endret' });
+        res.status(200).json({ message: 'Passordet er nå endret' });
     });
 });
 
@@ -453,20 +454,20 @@ app.post('/forgot', function (req, res) {
             to: 's236357@stud.hioa.no',
             from: 'aptemailtester1@gmail.com',
             subject: 'APT TILBAKESTILL PASSORD',
-            html: '<a href="https://localhost:3000/reset?token='
+            html: '<p>Følg linken nedenfor for å tilbakestille passordet ditt: </p><a href="https://localhost:3000/reset?token='
             + e.token + '">Tilbakestill passord</a>'
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
-                res.status(503).json({ errors: 'En feil har oppståt' });
+                res.status(503).json({ errors: 'En feil har oppstått' });
             } else {
-                res.status(200).json({ message: 'En bekrefelses epost er sendt' });
+                res.status(200).json({ message: 'En e-post er sendt til deg, med en link til å endre passordet ditt' });
             };
         });
     }).catch(function (e) {
         console.log(e);
-        res.status(500).json({ errors: 'Ingen bruker med denne epost adressen' });
+        res.status(500).json({ errors: 'Ingen bruker med denne e-postadressen' });
     });
 });
 
