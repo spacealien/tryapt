@@ -21,6 +21,4 @@ class FilterView extends React.Component {
         );
     }
 }
-
-
 export default FilterView;

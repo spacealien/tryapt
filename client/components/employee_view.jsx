@@ -21,7 +21,6 @@ class EmployeeView extends React.Component {
             mark: false,
             viewTab: 'visible'
         };
-
     }
 
     onMenuClick(e) {

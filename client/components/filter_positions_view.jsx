@@ -17,12 +17,8 @@ class FilterPositionsView extends React.Component {
 
     render() {
         return (
-                <Positions 
-                
-                /> 
+                <Positions /> 
         );
     }
 }
-
-
 export default FilterPositionsView;

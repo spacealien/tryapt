@@ -265,10 +265,12 @@ class Filter extends React.Component {
         );
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         employees: state.employees
     };
 };
+
 export default connect(mapStateToProps,
     { hideEmployee, showEmployee, emptyFilterList, updateSorting, uncheckPositions })(Filter);

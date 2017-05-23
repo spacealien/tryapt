@@ -1,6 +1,4 @@
-
 export const LIST_VIEW = 'LIST_VIEW';
-
 
 export function setListView() {
     return {
