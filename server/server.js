@@ -2,23 +2,13 @@ import express from 'express';
 import fs from 'fs';
 import https from 'https';
 import http from 'http'
-
-import bodyParser from 'body-parser';
 import _ from 'underscore';
 import db_context from './database/db_context';
-import bcrypt from 'bcrypt';
 import helmet from 'helmet';
-import request from 'request';
-import middleware from './middleware/middleware';
-import authentication from './middleware/auth';
-import mailAuthentication from './middleware/mail_auth';
-
-import validateLogin from './shared/validation/login_validation';
-import mailer from 'nodemailer';
-import path from 'path';
-import jwt from 'jsonwebtoken';
-
+import bodyParser from 'body-parser';
+import middleware from './middleware/middleware.js';
 import config from '../config';
+import routes from './routes.js';
 
 //import  test data to populate database
 import TryJSON from '../try.json';
@@ -29,8 +19,6 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.dev.config';
-import routes from './routes.js';
-
 
 
 var app = express();
@@ -47,17 +35,14 @@ if (process.env.NODE_ENV != "production") {
     }));
     app.use(webpackHotMiddleware(compiler));
 }
-
 app.use(bodyParser.json());
 app.use(middleware.logger);
 app.use(helmet());
 app.use(express.static(__dirname + '/../public')); // handles request for static files
 
 
+
 routes(app);
-
-
-
 
 
 

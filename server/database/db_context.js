@@ -3,7 +3,6 @@ import config from '../../config.js';
 import User from '../models/user';
 import Profile from '../models/profile';
 
-
 var sequelize = new Sequelize('test', 'root', null, {
     dialect: 'mysql',
     host: 'localhost',

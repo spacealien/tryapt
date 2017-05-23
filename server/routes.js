@@ -1,6 +1,13 @@
 import authentication from './middleware/auth';
 import mailAuthentication from './middleware/mail_auth';
-
+import _ from 'underscore';
+import fs from 'fs';
+import path from 'path';
+import bcrypt from 'bcrypt';
+import validateLogin from './shared/validation/login_validation';
+import mailer from 'nodemailer';
+import request from 'request';
+import db_context from './database/db_context';
 
 export default function(app) {
 
@@ -130,7 +137,7 @@ app.post('/api/people/profile', function (req, res) {
                 res.status(200).json({ profile: profile })
             });
         } else {
-            res.status().json({ message: 'bruker med epost ekisterer ikke' });
+            res.status(500).json({ message: 'bruker med epost ekisterer ikke' });
         }
     }).catch(function (error) {
         console.log(error);
@@ -299,6 +306,46 @@ app.post('/api/user/register', function (req, res) {
 });
 
 
+// Get request for creating password reset link
+// the forgot url has to contain a valid unexpired token
+app.post('/api/user/forgot', function (req, res) {
+    var body = _.pick(req.body, 'email');
+
+    console.log(body);
+
+    db_context.user.findByEmail(body).then(function (user) {
+        var token = user.generateToken('email_token');
+
+        return {
+            user: user,
+            token: token
+        };
+    }).then(function (e) {
+        var transporter = mailer.createTransport(config.mailer.transport);
+
+
+        var mailOptions = {
+            to: 's236357@stud.hioa.no',
+            from: 'aptemailtester1@gmail.com',
+            subject: 'APT TILBAKESTILL PASSORD',
+            html: '<p>Følg linken nedenfor for å tilbakestille passordet ditt: </p><a href="https://localhost:3000/reset?token='
+            + e.token + '">Tilbakestill passord</a>'
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                res.status(503).json({ errors: 'En feil har oppstått' });
+            } else {
+                res.status(200).json({ message: 'En e-post er sendt til deg, med en link til å endre passordet ditt' });
+            };
+        });
+    }).catch(function (e) {
+        console.log(e);
+        res.status(500).json({ errors: 'Ingen bruker med denne e-postadressen' });
+    });
+});
+
+
 app.post('/resend_confirmation', function (req, res) {
     var body = _.pick(req.body, 'email');
 
@@ -383,45 +430,6 @@ app.get('/reset*', mailAuthentication, function (req, res) {
     res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
 
-// Get request for creating password reset link
-// the forgot url has to contain a valid unexpired token
-app.post('/forgot', function (req, res) {
-    var body = _.pick(req.body, 'email');
-
-    console.log(body);
-
-    db_context.user.findByEmail(body).then(function (user) {
-        var token = user.generateToken('email_token');
-
-        return {
-            user: user,
-            token: token
-        };
-    }).then(function (e) {
-        var transporter = mailer.createTransport(config.mailer.transport);
-
-
-        var mailOptions = {
-            to: 's236357@stud.hioa.no',
-            from: 'aptemailtester1@gmail.com',
-            subject: 'APT TILBAKESTILL PASSORD',
-            html: '<p>Følg linken nedenfor for å tilbakestille passordet ditt: </p><a href="https://localhost:3000/reset?token='
-            + e.token + '">Tilbakestill passord</a>'
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                res.status(503).json({ errors: 'En feil har oppstått' });
-            } else {
-                res.status(200).json({ message: 'En e-post er sendt til deg, med en link til å endre passordet ditt' });
-            };
-        });
-    }).catch(function (e) {
-        console.log(e);
-        res.status(500).json({ errors: 'Ingen bruker med denne e-postadressen' });
-    });
-});
-
 
 app.get('/people', function (req, res) {
     res.sendFile(path.join(__dirname + '/../public/index.html'));
@@ -438,9 +446,16 @@ app.get('/my_page', function (req, res) {
 });
 
 
-// Get method for redirecting all traffic 
-// that does not match any url.
+app.get('/my_page/login', function (req, res) {
+    res.sendFile(path.join(__dirname + '/../public/index.html'));
+});
 
+
+app.get('/info', function (req, res) {
+    res.sendFile(path.join(__dirname + '/../public/index.html'));
+});
+
+// Get method for redirecting all traffic, that does not match any url.
 app.get('/*', function (req, res) {
     res.redirect('/');
 });

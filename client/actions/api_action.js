@@ -46,7 +46,7 @@ export function submitProfileChanges(profile) {
 export function forgotPassword(userInput) {
     console.log(userInput);
     return dispatch => {
-        return axios.post("/forgot", {
+        return axios.post("/api/user/forgot", {
             email: userInput.email
         })
     }

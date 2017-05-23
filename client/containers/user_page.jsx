@@ -35,13 +35,15 @@ class UserPage extends React.Component {
         // checks of all profile data is allready fetched
         // before calling API
         if (this.props.employees.length == 0) {
-
+            console.log("fetching");
             this.props.fetchEmployee(userToken.email).then(
                 (res) => {
+                    console.log(res.data.employee);
                     this.props.setAuthenticatedEmployee(res.data.employee);
                     this.setState({ employee: res.data.employee });
                 },
                 (error) => {
+                    console.log("fetching error");
                     console.log(error);
                 }
             )
@@ -183,6 +185,7 @@ class UserPage extends React.Component {
         // userData is private data, sick days and what not.
         const { userData, profile, isLoading } = this.state;
         const employee = this.props.employee;
+
         if (!userData && !profile && !employee) {
             return (
                 <div>
@@ -193,8 +196,8 @@ class UserPage extends React.Component {
                     <LoadingScreen />
                 </div>
             );
-
-        } else
+        } else {
+            const parsedUrl = employee.image.replace('http','https');
             return (
                 <div>
                     <MenuTop
@@ -204,7 +207,7 @@ class UserPage extends React.Component {
                     <div className="my-profile-box">
                         <div className="profile-info row">
                             <div className="col-sm-5 profile-img-container">
-                                <img className="img-thumbnail" src={employee.image} />
+                                <img className="img-thumbnail" src={parsedUrl} />
                             </div>
                             <div className="col-sm-7">
                                 <div className="profile-name"><p>{employee.name}</p></div>
@@ -295,8 +298,10 @@ class UserPage extends React.Component {
                     </div>
                     
             );
+        }
     }
 }
+    
 
 function mapStateToProps(state) {
     return {
@@ -305,7 +310,7 @@ function mapStateToProps(state) {
         employee: state.employees.authenticatedEmployee,
         employees: state.employees.all
     };
-}
+};
 
 export default connect(mapStateToProps, {
     fetchUserData,
