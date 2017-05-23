@@ -23,7 +23,8 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.VIRTUAL,
             allowNull: false,
             validate: {
-                len: [8, 30]   // sets min max length for password stored in database
+                len: [8, 30]  //Sets min and max length for password stored in
+                              //database
             },
             set: function (value) {
                 var salt = bcrypt.genSaltSync(10);
