@@ -3,11 +3,14 @@ import config from '../../config.js';
 import User from '../models/user';
 import Profile from '../models/profile';
 
-var sequelize = new Sequelize('test', 'root', null, {
-    dialect: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    logging: false
+
+const dbConfig = config.sequelize;
+
+var sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
+    dialect: dbConfig.dialect,
+    host: dbConfig.host,
+    port: dbConfig.port,
+    logging: dbConfig.logging
 });
 
 // checks if database connection is successfully established

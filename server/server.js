@@ -109,11 +109,9 @@ db_context.sequelize.sync({
     });
 
 
+
 // Forces all every request on http protocol 
 // use to https protocol
-var HTTP_PORT = 8080;
-var HTTPS_PORT = 3000;
-
 var http_app = express();
 http_app.set('port', HTTP_PORT);
 

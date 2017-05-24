@@ -52,7 +52,7 @@ export default function (app) {
     app.get('/api/people', function (req, res) {
         var body = _.pick(req.body, 'email');
 
-        //the handler variable is a ASNYC file handler for fs.ReadFile() method. 
+        //the handler variable is a ASNYC file handler for fs.ReadFile() method below. 
         var employees = {};
         var count = 0;
         var handler = function (error, content) {
@@ -79,10 +79,11 @@ export default function (app) {
             }
         }
 
+
         // Uses async handler for reading file.
         fs.readFile('apt.json', handler),
-            fs.readFile('try.json', handler),
-            fs.readFile('opt.json', handler)
+        fs.readFile('try.json', handler),
+        fs.readFile('opt.json', handler)
     });
 
 
@@ -280,20 +281,12 @@ export default function (app) {
                         }, config.jwtSecret);
 
 
-                        var transporter = mailer.createTransport({
-                            host: 'smtp.gmail.com',
-                            port: 465,
-                            secure: true,
-                            auth: {
-                                user: 'apttester8531@gmail.com',
-                                pass: 'asdfasdfasdf'
-                            }
-                        });
+                        var transporter = mailer.createTransport(config.mailer.transport);
 
                         var mailOptions = {
-                            to: 's236313@stud.hioa.no',
-                            from: 'aptemailtester1@gmail.com',
-                            subject: 'APT TILBAKESTILL PASSORD',
+                            to: employee.email.toLowerCase(),
+                            from: 'apttester8531@gmail.com',
+                            subject: 'APT-Bekreft registrering',
                             html: '<a href="https://localhost:3000/confirm?token='
                             + token + '">bekreft</a>'
                         }
@@ -346,8 +339,8 @@ export default function (app) {
             var transporter = mailer.createTransport(config.mailer.transport);
 
             var mailOptions = {
-                to: 's236313@stud.hioa.no',
-                from: 'aptemailtester1@gmail.com',
+                to: e.user.email.toLowerCase(),
+                from: 'apttester8531@gmail.com',
                 subject: 'APT TILBAKESTILL PASSORD',
                 html: '<p>Følg linken nedenfor for å tilbakestille passordet ditt: </p><a href="https://localhost:3000/reset?token='
                 + e.token + '">Tilbakestill passord</a>'
@@ -381,7 +374,7 @@ export default function (app) {
 
             var mailOptions = {
                 to: e.user.email.toLowerCase(),
-                from: 'aptemailtester1@gmail.com',
+                from: 'apttester8531@gmail.com',
                 subject: 'APT TILBAKESTILL PASSORD',
                 html: '<a href="https://localhost:3000/confirm?token='
                 + e.token + '">Tilbakestill passord</a>'

@@ -5,10 +5,33 @@ For produksjon:
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo apt-get install -y build-essential
-git clone ...
-npm run install
+
+cd  /prosjek_mappe
+npm install
 npm build
-npm run start
+
+
+
+Utivkling: 
+For å få prosjektet til å kjøre i utviklingsmiljø brukes kommandoen
+npm run dev-start.
+
+
+
+Produksjon:
+For å få prosjektet til å kjøre for produksjon må linjen ved start endres slik som illustrert under:
+
+"scripts": {
+    "dev-start": "nodemon ./server/server.js --exec babel-node --presets es2015",
+    "start": "NODE_ENV=production HTTPS_PORT=443 HTTP_PORT=80 babel-node ./server/server.js --presets es2015",
+    "build": "webpack --config ./webpack.config.js --progress --colors"
+  },     
+
+Man må sørge for å at port 433 og 80 er åpne for at prosjektet skal kunne kjøre.
+
+
+
+Oppkobling mot database gjøres i config.js filen. 
 
 
 
@@ -19,15 +42,6 @@ npm run start
 
 
 
-For utvikling:
-
-curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo apt-get install -y build-essential
-git clone ...
-npm run install
-npm build
-npm run dev-start
 
 
 
