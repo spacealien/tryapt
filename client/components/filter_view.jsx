@@ -5,10 +5,11 @@ import Filter from '../components/filter.jsx';
 import { connect } from 'react-redux';
 import { addPosition } from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
-//import { fetchEmployees, selectEmployee } from '../actions/employee_action';
-//import { bindActionCreators } from 'redux';
 
-
+/**
+ * The FilterView component includes the top menu and the main content
+ * consists of buttons and choices to filter and sort the list of employees. 
+ */
 class FilterView extends React.Component {
 
     constructor(props) {
@@ -21,6 +22,4 @@ class FilterView extends React.Component {
         );
     }
 }
-
-
 export default FilterView;

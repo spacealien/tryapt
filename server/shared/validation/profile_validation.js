@@ -5,15 +5,5 @@ export default function profileValidator(data) {
     let errors = {};
 
 
-
-
-
-
-
-
-
-
-
-
     return { errors, isValid: _.isEmpty(errors) };
 }

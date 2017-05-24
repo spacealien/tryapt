@@ -1,14 +1,17 @@
 import React from 'react';
 
+/**
+ * This component is represents one employee row in the in the list
+ * of employees. 
+ */
+
 class ListElement extends React.Component {
 
     constructor(props) {
         super(props);
     }
 
-
     render() {
-        //var markedClassName = (this.props.mark === true && this.state.selected === true) ? "list-group-item mark" : "list-group-item";
         var markedClassName = this.props.marked === true ? "list-group-item mark btn" : "list-group-item btn";
         const parsedUrl = this.props.employee.image.replace('http','https');
 

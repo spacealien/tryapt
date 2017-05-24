@@ -21,14 +21,16 @@ class MenuTop extends React.Component {
         };
     }
 
+
+    //Enables marking for the list view
     enableEmployeeMarking() {
         if (this.props.mark === false) {
-            this.props.onMenuClick(true);
+            this.props.markMode(true);
             this.setState({ markMode: 'on' });
         } else {
-            this.props.onMenuClick(false);
+            this.props.markMode(false);
             this.setState({ markMode: 'off' });
-            this.props.unmarkAllEmployees();
+            this.props.unmarkAllEmployees(); // unmark all employees in the redux store.
         }
     }
 
@@ -36,13 +38,14 @@ class MenuTop extends React.Component {
         browserHistory.push('/people/filter');
     }
 
+    // toggle on/off marking of all employees.
     onToggleMarkAll(isAllMarked) {
         if (!isAllMarked) {
             this.props.markAllEmployees();
-            this.props.onMenuClick(true);
+            this.props.markMode(true);
         } else {
             this.props.unmarkAllEmployees();
-            this.props.onMenuClick(false);
+            this.props.markMode(false);
         }
     }
 
@@ -58,8 +61,8 @@ class MenuTop extends React.Component {
         }
     }
 
+    // sends sms to all marked employees
     sendSmsToMarked() {
-
         var sendString = '';
         this.props.employees.marked.map((employee) => {
             sendString += employee.mobile.split(" ").join("") + ",";
@@ -71,8 +74,8 @@ class MenuTop extends React.Component {
         window.location.href = link;
     }
 
+    // sends email to all marked employees
     sendEmailToMarked() {
-
         var sendString = '';
         this.props.employees.marked.map((employee) => {
             sendString += employee.email + ";";
@@ -88,8 +91,8 @@ class MenuTop extends React.Component {
         }
     }
 
+    // render the menu for when mark mode is enables
     renderMarkMenu() {
-        console.log(this.props.searchTerm);
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
@@ -101,10 +104,10 @@ class MenuTop extends React.Component {
                     </div>
                     <div className="col-sm-8">
                         <div className="nav-brand center-block"><p>{this.props.employees.marked.length} markert</p></div>
-                        <div> 
+                        <div>
                             <SearchBar
-                            searchTerm={this.props.searchTerm}
-                            onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
+                                searchTerm={this.props.searchTerm}
+                                onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
                         <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" width="80%" alt="back-arrow" />
@@ -115,8 +118,8 @@ class MenuTop extends React.Component {
         );
     }
 
+    // render default the menu for employee view
     renderPeopleMenu() {
-        console.log(this.props.searchTerm);
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
@@ -126,12 +129,12 @@ class MenuTop extends React.Component {
                     <div className="col-sm-8">
                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
 
-                        <div><SearchBar 
-                        searchTerm={this.props.searchTerm}
-                        onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
+                        <div><SearchBar
+                            searchTerm={this.props.searchTerm}
+                            onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} /></div>
                     </div>
                     <div className="col-sm-2">
-                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" alt="filter icon"/>
+                        <div className="filter-menu btn" onClick={() => this.showFilter()}><img src="https://cdn2.iconfinder.com/data/icons/cute-tech-icon-set-1/512/Filter-128.png" alt="filter icon" />
                         </div>
                     </div>
                 </div>
@@ -139,16 +142,7 @@ class MenuTop extends React.Component {
         );
     }
 
-    renderSearchBar() {
-        return (
-            <div className="navbar navbar-fixed-top ">
-                <div className="row">
-                    <SearchBar onSearchTermChange={searchTerm => this.props.onSearchTermChange(searchTerm)} />
-                </div>
-            </div>
-        );
-    }
-
+    // default empty top menu, displays logo only.
     renderDefaultMenu() {
         return (
             <div className="navbar navbar-fixed-top ">
@@ -161,7 +155,7 @@ class MenuTop extends React.Component {
         );
     }
 
-
+    // render menu for authenticated user in MyPage 
     renderMyPageMenu() {
         return (
             <div className="navbar navbar-fixed-top ">
@@ -177,33 +171,16 @@ class MenuTop extends React.Component {
             </div>
         );
     }
-    /* renderEmployeeMenu() {
-         return (
-             <div className="navbar navbar-fixed-top ">
-                 <div className="row">
-                     <div className="col-sm-2 menu-txt">
-                     <img onClick={
-                         () =>
-                             browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" />
-                             
-                     </div>
-                     <div className="col-sm-8">
-                         <div className="nav-brand center-block"><p>{this.props.headline}</p></div>
-                     </div>
-                     <div className="col-sm-2 menu-txt">
-                     </div>
-                 </div>
-             </div>
-         );
-     }*/
+
+    // render default menu with headline and back button.
     renderDefaultBackMenu() {
         return (
             <div className="navbar navbar-fixed-top ">
                 <div className="row">
                     <div className="col-sm-2 menu-txt">
-                        <img onClick={
-                            () =>
-                                browserHistory.goBack()} src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" alt="back-arrow" />
+                        <img
+                            onClick={() => browserHistory.goBack()}
+                            src="https://cdn4.iconfinder.com/data/icons/developer-set-3/128/arrowleft-48.png" alt="back-arrow" />
 
                     </div>
                     <div className="col-sm-8">
@@ -216,6 +193,7 @@ class MenuTop extends React.Component {
         );
     }
 
+
     render() {
         switch (this.props.menu) {
             case "default":
@@ -223,17 +201,17 @@ class MenuTop extends React.Component {
             case "default-with-back":
                 return this.renderDefaultBackMenu();
             case "list":
-                if (this.state.markMode === 'on')
-                    return this.renderMarkMenu();
-                else
-                    return this.renderPeopleMenu();
+                if (this.state.markMode === 'on') return this.renderMarkMenu();
+                else return this.renderPeopleMenu();
             case "myPage":
                 return this.renderMyPageMenu();
-
         }
     }
 }
 
+
+// Function that makes sure the class gets access to redux store.
+// Subscribes for any changes related to employees made to the data in the redux store. 
 const mapStateToProps = (state) => {
     return {
         employees: state.employees,
@@ -241,4 +219,6 @@ const mapStateToProps = (state) => {
     }
 }
 
+// Defines the connection to redux and exports the react class wherevere the
+// class is imported.
 export default connect(mapStateToProps, { logout, unmarkAllEmployees, markAllEmployees })(MenuTop);

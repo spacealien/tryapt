@@ -9,13 +9,16 @@ import {
     submitProfileChanges
 } from '../actions/api_action';
 
-
 import { browserHistory } from 'react-router';
 import MenuTop from './menu_top.jsx';
 import LoadingScreen from '../components/loading_screen.jsx';
 
-class UserPage extends React.Component {
 
+/**
+ * The user page is responsible for the view 
+ * when the user logs into the application.
+ */
+class UserPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,11 +34,11 @@ class UserPage extends React.Component {
         };
     }
 
+    // Finds employee data 
     getEmployee(userToken) {
-        // checks of all profile data is allready fetched
-        // before calling API
+        // Checks of all employees is fetched before calling API
         if (this.props.employees.length == 0) {
-
+            console.log("fetching employee");
             this.props.fetchEmployee(userToken.email).then(
                 (res) => {
                     this.props.setAuthenticatedEmployee(res.data.employee);
@@ -50,11 +53,10 @@ class UserPage extends React.Component {
         }
     }
 
+    // Gets linkedin and experience from server
     getProfile(userToken) {
         this.props.fetchProfileData(userToken.email).then(
             (res) => {
-                console.log(res);
-
                 this.setState({
                     profile: res.data.profile,
                     experience: res.data.profile.experience,
@@ -67,6 +69,7 @@ class UserPage extends React.Component {
         );
     }
 
+    // Meant for user for fetching private user data. sickdays and what not.
     getUserData() {
         this.props.fetchUserData().then(
             (res) => {
@@ -81,58 +84,61 @@ class UserPage extends React.Component {
     componentWillMount() {
         if (this.props.isAuthenticated) {
             var user = JSON.parse(this.props.userToken);
-            console.log(user);
 
             var now = Math.floor(Date.now() / 1000)
+
+            /**
+             * Checks if token is expired.
+             * If token is expired
+             * user gets redirected to 
+             * login view.
+             */
             if (user.exp < now) {
                 this.props.logout();
                 browserHistory.push("/my_page/login");
             }
 
+            // fetch all data.
             this.getEmployee(user);
             this.getProfile(user);
             this.getUserData();
         } else {
             browserHistory.push("/my_page/login");
         }
-        
-        this.setState({ isLoading: false });
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log("componentWillReceiveProps");
-        console.log(nextProps.isAuthenticated);
-    }
-
+    // handles changes to the experience text field
     handleChange(event) {
         var input = event.target.value;
         this.setState({ chars_left: 800 - input.length, experience: input });
     }
 
+    // handles textArea logic.
     textAreaClick(e) {
-
         var btnText = document.getElementById(e.target.id).innerHTML;
+
+
         if (btnText === "Se og rediger") {
-            document.getElementById(e.target.id).innerHTML="Lagre";
+            document.getElementById(e.target.id).innerHTML = "Lagre";
             document.getElementById('bioText').rows = 18;
-            document.getElementById('charCounter').style.display="initial";
+            document.getElementById('charCounter').style.display = "initial";
         }
         else {
-            document.getElementById(e.target.id).innerHTML="Se og rediger";
+            document.getElementById(e.target.id).innerHTML = "Se og rediger";
             document.getElementById('bioText').rows = 2;
-            document.getElementById('charCounter').style.display="none"; 
+            document.getElementById('charCounter').style.display = "none";
             this.submitChanges();
         }
 
         this.setState({
-            term: '', textArea: !this.state.textArea, chars_left: 800 - document.getElementById('bioText').value.length
+            term: '',
+            textArea: !this.state.textArea,
+            chars_left: 800 - document.getElementById('bioText').value.length
         });
     }
 
     handleClick(e) {
         var id = e.target.id;
-        console.log(id);
-
         switch (id) {
             case 'toggleTextArea':
                 this.textAreaClick(e);
@@ -150,11 +156,12 @@ class UserPage extends React.Component {
         }
     }
 
-    submitChanges() { 
+    // Submits changes to the server
+    submitChanges() {
         const limitLength = (str, length) => str.substring(0, length);
         var linkedIn;
-        if(this.state.linkedin === '') {
-              linkedIn = '';
+        if (this.state.linkedin === '') {
+            linkedIn = '';
         }
         else
             linkedIn = this.state.linkedIn;
@@ -167,22 +174,24 @@ class UserPage extends React.Component {
         this.props.submitProfileChanges(profile).then(
             (res) => {
                 this.setState({
-                    edit: false
+                    edit: false,
+                    isLoading: false
                 });
             },
             (error) => {
-                console.log(error);
+                this.setState({ isLoading: false });
             }
         );
-        this.setState({ isLoading: false });
     }
-    
-    
-    render() {
 
+
+    render() {
         // userData is private data, sick days and what not.
         const { userData, profile, isLoading } = this.state;
         const employee = this.props.employee;
+        console.log(employee);
+
+
         if (!userData && !profile && !employee) {
             return (
                 <div>
@@ -193,8 +202,8 @@ class UserPage extends React.Component {
                     <LoadingScreen />
                 </div>
             );
-
-        } else
+        } else {
+            const parsedUrl = employee.image.replace('http', 'https');
             return (
                 <div>
                     <MenuTop
@@ -204,7 +213,7 @@ class UserPage extends React.Component {
                     <div className="my-profile-box">
                         <div className="profile-info row">
                             <div className="col-sm-5 profile-img-container">
-                                <img className="img-thumbnail" src={employee.image} />
+                                <img className="img-thumbnail" src={parsedUrl} />
                             </div>
                             <div className="col-sm-7">
                                 <div className="profile-name"><p>{employee.name}</p></div>
@@ -229,9 +238,9 @@ class UserPage extends React.Component {
                                 </textarea>
 
                                 <div className="row">
-                                <div className="col-sm-8">
-                                <p id="charCounter">Gjenværende tegn: {this.state.chars_left}</p>
-                                </div>
+                                    <div className="col-sm-8">
+                                        <p id="charCounter">Gjenværende tegn: {this.state.chars_left}</p>
+                                    </div>
                                     <div className="col-sm-4">
                                         <button
                                             id="toggleTextArea"
@@ -273,31 +282,34 @@ class UserPage extends React.Component {
                                 <div className="col-sm-6">
                                     <form>
                                         <input id="linkedInTxt" className="linkedInTextField" type="text" name="linkedInUserName"
-                                            onChange={(e) => { this.setState({ linkedin: e.target.value })}}
+                                            onChange={(e) => { this.setState({ linkedin: e.target.value }) }}
                                             placeholder="Skriv ditt brukernavn"
                                             value={this.state.linkedin}
                                             ref='txtField'
-                                            disabled='true'/>
+                                            disabled='true' />
                                     </form>
                                 </div>
                             </div>
                             <div className="row margin-top">
-                            <div className="col-sm-8"></div>
-                            <div className="col-sm-4">
-                    {!this.state.edit &&
-                        <button id="edit" className="btn btnPrimary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Endre</button>}
-                    {this.state.edit &&
-                        <button id="save" className="btn btnPrimary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Lagre</button>}
-                        </div>
-                </div>
-                        </div>
+                                <div className="col-sm-8"></div>
+                                <div className="col-sm-4">
+                                    {!this.state.edit &&
+                                        <button id="edit" className="btn btnPrimary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Endre</button>}
+                                    {this.state.edit &&
+                                        <button id="save" className="btn btnPrimary btn-my-page" type="button" onClick={(e) => this.handleClick(e)}>Lagre</button>}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
+                </div>
+
             );
+        }
     }
 }
 
+// Function that makes sure the class gets access to redux store.
+// Subscribes for any changes related to employees made to the data in the redux store. 
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.auth.isAuthenticated,
@@ -305,8 +317,10 @@ function mapStateToProps(state) {
         employee: state.employees.authenticatedEmployee,
         employees: state.employees.all
     };
-}
+};
 
+// Defines the connection to redux and exports the react class wherevere the
+// class is imported.
 export default connect(mapStateToProps, {
     fetchUserData,
     fetchProfileData,

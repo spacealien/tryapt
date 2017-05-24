@@ -4,21 +4,29 @@ import User from './../models/user'
 import config from '../../config'
 import crypto from 'crypto-js';
 
+/**
+ * Authentication method user for authentication users,
+ * also used for authenticating password reset.  
+ */
+
 export default (req, res, next) => {
+    // extracts json web token from http header.
     var token = req.get('Authorization') || '';
 
     
     if (token) {
+
+        // checks jwt signature
         jwt.verify(token, config.jwtSecret, (err, decoded) => {
             if (err) {
                 res.status(401).json({ error: 'Failed to authenticate ' });
             } else {
                 var stringData = JSON.parse(decoded.token);
-                console.log(stringData);
 
                 var now = Math.floor(Date.now() / 1000);
                 var exp = stringData.exp;
 
+                // checks for token expiration,
                 if (exp >= now) {
                     db.user.findOne({
                         where: {

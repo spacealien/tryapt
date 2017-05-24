@@ -7,6 +7,9 @@ import { bindActionCreators } from 'redux';
 
 import MenuTop from '../containers/menu_top.jsx';
 
+/**
+ * Defines the view for the /info URL.
+ */
 class InfoView extends React.Component {
 
     constructor(props) {

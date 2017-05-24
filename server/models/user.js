@@ -5,6 +5,7 @@ var jwt = require('jsonwebtoken');
 import config from '../../config.js';
 
 module.exports = function (sequelize, DataTypes) {
+    // second paramter contains a object that represents database collums.
     var user = sequelize.define('user', {
         email: {
             type: DataTypes.STRING,
@@ -20,13 +21,13 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING
         },
         password: {
-            type: DataTypes.VIRTUAL,
+            type: DataTypes.VIRTUAL, //not created in the database, but used to manage salt and hashing before setting the data in the password_hash collum.
             allowNull: false,
             validate: {
-                len: [8, 30]  //Sets min and max length for password stored in
-                              //database
+                len: [8, 30]  //Sets min and max length for password stored in database
             },
             set: function (value) {
+
                 var salt = bcrypt.genSaltSync(10);
                 var hashedPassword = bcrypt.hashSync(value, salt);
 
@@ -38,18 +39,22 @@ module.exports = function (sequelize, DataTypes) {
         vertified: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
-
         }
     }, {
             hooks: {
                 beforeValidate: function (user, options) {
+
+                    // forces email to lowercase.
                     if (typeof user.email === 'string') {
                         user.email = user.email.toLowerCase();
                     }
                 }
             },
             classMethods: {
+
+                // the class method that is used to authenticate a user.
                 authenticate: function (body) {
+                    
                     return new Promise(function (resolve, reject) {
                         if (typeof body.email !== 'string' || typeof body.password !== 'string') {
                             return reject();
@@ -59,20 +64,23 @@ module.exports = function (sequelize, DataTypes) {
                             where: {
                                 email: body.email,
                             }
-                        }).then(function (user) { // resolve 
+                        }).then(function (user) { 
                             if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
                                 return reject();
                             }
                             
+                            // checks if user is verified via email
                             if (user.vertified == false) {
                                 reject('Bruker må bekreftes via epost');
                             }
                             resolve(user);
-                        }, function (e) { // reject
+                        }, function (e) { 
                             reject();
                         });
                     });
                 },
+
+                // class method for finding user via email.
                 findByEmail: function (body) {
                     return new Promise(function (resolve, reject) {
                         if (typeof body.email !== 'string') {
@@ -81,22 +89,24 @@ module.exports = function (sequelize, DataTypes) {
 
                         user.findOne({
                             where: { email: body.email }
-                        }).then(function (user) { // resolve 
+                        }).then(function (user) {  
                             if (!user) {
                                 return reject();
                             }
                             resolve(user);
-                        }, function (e) { // reject
+                        }, function (e) { 
                             reject();
                         });
                     });
                 }
             },
             instanceMethods: {
+                // removes sensitive information from user model.
                 toPublicJSON: function () {
                     var json = this.toJSON();
                     return _.pick(json, 'id', 'email', 'createdAt', 'updatedAt');
                 },
+                // Genereate jwt for user.
                 generateToken: function (type) {
                     if (!_.isString(type)) {
                         return undefined;
@@ -104,7 +114,7 @@ module.exports = function (sequelize, DataTypes) {
                     try {
                         var stringData = JSON.stringify({
                             iss: 'try.apt.opt',
-                            exp: Math.floor(Date.now() / 1000) + (60 * 30), // expires in halv hour
+                            exp: Math.floor(Date.now() / 1000) + (60 * 30), // expires in 30 minues
                             id: this.get('id'),
                             email: this.get('email'),
                             type: type

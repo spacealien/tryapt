@@ -9,8 +9,10 @@ import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 import { filterEmployees, hideEmployee, showEmployee, updateSorting, emptyFilterList, uncheckPositions } from '../actions/employee_action';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-//import Popup from 'react-popup';
 
+    /*
+     * This class renders the filter view and handles the filtration of employees
+     */
 class Filter extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +28,16 @@ class Filter extends React.Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
     }
-
+    
+    /*
+     * This method filters the employees. If the result list is empty, employees
+     * are added to the list of results if their company is checked.
+     * If the result list is not empty, the method checks wether any positions are
+     * chosen. If not, the employees are either added to or removed from the list
+     * of results, based on wether or not their company is checked.
+     * If the result list is not empty, and positions are checked, only employees
+     * with chosen positions and checked companies will be added to the list.
+     */
     filter(e) {
         e.preventDefault();
 
@@ -59,7 +70,9 @@ class Filter extends React.Component {
                 });
             }
         }
-
+        /*
+         * This statement handles the way the employees are sorted in the list
+         */
         switch (this.state.sort) {
             case 'position':
                 if (this.state.show === 'department') {
@@ -107,6 +120,10 @@ class Filter extends React.Component {
         browserHistory.goBack();
     }
 
+    /*
+     * This method handles the change of states when an event is fired on a
+     * checkbox
+     */
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -116,23 +133,31 @@ class Filter extends React.Component {
         });
     }
 
+    /*
+     * This method resets the filters, both the result lists, position list and
+     * sets the states.
+     */
     resetFilter() {
         this.props.emptyFilterList();
         this.props.uncheckPositions();
         this.setState({ companytry: true, companyapt: true, companyopt: true, sort: 'name', show: 'department' });
     }
 
+    /*
+     * Show list of positions
+     */
     showPositions() {
         browserHistory.push('/people/filter/positions');
     }
 
+    //Change sort option, name or position
     handleSort(e) {
 
         this.setState({
             sort: e
         });
     }
-
+    //Change sort option, department or all
     handleShow(e) {
 
         this.setState({
@@ -265,10 +290,12 @@ class Filter extends React.Component {
         );
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         employees: state.employees
     };
 };
+
 export default connect(mapStateToProps,
     { hideEmployee, showEmployee, emptyFilterList, updateSorting, uncheckPositions })(Filter);

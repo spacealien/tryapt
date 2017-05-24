@@ -2,9 +2,9 @@ export default {
 
     jwtSecret: 'hemmelig',
     cryptoKey: 'hemmeligere',
-    
+
     sequelize: {
-        table: 'test',
+        database: 'test',
         user: 'root',
         password: null,
         dialect: 'mysql',
@@ -15,10 +15,12 @@ export default {
 
     mailer: {
         transport: {
-            service: 'Gmail',
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: {
-                user: 'aptemailtester1@gmail.com', 
-                pass: 'passord123' 
+                user: 'apttester8531@gmail.com',
+                pass: 'asdfasdfasdf'
             }
         }
     }

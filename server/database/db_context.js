@@ -4,28 +4,31 @@ import User from '../models/user';
 import Profile from '../models/profile';
 
 
-var sequelize = new Sequelize('test', 'root', null, {
-    dialect: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    logging: false
+const dbConfig = config.sequelize;
+
+var sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
+    dialect: dbConfig.dialect,
+    host: dbConfig.host,
+    port: dbConfig.port,
+    logging: dbConfig.logging
 });
 
-sequelize.authenticate()
-    .then(function (err) {
-        console.log('Database connection has been established successfully.');
-    }, function (err) {
-        console.log('Unable to connect to database:', err);
-    });
+// checks if database connection is successfully established
+sequelize.authenticate().then(function (err) {
+    console.log('Database connection has been established successfully.');
+}, function (err) {
+    console.log('Unable to connect to database:', err);
+});
 
-
+// define tables with doman models.
 var db = {};
 db.user = sequelize.import(__dirname + '/../models/user.js');
-db.token = sequelize.import(__dirname + '/../models/token.js');
 db.profile = sequelize.import(__dirname + '/../models/profile.js');
 
+
+// define table relations
 db.user.hasOne(db.profile);
-db.profile.belongsTo(db.user );
+db.profile.belongsTo(db.user);
 
 
 db.sequelize = sequelize;
