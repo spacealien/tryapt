@@ -37,7 +37,23 @@ h1 {
 .try-logo {
     transform: matrix(1, 0, 0, 1, 0, 0);
 }
-
+.info-container {
+    margin-top: 30%;
+}
+.info-container h1 {
+    font-size: 80px;
+    font-weight: bold;
+}
+.info-inner {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 10%;
+    padding: 18px;
+    height: 500px;
+    background-color: #eee;
+}
 
 .container-fluid {
     width: 95%;

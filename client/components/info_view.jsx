@@ -19,7 +19,13 @@ class InfoView extends React.Component {
                 <MenuTop
                     menu="default"
                     headline="Informasjon" />
-                <p> Info </p>
+                    <div className="info-container">
+                    <h1>T.A.O. book</h1>
+                    <div className="info-inner">
+                    <p>Versjon 1.0.0</p>
+                    <p>Denne applikasjonen er utviklet på vegne av Apt.</p>  
+                </div>
+                </div>
             </div>
         );
     }
