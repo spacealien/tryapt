@@ -10,29 +10,12 @@ cd  /prosjek_mappe
 npm install
 npm build
 
-
-En guide for hvordan sette opp cronjob og wget for å importere data:
-
-crontab -e
-
-legg til linjen under i filen. -o bør 
-* * * * * wget https://www.try.no/api/persons -o /path/til/prosjektet
-
-
-
-
-
-https://www.drupal.org/docs/7/setting-up-cron-for-drupal/configuring-cron-jobs-using-the-cron-command
-
-
 Utivkling: 
 For å få prosjektet til å kjøre i utviklingsmiljø brukes kommandoen
 npm run dev-start.
 
-
-
 Produksjon:
-For å få prosjektet til å kjøre for produksjon må linjen ved start endres slik som illustrert under:
+For å få prosjektet til å kjøre for produksjon må linjen ved start i package.json endres slik som illustrert under:
 Man må sørge for å at port 433 og 80 er åpne.
 
 "scripts": {
@@ -40,8 +23,7 @@ Man må sørge for å at port 433 og 80 er åpne.
     "start": "NODE_ENV=production HTTPS_PORT=443 HTTP_PORT=80 babel-node ./server/server.js --presets es2015",
     "build": "webpack --config ./webpack.config.js --progress --colors"
   },     
-
-
+  
 Oppkobling mot database gjøres i config.js filen. 
 
 
