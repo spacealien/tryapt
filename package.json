@@ -23,7 +23,6 @@
     "helmet": "^3.5.0",
     "jsonwebtoken": "^7.3.0",
     "jwt-decode": "^2.2.0",
-    "morgan": "^1.8.1",
     "mysql": "^2.13.0",
     "nodemailer": "^4.0.1",
     "react": "^15.5.4",
@@ -37,8 +36,7 @@
     "redux-thunk": "^2.2.0",
     "sequelize": "^3.30.4",
     "underscore": "^1.8.3",
-    "validator": "^7.0.0",
-    "webpack": "^2.4.1"
+    "validator": "^7.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
