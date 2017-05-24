@@ -5,6 +5,9 @@ import validateInput from '../../server/shared/validation/login_validation';
 import { browserHistory } from 'react-router';
 import MenuTop from './menu_top.jsx';
 
+/**
+ * This class defines the LoginForm
+ */
 class LoginForm extends React.Component {
 
     constructor(props) {
@@ -17,16 +20,14 @@ class LoginForm extends React.Component {
         }
     }
 
+    // React lifecycle method that runs before compoment gets mountet and displayed to the view.
     componentWillMount() {
-        if(this.props.isAuthenticated) {
+        if (this.props.isAuthenticated) {
             browserHistory.push('/my_page');
         }
     }
 
-    handleClick(e) {
-
-    }
-
+    // method for validating input fields.
     isValid(e) {
         const { errors, isValid } = validateInput(this.state);
         if (!isValid) {
@@ -34,6 +35,7 @@ class LoginForm extends React.Component {
         }
         return isValid;
     }
+
 
     onSubmit(e) {
         e.preventDefault();
@@ -46,27 +48,28 @@ class LoginForm extends React.Component {
                 password: this.state.password
             }).then(
                 (res) => {
-                    console.log(res);
                     browserHistory.push("/my_page");
                 },
                 (err) => {
                     this.setState({ errors: err.response.data.error, isLoading: false });
                 });
-        } 
+        }
     }
 
+    // redirect to forgot password view
     onForget(e) {
         e.preventDefault();
         browserHistory.push("/forgot");
     }
-    
+
+    // redirect to registration
     newUser(e) {
         browserHistory.push("/newuser");
     }
 
     render() {
         const { errors, email, password, isLoading } = this.state;
-        
+
         return (
             <div className="container">
 
@@ -77,7 +80,7 @@ class LoginForm extends React.Component {
                 <form id="loginForm" className="login" onSubmit={(e) => this.onSubmit(e)}>
                     <div className="form-group row">
 
-                         {errors.message && <span className="help-block">{errors.message}</span>}
+                        {errors.message && <span className="help-block">{errors.message}</span>}
 
                         <span className="col-sm-2 glyphicon glyphicon-user login-icons"></span>
                         <div className="col-sm-10">
@@ -111,33 +114,37 @@ class LoginForm extends React.Component {
                             <button className="btn btnPrimary main-btn" type="submit" disabled={isLoading} >Logg inn</button>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div className="row margin-top">
-                    <div className="col-sm-12 center">
-                        <a id="forgot" onClick={(e) => this.onForget(e)} href="forgot">Tilbakestill passord</a>
+                        <div className="col-sm-12 center">
+                            <a id="forgot" onClick={(e) => this.onForget(e)} href="forgot">Tilbakestill passord</a>
+                        </div>
                     </div>
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
+                    <br />
                     <div className="row margin-top">
-                    <div className="col-sm-12 center new-user-link">
-                        <a id="register" onClick={(e) => this.newUser(e)} >Nyansatt? Klikk her</a>
+                        <div className="col-sm-12 center new-user-link">
+                            <a id="register" onClick={(e) => this.newUser(e)} >Nyansatt? Klikk her</a>
+                        </div>
                     </div>
-                    </div>
-
-                    
                 </form>
             </div>
         );
     }
 }
 
+// Function that makes sure the class gets access to redux store.
+// Subscribes for any changes related to employees made to the data in the redux store. 
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         selectedEmployee: state.employees.selectedEmployee
     };
 }
+
+
+// Defines the connection to redux and exports the react class wherevere the
+// class is imported.
 export default connect(mapStateToProps, { attemptLogin })(LoginForm);
 

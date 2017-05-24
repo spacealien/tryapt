@@ -17,7 +17,7 @@ export const UNMARK_ALL_EMPLOYEES = 'UNMARK_ALL_EMPLOYEES';
 export const FETCH_EMPLOYEE = 'FETCH_EMPLOYEE';
 export const SET_AUTHENTICATED_EMPLOYEE = 'SET_AUTHENTICATED_EMPLOYEE';
 
-
+// action for fetching all employees from server
 export function fetchEmployees() {
     return dispatch => {
         return axios.get('/api/people')
@@ -29,6 +29,7 @@ export function fetchEmployees() {
         });
     };
 }
+
 
 export function findEmployeeByUser(user) {
     return {

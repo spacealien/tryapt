@@ -10,6 +10,8 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
+
+        // pushes the token, which holds information about a user to the redux store.
         case SET_CURRENT_USER:
             return Object.assign({}, state, {
                 isAuthenticated: !_.isEmpty(action.user),

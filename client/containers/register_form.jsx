@@ -4,10 +4,11 @@ import { newUser, sendNewConfirmationEmail } from '../actions/api_action';
 import MenuTop from './menu_top.jsx';
 import validateInput from '../../server/shared/validation/email_validation';
 
-//kopiert fra forgot_form^
 
+/**
+ * Class contains Registration form for a new user
+ */
 class RegisterForm extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -15,16 +16,15 @@ class RegisterForm extends React.Component {
             password: '',
             passwordConfirm: '',
             message: {},
-            isLoading: false, //Vet ikke om den skal være der hilsen Marthe
+            isLoading: false, 
             resendConfirmation: false,
             buttonText: 'Opprett Bruker'
         };
     }
 
-    //FRA FORGOT_FORM
+    // Validates the form
     isValid(e) {
         const { errors, isValid } = validateInput(this.state);
-
         if (!isValid) {
             this.setState({
                 message: {
@@ -35,23 +35,22 @@ class RegisterForm extends React.Component {
         return isValid;
     }
 
-    //FRA FORGOT_FORM
+
+    // submit registration form
     onSubmit(e) {
         e.preventDefault();
-
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
 
+            //calls redux action
             this.props.newUser(this.state).then(
                 (res) => {
-                    console.log(res);
                     this.setState({
                         message: res.data,
                         isLoading: false
                     });
                 },
                 (err) => {
-                    console.log(err.response);
                     this.setState({
                         message: err.response.data,
                         isLoading: false
@@ -60,6 +59,8 @@ class RegisterForm extends React.Component {
         }
     }
 
+    // Changes the state of the view.
+    // Enables mode for resending confirmation email.
     sendConfirmation(e) {
         this.setState({
             resendConfirmation: true,
@@ -67,19 +68,31 @@ class RegisterForm extends React.Component {
         });
     }
 
+    // Send a request to server for sending a new confirmation email.
     onSendConfirmation(e) {
         e.preventDefault();
+        this.setState({ errors: {}, isLoading: true });
+
         this.props.sendNewConfirmationEmail(this.state).then(
-            function (res) {
-                console.log(res);
-            }, function (error) {
-                console.log(error)
-            });
+            (res) => {
+                this.setState({
+                    message: res.data,
+                    isLoading: false
+                });
+            },
+            (err) => {
+                this.setState({
+                    message: err.response.data,
+                    isLoading: false
+                });
+            }
+        );
+
+
     }
 
-
     render() {
-        const { message, isLoading, resendConfirmation, buttonText } = this.state; //FRA FORGOT_FORM
+        const { message, isLoading, resendConfirmation, buttonText } = this.state;
 
         return (
             <div className="container" >
@@ -135,6 +148,8 @@ class RegisterForm extends React.Component {
             </div>
         );
     }
-}
-;
+};
+
+// Defines the connection to redux and exports the react class wherevere the
+// class is imported.
 export default connect(null, { newUser, sendNewConfirmationEmail })(RegisterForm);

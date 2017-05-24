@@ -31,32 +31,28 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
 
-        case FETCH_EMPLOYEES:
+        case FETCH_EMPLOYEES:  // pushes all employees to the redux store.
             const data = action.payload.apt
                 .concat(action.payload.opt)
                 .concat(action.payload.try)
-
             return Object.assign({}, state, {
                 all: data,
                 visible: data
             });
-
-        case SELECT_EMPLOYEE:
+        case SELECT_EMPLOYEE: // saves the selected employee from list view to the store. 
             return Object.assign({}, state, {
                 selectedEmployee: action.payload
             });
 
         case FILTER_EMPLOYEE:
-            // filtrere data her her
             return Object.assign({}, state, {
                 visible: newList
             });
 
-        case FETCH_EMPLOYEE:
+        case FETCH_EMPLOYEE: // finds a specific employee within the list of all employees.
             var emp = null;
             for (var i = 0; i < state.all.length; i++) {
-
-                if (state.all[i].email == action.payload.email) {
+                if (state.all[i].email.toLowerCase() == action.payload.email.toLowerCase()) {
                     emp = state.all[i];
                     return Object.assign({}, state, {
                         authenticatedEmployee: emp
@@ -67,11 +63,11 @@ export default function (state = INITIAL_STATE, action) {
                 authenticatedEmployee: null
             });
 
-        case SET_AUTHENTICATED_EMPLOYEE:
+        case SET_AUTHENTICATED_EMPLOYEE: // pushes data about authentiacted used to the redux store.
             return Object.assign({}, state, {
                 authenticatedEmployee: action.payload
             });
-        case TOGGLE_POSITION:
+        case TOGGLE_POSITION: // hva gjør denne marthe?
             var positionList = state.positions;
             var index = positionList.indexOf(action.payload);
 
@@ -85,7 +81,6 @@ export default function (state = INITIAL_STATE, action) {
                     positions: positionList.concat(action.payload)
                 });
             }
-
         case UNCHECK_ALL_EMPLOYEES:
             return Object.assign({}, state, {
                 checked: []
@@ -171,14 +166,15 @@ export default function (state = INITIAL_STATE, action) {
                 checked: state.checked
             });
 
-        case MARK_EMPLOYEE:
+        case MARK_EMPLOYEE: // adds marked employee to the list of employees
             var array = state.marked;
             return Object.assign({}, state, {
                 marked: array.concat(action.payload)
             });
 
         case UNMARK_EMPLOYEE:
-
+            // Removes empoyee from list of marked employees and
+            // pushes the new list to the store.
             var array = state.marked;
             var index = array.indexOf(action.payload);
 
@@ -190,14 +186,14 @@ export default function (state = INITIAL_STATE, action) {
             }
             break;
         case MARK_ALL_EMPLOYEES:
+            // Mark all employees and send the new state to the redux store.
             const array = state.all;
-
             return Object.assign({}, state, {
                 marked: array.slice()
             });
 
         case UNMARK_ALL_EMPLOYEES:
-
+            // Unmark all employees and send the new state to the redux store.
             return Object.assign({}, state, {
                 marked: []
             });

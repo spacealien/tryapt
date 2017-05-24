@@ -22,10 +22,15 @@ import webpackConfig from '../webpack.dev.config';
 
 
 var app = express();
-var PORT = process.env.PORT || 3000;
+var HTTPS_PORT = process.env.HTTPS_PORT || 3000;
+var HTTP_PORT = process.env.HTTPS_PORT || 8080;
 
+/**
+ * Checks for environment variable.
+ * If environment is set to production,
+ * Hot-reloading for React will be disabled.
+ */
 if (process.env.NODE_ENV != "production") {
-    console.log("development");
 
     const compiler = webpack(webpackConfig);
     app.use(webpackMiddleware(compiler, {
@@ -35,18 +40,19 @@ if (process.env.NODE_ENV != "production") {
     }));
     app.use(webpackHotMiddleware(compiler));
 }
+
+// Middleware setup
 app.use(bodyParser.json());
 app.use(middleware.logger);
 app.use(helmet());
 app.use(express.static(__dirname + '/../public')); // handles request for static files
 
 
-
+// routes are defined in routes.js
 routes(app);
 
 
-
-// Method for creating database
+// Method for syncing defined models to database
 db_context.sequelize.sync({
     force: true
 }).then(function (res) {
@@ -54,11 +60,10 @@ db_context.sequelize.sync({
     for (var i = 0; i < TryJSON.length; i++) {
         var user = TryJSON[i];
 
-        //console.log(user);
         db_context.user.create({
             email: user.email,
             password: 'password',
-            vertified: true
+            vertified: false
         }).then(function (result) {
 
             db_context.profile.create({
@@ -94,8 +99,8 @@ db_context.sequelize.sync({
             key: fs.readFileSync('key.pem'),
             cert: fs.readFileSync('cert.pem'),
             passphrase: 'hemmelig'
-        }, app).listen(PORT, function () {
-            console.log('Express server started!' + '\nPORT:' + PORT);
+        }, app).listen(HTTPS_PORT, function () {
+            console.log('Express server started!' + '\nPORT:' + HTTPS_PORT);
         });
 
 
@@ -104,8 +109,7 @@ db_context.sequelize.sync({
     });
 
 
-
-// forces all every request on http protocol 
+// Forces all every request on http protocol 
 // use to https protocol
 var HTTP_PORT = 8080;
 var HTTPS_PORT = 3000;

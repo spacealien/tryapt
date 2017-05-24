@@ -9,15 +9,10 @@ export default function loginValidator(data) {
         errors.email = 'Dette feltet er påkrevd';
     }
 
+    // checks is the email and password is empty
     if (data.password !== null && Validator.isEmpty(data.password)) {
         errors.password = 'Dette feltet er påkrevd';
     }
     
-    // checks for valid email addres
-    // data.email !== null  && Validator.isEmail(data.email) funker ikke
-    if ( false ) {  
-        errors.email = 'Ugyldig epost addresse';
-    }
-
     return { errors, isValid: _.isEmpty(errors) };
 }

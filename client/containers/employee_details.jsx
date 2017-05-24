@@ -1,11 +1,13 @@
 import React from 'react';
-import { connect }
-    from 'react-redux';
+import { connect } from 'react-redux';
 import ReactDom from 'react-dom';
 import MenuTop from './menu_top.jsx';
-import { fetchProfileData }
-    from '../actions/api_action';
+import { fetchProfileData } from '../actions/api_action';
 
+/**
+ * This class is responsible for the view 
+ * displaying detailed employee information.
+ */
 
 class EmployeeDetails extends React.Component {
     constructor(props) {
@@ -15,20 +17,18 @@ class EmployeeDetails extends React.Component {
         };
     }
 
+    // react lifecycle method, that runs before the component is mountent and rendered on the browser.
     componentWillMount() {
         const employee = this.props.selectedEmployee;
         this.props.fetchProfileData(employee.email).then(
             (res) => {
                 this.setState({ profile: res.data.profile });
             },
-            (error) => {
-                console.log(error);
-            }
-        );
+            (error) => { console.log(error) });
     }
 
+    // methods for expanding or contracting text area
     handleTextArea(e) {
-
         var btnText = document.getElementById(e.target.id).innerHTML;
         if (btnText === "Se mer") {
             document.getElementById(e.target.id).innerHTML = "Lukk";
@@ -38,11 +38,9 @@ class EmployeeDetails extends React.Component {
             document.getElementById(e.target.id).innerHTML = "Se mer";
             document.getElementById('bioText').rows = 2;
         }
-
-        this.setState({ textArea: !this.state.textArea });
     }
 
-
+    // opens email client for
     sendEmail() {
         const employee = this.props.selectedEmployee;
         var link = "mailto:" + employee.email
@@ -51,31 +49,30 @@ class EmployeeDetails extends React.Component {
         window.location.href = link;
     }
 
+    // opens dailer app on mobile device
     openMobileNumber() {
         const employee = this.props.selectedEmployee;
         window.location.href = "tel://" + employee.mobile.split(" ").join("");
     }
 
+    // opens sms app on mobile device
     sendSms() {
         const employee = this.props.selectedEmployee;
         window.location.href = "sms:" + employee.mobile.split(" ").join("");
     }
 
-    addContact() {
-        console.log("addContact");
-    }
-
+    // opens linkedin profile for the employee.
     openLinkedInProfile() {
         const profile = this.state.profile;
         console.log("openLinkedInProfile");
         window.location.href = "https://www.linkedin.com/in/" + profile.linkedin;
-}
- 
-render() {
-const employee = this.props.selectedEmployee;
+    }
+
+    render() {
+        const employee = this.props.selectedEmployee;
         const profile = this.state.profile;
         const parsedUrl = this.props.selectedEmployee.image.replace('http', 'https');
-        console.log(profile);
+
         return (
             <div>
                 <MenuTop
@@ -118,16 +115,16 @@ const employee = this.props.selectedEmployee;
 
                     <div className="profile-contact-info">
 
-                        <div id="email" className="row" onClick={(e) => this.sendEmail() } >
+                        <div id="email" className="row" onClick={(e) => this.sendEmail()} >
                             <div className="col-sm-3">
                                 <img src="https://cdn4.iconfinder.com/data/icons/black-white-social-media/32/email_mail_envelope_send_message-128.png" alt="email-icon" />
                             </div>
-                            <div className="col-sm-9" >i
+                            <div className="col-sm-9" >
                                 {employee.email}
                             </div>
                         </div>
 
-                        <div id="mobile" className="row" onClick={(e) => this.openMobileNumber() } >
+                        <div id="mobile" className="row" onClick={(e) => this.openMobileNumber()} >
                             <div className="col-sm-3">
                                 <img src="https://cdn3.iconfinder.com/data/icons/black-white-social-media/32/phone_logo_social_media-2-128.png" alt="mobile-icon" />
                             </div>
@@ -136,9 +133,9 @@ const employee = this.props.selectedEmployee;
                             </div>
                         </div>
 
-                        <div id="sms" className="row" onClick={(e) => this.sendSms() }>
+                        <div id="sms" className="row" onClick={(e) => this.sendSms()}>
                             <div className="col-sm-3">
-                                <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/speech_bubble-128.png" alt="sms-icon"/>
+                                <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/speech_bubble-128.png" alt="sms-icon" />
                             </div>
 
                             <div className="col-sm-9">
@@ -161,13 +158,17 @@ const employee = this.props.selectedEmployee;
     }
 }
 
+
+// Function that makes sure the class gets access to redux store.
+// Subscribes for any changes related to employees made to the data in the redux store. 
 function mapStateToProps(state) {
     return {
         selectedEmployee: state.employees.selectedEmployee
     };
 }
 
-export default connect(mapStateToProps, { fetchProfileData }
-)(EmployeeDetails);
+// Defines the connection to redux and exports the react class wherevere the
+// class is imported.
+export default connect(mapStateToProps, { fetchProfileData })(EmployeeDetails);
 
 

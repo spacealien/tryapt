@@ -7,6 +7,9 @@ import { bindActionCreators } from 'redux';
 
 import MenuTop from '../containers/menu_top.jsx';
 
+/**
+ * Defines the view for the /info URL.
+ */
 class InfoView extends React.Component {
 
     constructor(props) {
@@ -19,7 +22,14 @@ class InfoView extends React.Component {
                 <MenuTop
                     menu="default"
                     headline="Informasjon" />
-                <p> Info </p>
+
+                <div className="row">
+                    <div className="col-lg-1 text-center">
+                        <p>T.A.O Book</p>
+                        <p>Versjon 1.0.0</p>
+                        <p>Utviklet på vegne av APT</p>
+                    </div>
+                </div>
             </div>
         );
     }

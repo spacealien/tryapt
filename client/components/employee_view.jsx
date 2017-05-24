@@ -9,6 +9,9 @@ import List from '../containers/list.jsx';
 import LoginForm from '../containers/login_form.jsx';
 import EmployeeDetails from '../containers/employee_details.jsx';
 
+/**
+ * EmployeeView includes MenyTop and the List container 
+ */
 
 class EmployeeView extends React.Component {
 
@@ -17,19 +20,16 @@ class EmployeeView extends React.Component {
 
         this.state = {
             searchTerm: '',
-            view: 'list',
             mark: false,
-            viewTab: 'visible'
         };
     }
 
-    onMenuClick(e) {
+    // TODO CHANGE NAME
+    markMode() {
         this.setState({ mark: e });
-        this.setState({ markedEmployeeList: [] });
     }
 
     render() {
-        console.log(this.state.searchTerm);
         return (
             <div>
                 <MenuTop
@@ -44,7 +44,6 @@ class EmployeeView extends React.Component {
                 <List 
                     mark={this.state.mark}
                     searchTerm={this.state.searchTerm} />
-
             </div>
         );
     }

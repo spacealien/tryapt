@@ -4,7 +4,10 @@ import ListElement from '../components/list_element.jsx';
 import { setListView, setGridView } from '../actions/menu_action';
 import { connect } from 'react-redux';
 
-class Menu extends React.Component {
+/**
+ * This class defines the LoginForm
+ */
+class MenuBottom extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,9 +15,14 @@ class Menu extends React.Component {
         };
     }
 
+
+
+    /**
+     * Method for handeling menu clicks. 
+     * 
+     */
     handleClick(e) {
         var id = e.target.id;
-
         switch (id) {
             case 'home':
                 document.getElementById(id).style.color = "#D1A25F";
@@ -45,7 +53,7 @@ class Menu extends React.Component {
                     this.props.setListView();
                 }
                 this.props.browserHistory.push('/people');
-               // document.getElementById('people').style.color = "#D1A25F";
+                // document.getElementById('people').style.color = "#D1A25F";
                 this.setState({ active: 'people' });
 
                 break;
@@ -64,9 +72,7 @@ class Menu extends React.Component {
         const { listView } = this.props;
         const { active } = this.state;
 
-        
-        var peopleStyle = this.state.active === 'people' ? { color: "#D1A25F"} : { color: "#333333" };
-        console.log(peopleStyle);
+        var peopleStyle = this.state.active === 'people' ? { color: "#D1A25F" } : { color: "#333333" };
 
         return (
             <footer>
@@ -108,11 +114,16 @@ class Menu extends React.Component {
     }
 }
 
-
+// Function that makes sure the class gets access to redux store.
+// Subscribes for any changes related to employees made to the data in the redux store. 
 function mapStateToProps(state) {
     return {
         listView: state.menu.listView
     };
 }
-export default connect(mapStateToProps, { setListView, setGridView })(Menu);
+
+
+// Defines the connection to redux and exports the react class wherevere the
+// class is imported.
+export default connect(mapStateToProps, { setListView, setGridView })(MenuBottom);
 

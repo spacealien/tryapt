@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-
 import MenuTop from '../containers/menu_top.jsx';
 
+/**
+ * The HomeView component includes the top menu and the main content
+ * consisting of APT, TRY and OPT logos. 
+ */
 
 class HomeView extends React.Component {
 
